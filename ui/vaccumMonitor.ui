@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1314</width>
-    <height>1417</height>
+    <width>1193</width>
+    <height>1444</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1241,32 +1241,6 @@
          <item>
           <layout class="QHBoxLayout" name="dois_93">
            <item>
-            <widget class="PyDMByteIndicator" name="PyDMByteIndicator_71">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="whatsThis">
-              <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-             </property>
-             <property name="channel" stdset="0">
-              <string>modbus://192.168.1.100:502/36:HR:96.0</string>
-             </property>
-             <property name="showLabels" stdset="0">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QLabel" name="label_92">
              <property name="text">
               <string>HVStat</string>
@@ -1453,32 +1427,6 @@
          </item>
          <item>
           <layout class="QHBoxLayout" name="dois_94">
-           <item>
-            <widget class="PyDMByteIndicator" name="PyDMByteIndicator_72">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="whatsThis">
-              <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-             </property>
-             <property name="channel" stdset="0">
-              <string>modbus://192.168.1.100:502/36:HR:96.3</string>
-             </property>
-             <property name="showLabels" stdset="0">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
            <item>
             <widget class="QLabel" name="label_93">
              <property name="text">
@@ -3338,39 +3286,6 @@
               </widget>
              </item>
              <item>
-              <widget class="PyDMByteIndicator" name="PyDMByteIndicator_111">
-               <property name="toolTip">
-                <string/>
-               </property>
-               <property name="whatsThis">
-                <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-               </property>
-               <property name="channel" stdset="0">
-                <string>modbus://192.168.1.100:502/36:HR:88.4</string>
-               </property>
-               <property name="onColor" stdset="0">
-                <color>
-                 <red>255</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </property>
-               <property name="showLabels" stdset="0">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QLabel" name="label_132">
                <property name="text">
                 <string>MainVcrVccNotForcedCloseLatchStatus</string>
@@ -4886,7 +4801,7 @@
     </string>
              </property>
              <property name="channel" stdset="0">
-              <string>testBox://plc:Q0</string>
+              <string>testBox://plc:Q1</string>
              </property>
              <property name="showLabels" stdset="0">
               <bool>false</bool>
@@ -4896,7 +4811,7 @@
            <item>
             <widget class="QLabel" name="label_78">
              <property name="text">
-              <string>Q0</string>
+              <string>Q1</string>
              </property>
             </widget>
            </item>
@@ -4939,7 +4854,7 @@
     </string>
              </property>
              <property name="channel" stdset="0">
-              <string>testBox://plc:Q1</string>
+              <string>testBox://plc:Q2</string>
              </property>
              <property name="showLabels" stdset="0">
               <bool>false</bool>
@@ -4949,7 +4864,7 @@
            <item>
             <widget class="QLabel" name="label_79">
              <property name="text">
-              <string>Q1</string>
+              <string>Q2</string>
              </property>
             </widget>
            </item>
@@ -6548,7 +6463,7 @@
     </string>
              </property>
              <property name="channel" stdset="0">
-              <string>testBox://cam:Q0</string>
+              <string>testBox://cam:Q1</string>
              </property>
             </widget>
            </item>
@@ -6571,7 +6486,7 @@
     </string>
              </property>
              <property name="channel" stdset="0">
-              <string>testBox://cam:Q0</string>
+              <string>testBox://cam:Q1</string>
              </property>
              <property name="showLabels" stdset="0">
               <bool>false</bool>
@@ -6624,7 +6539,7 @@
     </string>
              </property>
              <property name="channel" stdset="0">
-              <string>testBox://cam:Q1</string>
+              <string>testBox://cam:Q2</string>
              </property>
             </widget>
            </item>
@@ -6647,7 +6562,7 @@
     </string>
              </property>
              <property name="channel" stdset="0">
-              <string>testBox://cam:Q1</string>
+              <string>testBox://cam:Q2</string>
              </property>
              <property name="showLabels" stdset="0">
               <bool>false</bool>

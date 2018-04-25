@@ -31,7 +31,7 @@ class VaccumMonitor(Display):
 
 
     def ui_filename(self):
-        return 'vaccumMonitor.ui'
+        return 'vaccumMonitor2.ui'
 
     def ui_filepath(self):
         return path.join(path.dirname(path.realpath(__file__)),"ui", self.ui_filename())
@@ -78,11 +78,9 @@ def find_test_box_address(map,name):
     side = name.split(":")[0]
     port_name = name.split(":")[1]
 
-    #test_box_name = None
+    test_box_name = None
     for port in map[side].keys():
         if map[side][port]["plc_port_name"] == port_name:
             test_box_name = port
-
-    print (name)
 
     return (side,test_box_name)
