@@ -1,0 +1,112 @@
+permissions,type,unitId,addr,bit,name,related
+R,HR,36,67,,HVTurboVoltage,IA0
+R,HR,36,68,,HVTurboPressure,IA0
+R,HR,36,,,,
+R,HR,36,69,,HVInterlockVoltage,IA1
+R,HR,36,70,,HVInterlockPressure,IA1
+R,HR,36,,,,
+R,HR,36,71,,MainChamberVoltage,IA2
+R,HR,36,72,,MainChamberPressure,IA2
+R,HR,36,,,,
+R,HR,36,73,,CVTurboVoltage,IA3
+R,HR,36,74,,CVTurboPressure,IA3
+R,HR,36,,,,
+R,HR,36,75,,CVInterlockVoltage,IA4
+R,HR,36,76,,CVInterlockPressure,IA4
+R,HR,36,,,,
+R,HR,36,77,,HVPressureDiff,
+R,HR,36,78,,CVPressureDiff,
+R,HR,36,,,,
+R,HR,36,79,,HVTurboPumpVoltage,IA6
+R,HR,36,80,,HVTurboPumpSpeed,IA6
+R,HR,36,,,,
+R,HR,36,81,,CVTurboPumpVoltage,IA7
+R,HR,36,82,,CVTurboPumpSpeed,IA7
+R,HR,36,84,0,HVTurboValid,IA0
+R,HR,36,84,1,HVInterlockValid,IA1
+R,HR,36,84,2,MainChamberValid,IA2
+R,HR,36,84,3,CVTurboValid,IA3
+R,HR,36,84,4,CVInterlockValid,IA4
+R,HR,36,84,5,HVTurboSpeedValid,IA6
+R,HR,36,84,6,CVTurboSpeedValid,IA7
+R,HR,36,86,0,MainVhxVcc,Q3
+R,HR,36,86,1,CloseMainVhxVcc,Q3
+R,HR,36,86,2,OpenMainVhxVcc,Q3
+R,HR,36,86,3,MainVhxVccNotForcedCloseLatch,
+R,HR,36,86,4,MainVhxVccNotForcedCloseLatchStatus,
+R,HR,36,86,5,MainVhxVccNotForcedCloseReset,
+R,HR,36,86,6,MainVhxVccAllowedOpenLatchStatus,
+R,HR,36,86,7,MainVhxVccAllowedOpenLatchReset,
+R,HR,36,,,,
+R,HR,36,88,0,MainVcrVcc,Q2
+R,HR,36,88,1,CloseMainVcrVcc,Q2
+R,HR,36,88,2,OpenMainVcrVcc,Q2
+R,HR,36,88,3,MainVcrVccNotForcedCloseLatch,
+R,HR,36,88,4,MainVcrVccNotForcedCloseLatchStatus,
+R,HR,36,88,5,MainVcrVccNotForcedCloseReset,
+R,HR,36,88,6,MainVcrVccAllowedOpenLatchStatus,
+R,HR,36,88,7,MainVcrVccAllowedOpenLatchReset,
+R,HR,36,90, 0,VhxPumpPerm,Q5
+R,HR,36,90,1 ,VhxPumpPermLatchStatus,Q5
+R,HR,36,90,2 ,VhxPumpPermReset,Q5
+R,HR,36,90,3 ,VcrPumpPerm,Q4
+R,HR,36,90,4 ,VcrPumpPermLatchStatus,Q4
+R,HR,36,90,5 ,VcrPumpPermReset,Q4
+R,HR,36,90,6 ,MKS925,I34
+R,HR,36,90,7 ,,
+R,HR,36,,,,
+R,HR,36,92, 0,VcrVcc01,IQ20
+R,HR,36,92,1,VcrVcc01Open,IQ20
+R,HR,36,92,2,VcrVcc01Close,IQ20
+R,HR,36,92,3,VcrVcc02,IQ21
+R,HR,36,92,4,VcrVcc02Open,IQ21
+R,HR,36,92,5,VcrVcc02Close,IQ21
+R,HR,36,94,0,VcrVcc03,IQ22
+R,HR,36,94,1,VcrVcc03Open,IQ22
+R,HR,36,94,2,VcrVcc03Close,IQ22
+R,HR,36,94,3,VcrVcc04,IQ23
+R,HR,36,94,4,VcrVcc04Open,IQ23
+R,HR,36,94,5,VcrVcc04Close,IQ23
+R,HR,36,96, 0,HVStat,Q1
+R,HR,36,96,1,HVInterlockHighLatchStatus,Q1
+R,HR,36,96,2,HVStatLatchReset,Q1
+R,HR,36,96,3,CVStat,Q0
+R,HR,36,96,4,CVInterlockHighLatchStatus,Q0
+R,HR,36,96,5,CVStatLatchReset,Q0
+R,HR,36,96,6,HVInterlockHigh,Q1
+R,HR,36,96,7,CVInterlockHigh,Q0
+R,HR,36,98, 0,MainVcrVgcOpen,Q2
+R,HR,36,98,1,MainVcrVgcClose,Q2
+R,HR,36,98,2,MainVhxVgcOpen,Q3
+R,HR,36,98,3,MainVhxVgcClose,Q3
+R,HR,36,98,4,MainVcrVccAllowedOpenLatch,
+R,HR,36,98,5,MainVhxVccAllowedOpenLatch,
+R,HR,36,100,0,APower,IQ10
+R,HR,36,100,1,BPower,IQ11
+R,HR,36,100,2,Cpower,IQ12
+R,HR,36,100,3,,
+R,HR,36,100,4,,
+R,HR,36,100,5,,
+R,HR,36,100,6,,
+R,HR,36,100,7,,
+RW,HR,1,2,0,HVStatLatchReset_w,Q1
+RW,HR,1,2,1,CVStatLatchReset_w,Q0
+RW,HR,1,2,2,CloseMainVhxVcc_w,Q3
+RW,HR,1,2,,,
+RW,HR,1,2,3,OpenMainVhxVcc_w,Q3
+RW,HR,1,2,4,MainVhxVccNotForcedCloseReset_w,
+RW,HR,1,2,5,MainVhxVccAllowedOpenLatchReset_w,
+RW,HR,1,2,6,CloseMainVcrVcc_w,Q2
+RW,HR,1,2,7,OpenMainVcrVcc_w,Q2
+RW,HR,1,2,8,MainVcrVccNotForcedCloseReset_w,
+RW,HR,1,2,9,MainVcrVccAllowedOpenLatchReset_w,
+RW,HR,1,2,10,VhxPumpPermReset_w,Q5
+RW,HR,1,2,11,VcrPumpPermReset_w,Q4
+RW,HR,1,2,12,VcrVcc01Open_w,IQ20
+RW,HR,1,2,13,VcrVcc01Close_w,IQ20
+RW,HR,1,2,14,VcrVcc02Open_w,IQ21
+RW,HR,1,2,15,VcrVcc02Close_w,IQ21
+RW,HR,1,5,0,VcrVcc03Open_w,IQ22
+RW,HR,1,5,1,VcrVcc03Close_w,IQ22
+RW,HR,1,5,2,VcrVcc04Open_w,IQ23
+RW,HR,1,5,3,VcrVcc04Close_w,IQ23
