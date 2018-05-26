@@ -2,10 +2,8 @@ from os import path
 import csv
 
 
-modbus_mapping_path = path.join(path.dirname(path.realpath(__file__)),"mapping", "vac_modbus_mapping.csv")
-testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)),"mapping", "vac_testbox_mapping.csv")
 
-def import_mappings(modbus_mapping_path = modbus_mapping_path,testbox_mapping_path = testbox_mapping_path):
+def import_mappings(modbus_mapping_path ,testbox_mapping_path):
 
     testBox = dict()
     modbus = dict()
@@ -60,7 +58,11 @@ def import_mappings(modbus_mapping_path = modbus_mapping_path,testbox_mapping_pa
                     testBox[port][side]["maq20ModuleAddr"] = int(row[headers["Maq20ModuleAddr"]])
                     testBox[port][side]["maq20ModuleSn"] = row[headers["Maq20ModuleSn"]]
                     testBox[port][side]["maq20Module"] = row[headers["Maq20Module"]]
-                    testBox[port][side]["type"] = row[headers["TestBoxName"]][:3]
+                    testBox[port][side]["type"] = row[headers["Type"]]
+                    testBox[port][side]["default_value"] = row[headers["DefaultValue"]]
+                    testBox[port][side]["boot_value"] = row[headers["BootValue"]]
+
+
 
     with open(modbus_mapping_path, 'r') as csvfile:
         reader = csv.reader(csvfile)
@@ -70,7 +72,6 @@ def import_mappings(modbus_mapping_path = modbus_mapping_path,testbox_mapping_pa
                 for i, h in enumerate(row):
                     headers[h] = i
                 first = False
-
             else:
                 name = row[headers["name"]]
 
@@ -83,19 +84,21 @@ def import_mappings(modbus_mapping_path = modbus_mapping_path,testbox_mapping_pa
                         except Exception:
                             return None
 
-                    modbus[name]["type"] = row[headers["type"]]
-                    modbus[name]["unitId"] = intt(row[headers["unitId"]])
+                    modbus[name]["mb_type"] = row[headers["mb_type"]]
+                    modbus[name]["unit_id"] = intt(row[headers["unit_id"]])
                     modbus[name]["permissions"] = row[headers["permissions"]]
                     modbus[name]["addr"] = intt(row[headers["addr"]])
                     modbus[name]["bit"] = intt(row[headers["bit"]])
                     modbus[name]["related"] = row[headers["related"]]
+                    modbus[name]["default_value"] = row[headers["default_value"]]
+                    modbus[name]["type"] = row[headers["type"]]
+                    modbus[name]["boot_value"] = row[headers["boot_value"]]
 
-                    if  modbus[name]["related"] != "":
+                    if modbus[name]["related"] != "":
                         testBox[modbus[name]["related"]]["modbus"].append(name)
 
 
     return testBox,modbus
 
 
-
-a,b =import_mappings()
+#testBox, modbus =import_mappings()

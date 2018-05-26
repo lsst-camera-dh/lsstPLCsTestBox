@@ -17,45 +17,34 @@ import os
 maq20_ip = "192.168.1.101"
 maq20_port = 502
 
-class VaccumTests(Display):
+class MpmTests(Display):
     def __init__(self, parent=None, args=None, macros=None):
-        super(VaccumTests, self).__init__(parent=parent, macros=macros)
+        super(MpmTests, self).__init__(parent=parent, macros=macros)
 
-        self.vac_tester = tester.Tester()
+        self.mpm_tester = tester.Tester()
 
-        import vac_tests
+        import mpm_tests
 
-        self.vac_tester.tests.append(vac_tests.TestPlutoGatewayConfig(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestPlutoWriteRegisters(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestPlutoPLCsPresent(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestPlutoGatewayConfig(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestPlutoWriteRegisters(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestPlutoPLCsPresent(self, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestPermitsValvesBoot(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestChannelsBootDefault(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestPermitsValvesBoot(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestChannelsBootDefault(self, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestNormalValuesBoot(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestNormalValuesBoot(self, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestPlutoWriteReadback(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestPlutoWriteReadback(self, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestAnalogScaling(self, -1))
-
-        self.vac_tester.tests.append(vac_tests.TestHvCvDifferences(self, -1))
-
-        self.vac_tester.tests.append(vac_tests.TestCvValves(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestValveMonitors(self, -1))
-
-        self.vac_tester.tests.append(vac_tests.TestHvStat(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestHvTurboOnOfflogic(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestHvTurboPermitBlock(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestHvTurboPermitAuto(self, -1))
-
-        self.vac_tester.tests.append(vac_tests.TestCvStat(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestCvTurboOnOfflogic(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestCvTurboPermitBlock(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestCvTurboPermitAuto(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestAnalogScaling(self, -1))
 
 
-        for i, test in enumerate( self.vac_tester.tests):
+
+        for i, test in enumerate( self.mpm_tester.tests):
             test.id=i
+
+
+
 
 
 
@@ -63,13 +52,13 @@ class VaccumTests(Display):
 
         headers= ["Test","Description","","Step","Details"]
 
-        self.table.setRowCount(len(self.vac_tester.tests))
+        self.table.setRowCount(len(self.mpm_tester.tests))
         self.table.setColumnCount(len(headers))
 
         self.table.setHorizontalHeaderLabels(headers)
-        self.table.setVerticalHeaderLabels([str(e)  for e in list(range(1,len(self.vac_tester.tests)+1))])
+        self.table.setVerticalHeaderLabels([str(e)  for e in list(range(1,len(self.mpm_tester.tests)+1))])
 
-        for i, test in enumerate(self.vac_tester.tests):
+        for i, test in enumerate(self.mpm_tester.tests):
             self.update_table_line(i)
         self.table.setCurrentCell(0, 0 ,QItemSelectionModel.Rows)
 
@@ -80,37 +69,24 @@ class VaccumTests(Display):
         self.table.setColumnWidth(2, 50)
         self.table.setColumnWidth(3, 250)
 
-        self.vac_tester.test_line_update.connect(self.update_table_line)
-        self.vac_tester.monitor_update.connect(self.update_monitor_menu)
+        self.mpm_tester.test_line_update.connect(self.update_table_line)
+        self.mpm_tester.monitor_update.connect(self.update_monitor_menu)
 
-        self.ui.runAllButton.clicked.connect(self.vac_tester.run_all)
-        #self.ui.runSelectedButton.clicked.connect(self.vac_tester.run_selected)
-        self.ui.abortButton.clicked.connect(self.vac_tester.abort)
-
-
-
-   # def resizeEvent(self, event):
-   #     print("resize")
-
-    #    original =  self.ui.tableWidget.width()
-    #    self.ui.tableWidget.setColumnWidth(0,original/5)
-
-        #self.QMainWindow.resizeEvent(self, event)
-
-
-       # os.system("python C:\\Users\\joaoprod\\AppData\\Local\\Continuum\\anaconda3\\envs\\lsstProtection\\Lib\\site-packages\\pydm_launcher\\main.py C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\vaccumMonitor.py")
+        self.ui.runAllButton.clicked.connect(self.mpm_tester.run_all)
+        #self.ui.runSelectedButton.clicked.connect(self.mpm_tester.run_selected)
+        self.ui.abortButton.clicked.connect(self.mpm_tester.abort)
 
 
 
 
     def item_changed(self,item):
         id = self.table.row(item)
-        self.vac_tester.tests[id].selected = item.checkState()
+        self.mpm_tester.tests[id].selected = item.checkState()
 
 
     def update_table_line(self,i):
 
-        test = self.vac_tester.tests[i]
+        test = self.mpm_tester.tests[i]
 
         name = QTableWidgetItem(test.name)
 
@@ -193,10 +169,6 @@ class VaccumTests(Display):
 
         else:
             self.ui.resultMessage.setStyleSheet("background-color:rgb(230, 230, 230);")
-
-
-
-
 
 
 

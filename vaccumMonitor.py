@@ -1,5 +1,6 @@
 from os import path
 from pydm import Display
+from mapping_parser import *
 
 maq20_ip = "192.168.1.101"
 maq20_port = 502
@@ -8,30 +9,60 @@ class VaccumMonitor(Display):
     def __init__(self, parent=None, args=None, macros=None):
         super(VaccumMonitor, self).__init__(parent=parent, macros=macros)
 
-        self.map = import_maq20_mapping('V:\KIPAC\LSST\Camera\Protection\PLCs Test Box\maq20_mapping.csv')
+        modbus_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "vac_modbus_mapping.csv")
+        testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "vac_testbox_mapping.csv")
 
+        self.testBox, self.modbus = import_mappings(modbus_mapping_path,testbox_mapping_path)
+
+        '''for widget in dir(self.ui):
+            try:
+                if "channel" in dir(getattr(self.ui,widget)):
+                    channel = getattr(getattr(self.ui, widget),"channel")
+
+                    if channel.split("://")[0] == "testBox":
+                        side , name = find_test_box_address(self.map, channel.split("://")[1])
+
+
+                        channel = "testBoxMaq20://" + side + ":" + name
+                        setattr(getattr(self.ui, widget), "channel", channel)
+
+                    channel = getattr(getattr(self.ui, widget), "channel")
+                    if channel.split("://")[0] == "testBoxMaq20":
+                        module_sn, address = find_maq20_address(self.map,channel.split("://")[1])
+                        if module_sn is not None and address is not None:
+                            channel = "maq20://"+maq20_ip+":"+str(maq20_port)+"/"+module_sn+":"+str(address)
+                        setattr(getattr(self.ui, widget), "channel",channel)
+            except:
+                pass
+                '''
         for widget in dir(self.ui):
             if "channel" in dir(getattr(self.ui,widget)):
                 channel = getattr(getattr(self.ui, widget),"channel")
 
                 if channel.split("://")[0] == "testBox":
-                    side , name = find_test_box_address(self.map, channel.split("://")[1])
-                    channel = "testBoxMaq20://" + side + ":" + name
-                    setattr(getattr(self.ui, widget), "channel", channel)
 
-                channel = getattr(getattr(self.ui, widget), "channel")
-                if channel.split("://")[0] == "testBoxMaq20":
-                    module_sn, address = find_maq20_address(self.map,channel.split("://")[1])
-                    if module_sn is not None and address is not None:
+                    side = channel.split("://")[1].split(":")[0]
+                    port = channel.split("://")[1].split(":")[1]
+
+                    try:
+                        maq20_ip = "192.168.1.101"
+                        maq20_port = 502
+                        module_sn = self.testBox[port][side]['maq20ModuleSn']
+                        address = self.testBox[port][side]['maq20ModuleAddr']
+
                         channel = "maq20://"+maq20_ip+":"+str(maq20_port)+"/"+module_sn+":"+str(address)
-                    setattr(getattr(self.ui, widget), "channel",channel)
+                        setattr(getattr(self.ui, widget), "channel",channel)
+                    except:
+                        print(channel, side, port)
+                        print("Failed to parse channel: ",channel)
+
 
 
 
 
 
     def ui_filename(self):
-        return 'vaccumMonitor2.ui'
+        return 'vaccumMonitor.ui'
 
     def ui_filepath(self):
         return path.join(path.dirname(path.realpath(__file__)),"ui", self.ui_filename())

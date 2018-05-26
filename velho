@@ -1,0 +1,1081 @@
+
+'''
+class TestCvTurboPermit(Test):
+    def __init__(self,tester,id):
+        Test.__init__(self,tester,id)
+        self.name = "TestCvTurboPump"
+        self.desc = "Test CvTurboPump permit logic"
+
+    def test(self):
+            self.step(self.desc)
+
+            turboPressurePort = self.tester.testBox.plc.IA3
+            turboPressureVoltage = self.tester.plutoGateway.CVTurboVoltage
+            turboPressurePressure = self.tester.plutoGateway.CVTurboPressure
+            turboPressureNotValidPort = self.tester.testBox.plc.IA3v
+            turboPressureValid = self.tester.plutoGateway.CVTurboValid
+
+            turboPressureDiff = self.tester.plutoGateway.CVPressureDiff
+
+            turboPumpPermitPort = self.tester.testBox.plc.Q4
+            turboPumpPermit = self.tester.plutoGateway.VcrPumpPerm
+            turboPumpPermitLatchStatus = self.tester.plutoGateway.VcrPumpPermLatchStatus
+            turboPumpPermitReset = self.tester.plutoGateway.VcrPumpPermReset_w
+
+            permitBlock_w = self.tester.plutoGateway.VcrPumpPermBlock_w
+            permitBlock = self.tester.plutoGateway.VcrPumpPermBlock
+
+            mksPort = self.tester.testBox.plc.I34
+            mks = self.tester.plutoGateway.MKS925
+
+            turboPumpPort = self.tester.testBox.plc.IA7
+            turboPumpVoltage = self.tester.plutoGateway.CVTurboPumpVoltage
+            turboPumpSpeed = self.tester.plutoGateway.CVTurboPumpSpeed
+            turboPumpValid = self.tester.plutoGateway.CVTurboSpeedValid
+            turboPumpNotValidPort = self.tester.testBox.plc.IA7v
+            turboPumpOn = self.tester.plutoGateway.CVTurboPumpON
+            turboPumpOff = self.tester.plutoGateway.CVTurboPumpOFF
+
+            vccAllowedOpenLatchStatus = self.tester.plutoGateway.MainVcrVccAllowedOpenLatchStatus
+            vccAllowedOpenLatch = self.tester.plutoGateway.MainVcrVccAllowedOpenLatch
+
+            vccNotForcedCloseLatch = self.tester.plutoGateway.MainVcrVccNotForcedCloseLatch
+            vccNotForcedCloseLatchStatus = self.tester.plutoGateway.MainVcrVccNotForcedCloseLatchStatus
+
+            try:
+
+                self.setDefault()
+                self.checkDefault()
+
+                self.step("Test permit removal when HexTurboVacTurbo > 20 Torr")
+                self.log("Set HexTurboVacTurbo to 21 Torr.")
+                compare = self.readAllChannels()
+                turboPressurePort.write(0.21)
+                self.checkChange([(turboPumpPermitPort, 0),(turboPumpPermit, 0),(turboPumpPermitLatchStatus, 1),(turboPressurePort,0.22),(turboPressureVoltage,220),(turboPressurePressure,220),(turboPressureDiff,-1)], 1, compare)
+
+                self.log("Try to reset. Nothing should change")
+                compare = self.readAllChannels()
+                turboPumpPermitReset.press()
+                self.checkChange([], 1,compare)
+
+                self.log("Set  to 5 Torr.")
+                compare = self.readAllChannels()
+                turboPressurePort.write(0.05)
+                self.checkChange([(turboPumpPermitPort, 0),(turboPumpPermit, 0),(turboPumpPermitLatchStatus, 2),(turboPressurePort,0.05),(turboPressureVoltage,50),(turboPressurePressure,50),(turboPressureDiff,-1)], 1, compare)
+
+                self.log("Reset.")
+                compare = self.readAllChannels()
+                turboPumpPermitReset.press()
+                self.checkChange([(turboPumpPermitPort, 1),(turboPumpPermit, 1),(turboPumpPermitLatchStatus, 0)], 1, compare)
+
+
+
+                self.step("Test Turbo Pump Permit Block")
+                compare = self.readAllChannels()
+                permitBlock_w.write(1)
+                self.checkChange([(turboPumpPermitPort, 0),(turboPumpPermit, 0),(turboPumpPermitLatchStatus, 1),(permitBlock,1),(permitBlock_w,1)], 1, compare)
+
+                compare = self.readAllChannels()
+                turboPumpPermitReset.press()
+                self.checkChange([(turboPumpPermitPort, 0), (turboPumpPermit, 0), (turboPumpPermitLatchStatus, 1)], 1,compare)
+
+                compare = self.readAllChannels()
+                permitBlock_w.write(0)
+                self.checkChange([(turboPumpPermitPort, 0),(turboPumpPermit, 0),(turboPumpPermitLatchStatus, 2),(permitBlock,0),(permitBlock_w,0)], 1, compare)
+
+                compare = self.readAllChannels()
+                turboPumpPermitReset.press()
+                self.checkChange([(turboPumpPermitPort, 1), (turboPumpPermit, 1), (turboPumpPermitLatchStatus, 0)], 1,compare)
+
+
+                self.step("Test HexTurboVacTurbo NotValid. Remove permit when not valid")
+                compare = self.readAllChannels()
+                turboPressureNotValidPort.write(1)
+                self.checkChange([(turboPumpPermitPort, 0),(turboPumpPermit, 0),(turboPumpPermitLatchStatus, 1),(turboPressureValid,0),(turboPressureNotValidPort,1)], 1, compare)
+
+                compare = self.readAllChannels()
+                turboPumpPermitReset.press()
+                self.checkChange([(turboPumpPermitPort, 0), (turboPumpPermit, 0), (turboPumpPermitLatchStatus, 1)], 1,compare)
+
+                compare = self.readAllChannels()
+                turboPressureNotValidPort.write(0)
+                self.checkChange([(turboPumpPermitPort, 0),(turboPumpPermit, 0),(turboPumpPermitLatchStatus, 2),(turboPressureValid,1),(turboPressureNotValidPort,0)], 1, compare)
+
+                compare = self.readAllChannels()
+                turboPumpPermitReset.press()
+                self.checkChange([(turboPumpPermitPort, 1), (turboPumpPermit, 1), (turboPumpPermitLatchStatus, 0)], 1,compare)
+
+
+
+                self.step("Test Turbo Pump ON OFF logic. Permit always on because MKS925 always ON")
+
+                for val in [0.1,0.9]:
+                    self.step(str(val))
+                    compare = self.readAllChannels()
+                    turboPumpPort.write(val)
+                    mksPort.write(1)
+                    self.checkChange([(mksPort, 1),
+                                      (mks,1),
+                                      (turboPumpPort, val),
+                                      (turboPumpVoltage, val * 1000),
+                                      (turboPumpSpeed, val * 1000),
+                                      (turboPumpOn, int(val>5)),
+                                      (turboPumpOff, int(val<1)),
+                                      (turboPumpPermitPort, 1),
+                                      (turboPumpPermit, 1),
+                                      (turboPumpPermitLatchStatus, 0),
+                                      ],
+                                     1, compare)
+
+                for val in [1.2,4.8]:
+                    self.step(str(val))
+                    compare = self.readAllChannels()
+                    turboPumpPort.write(val)
+                    mksPort.write(1)
+                    self.checkChange([(mksPort, 1),
+                                      (mks,1),
+                                      (turboPumpPort, val),
+                                      (turboPumpVoltage, val * 1000),
+                                      (turboPumpSpeed, val * 1000),
+                                      (turboPumpOn, int(val>5)),
+                                      (turboPumpOff, int(val<1)),
+                                      (turboPumpPermitPort, 1),
+                                      (turboPumpPermit, 1),
+                                      (turboPumpPermitLatchStatus, 0),
+                                      (vccAllowedOpenLatch,0),
+                                      (vccAllowedOpenLatchStatus,1)
+                                      ],
+                                     1, compare)
+
+
+                for val in [5.1,8,9]:
+                    self.step(str(val))
+                    compare = self.readAllChannels()
+                    turboPumpPort.write(val)
+                    mksPort.write(1)
+                    self.checkChange([(mksPort, 1),
+                                      (mks,1),
+                                      (turboPumpPort, val),
+                                      (turboPumpVoltage, val * 1000),
+                                      (turboPumpSpeed, val * 1000),
+                                      (turboPumpOn, int(val>5)),
+                                      (turboPumpOff, int(val<1)),
+                                      (turboPumpPermitLatchStatus, 0),
+                                      (vccAllowedOpenLatch,0),
+                                      (vccAllowedOpenLatchStatus,2)
+                                      ],
+                                     1, compare)
+
+                for val in [4]:
+                    self.step(str(val))
+                    compare = self.readAllChannels()
+                    turboPumpPort.write(val)
+                    mksPort.write(1)
+                    self.checkChange([(mksPort, 1),
+                                      (mks,1),
+                                      (turboPumpPort, val),
+                                      (turboPumpVoltage, val * 1000),
+                                      (turboPumpSpeed, val * 1000),
+                                      (turboPumpOn, int(val>5)),
+                                      (turboPumpOff, int(val<1)),
+                                      (turboPumpPermitLatchStatus, 0),
+                                      (vccAllowedOpenLatch,0),
+                                      (vccAllowedOpenLatchStatus,1)
+                                      ],
+                                     1, compare)
+
+                for val in [0]:
+                    self.step(str(val))
+                    compare = self.readAllChannels()
+                    turboPumpPort.write(val)
+                    mksPort.write(1)
+                    self.checkChange([(mksPort, 1),
+                                      (mks,1),
+                                      (turboPumpPort, val),
+                                      (turboPumpVoltage, val * 1000),
+                                      (turboPumpSpeed, val * 1000),
+                                      (turboPumpOn, int(val>5)),
+                                      (turboPumpOff, int(val<1)),
+                                      (turboPumpPermitLatchStatus, 0),
+                                      (vccAllowedOpenLatch,0),
+                                      (vccAllowedOpenLatchStatus,2)
+                                      ],
+                                     1, compare)
+
+                self.step("Test turboPumpSpeed NotValid. Should not affect because MKS925 is ON")
+                compare = self.readAllChannels()
+                turboPumpNotValidPort.write(1)
+                self.checkChange([(turboPumpPermitLatchStatus, 1),(turboPumpValid,0),(turboPumpNotValidPort,1)], 1, compare)
+
+                compare = self.readAllChannels()
+                turboPumpNotValidPort.write(0)
+                self.checkChange([(turboPumpPermitLatchStatus, 2),(turboPumpValid,1),(turboPumpNotValidPort,0)], 1, compare)
+
+
+
+                self.step("Turn MKS925 Off. Test Turbo Pump different speeds. Test Permit and lacth indicator")
+
+                val = 0
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                mksPort.write(0)
+                print(2)
+                self.checkChange([(mksPort, 0),
+                                  (mks, 0),
+                                  (turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, int(val < 1 or val > 5) + 1)
+                                  ],
+                                 1, compare)
+
+
+                val = 0.9
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                self.checkChange([(turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, int(val < 1 or val > 5) + 1)
+                                  ],
+                                 1, compare)
+
+
+                val = 1.1
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                self.checkChange([(turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, int(val < 1 or val > 5) + 1)
+                                  ],
+                                 1, compare)
+
+                val = 4.9
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                self.checkChange([(turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, int(val < 1 or val > 5) + 1)
+                                  ],
+                                 1, compare)
+
+                val=5.1
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                self.checkChange([(turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (turboPumpPermitPort, 0),
+                                  (turboPumpPermit, 0),
+                                  (turboPumpPermitLatchStatus, 1),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, int(val < 1 or val > 5) + 1),
+                                  (vccNotForcedCloseLatch,0),
+                                  (vccNotForcedCloseLatchStatus,int(val<5)+1)
+                                  ],
+                                 1, compare)
+
+                val = 9
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                self.checkChange([(turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (turboPumpPermitPort, 0),
+                                  (turboPumpPermit, 0),
+                                  (turboPumpPermitLatchStatus, 1),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, int(val < 1 or val > 5) + 1),
+                                  (vccNotForcedCloseLatch, 0),
+                                  (vccNotForcedCloseLatchStatus, int(val < 5) + 1)
+                                  ],
+                                 1, compare)
+
+                val = 4
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                self.checkChange([(turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (turboPumpPermitPort, 0),
+                                  (turboPumpPermit, 0),
+                                  (turboPumpPermitLatchStatus, 2),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, int(val < 1 or val > 5) + 1),
+                                  (vccNotForcedCloseLatch, 0),
+                                  (vccNotForcedCloseLatchStatus, int(val < 5) + 1)
+                                  ],
+                                 1, compare)
+
+                val = 5.5
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                self.checkChange([(turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (turboPumpPermitPort, 0),
+                                  (turboPumpPermit, 0),
+                                  (turboPumpPermitLatchStatus, 1),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, int(val < 1 or val > 5) + 1),
+                                  (vccNotForcedCloseLatch, 0),
+                                  (vccNotForcedCloseLatchStatus, int(val < 5 )+ 1)
+                                  ],
+                                 1, compare)
+
+                val = 0.5
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                self.checkChange([(turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (turboPumpPermitPort, 0),
+                                  (turboPumpPermit, 0),
+                                  (turboPumpPermitLatchStatus, 2),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, int(val < 1 or val > 5) + 1),
+                                  (vccNotForcedCloseLatch, 0),
+                                  (vccNotForcedCloseLatchStatus, int(val < 5) + 1)
+                                  ],
+                                 1, compare)
+
+                self.step("Reset")
+                compare = self.readAllChannels()
+                turboPumpPermitReset.press()
+                self.checkChange([(turboPumpPermitPort, 1), (turboPumpPermit, 1), (turboPumpPermitLatchStatus, 0)], 1,
+                                 compare)
+
+                self.step("Test turboPumpSpeed NotValid. Should remove permit")
+                compare = self.readAllChannels()
+                turboPumpNotValidPort.write(1)
+                self.checkChange([(turboPumpPermitPort, 0),(turboPumpPermit, 0),(turboPumpPermitLatchStatus, 1),(turboPumpValid,0),(turboPumpNotValidPort,1)], 1, compare)
+
+                compare = self.readAllChannels()
+                turboPumpPermitReset.press()
+                self.checkChange([(turboPumpPermitPort, 0), (turboPumpPermit, 0), (turboPumpPermitLatchStatus, 1)], 1,compare)
+
+                compare = self.readAllChannels()
+                turboPumpNotValidPort.write(0)
+                self.checkChange([(turboPumpPermitPort, 0),(turboPumpPermit, 0),(turboPumpPermitLatchStatus, 2),(turboPumpValid,1),(turboPumpNotValidPort,0)], 1, compare)
+
+                compare = self.readAllChannels()
+                turboPumpPermitReset.press()
+                self.checkChange([(turboPumpPermitPort, 1), (turboPumpPermit, 1), (turboPumpPermitLatchStatus, 0)], 1,compare)
+
+
+
+                self.step("Check with all the negative conditions at the same time.")
+                compare = self.readAllChannels()
+                turboPressurePort.write(0.22)
+                val=6
+                turboPumpPort.write(val)
+                mksPort.write(0)
+                self.checkChange([(mksPort, 0),
+                                  (mks, 0),
+                                  (turboPressurePort, .22),
+                                  (turboPressureVoltage, .22 * 1000),
+                                  (turboPressurePressure, .22 * 1000),
+                                  (turboPressureDiff, -1),
+                                  (turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (turboPumpPermitPort, 0),
+                                  (turboPumpPermit, 0),
+                                  (turboPumpPermitLatchStatus, 1),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, int(val < 1 or val > 5) + 1),
+                                  (vccNotForcedCloseLatch, 0),
+                                  (vccNotForcedCloseLatchStatus, int(val < 5) + 1)
+                                  ],
+                                 1, compare)
+
+                self.step("Try to reset. Must Fail.")
+                turboPressurePort.write(0.05)
+                mksPort.write(1)
+
+                self.sleep(.5)
+
+                self.step("Reset.")
+                turboPumpPermitReset.press()
+                self.checkChange([(turboPumpPermitPort, 1), (turboPumpPermit, 1), (turboPumpPermitLatchStatus, 0)], 1)
+
+
+
+
+                self.step("HvTurboPump permit logic correct.")
+                return True
+
+            except Exception as e:
+                self.step("HvTurboPump permit logic failed! Failed at %s. Error: %s "%(self.step_m,str(e)))
+                return False
+
+
+class TestCvForceClose(Test):
+    def __init__(self,tester,id):
+        Test.__init__(self,tester,id)
+        self.name = "TestCvForceClose"
+        self.desc = "Test CvForceClose permit logic"
+
+    def test(self):
+            self.step(self.desc)
+
+            turboPressurePort = self.tester.testBox.plc.IA3
+
+            turboPumpPermitPort = self.tester.testBox.plc.Q4
+
+            turboPressureVoltage = self.tester.plutoGateway.CVTurboVoltage
+            turboPressurePressure = self.tester.plutoGateway.CVTurboPressure
+
+            turboPressureDiff = self.tester.plutoGateway.CVPressureDiff
+
+            turboPumpPermit = self.tester.plutoGateway.VcrPumpPerm
+            turboPumpPermitLatchStatus = self.tester.plutoGateway.VcrPumpPermLatchStatus
+
+            turboPumpPermitReset = self.tester.plutoGateway.VcrPumpPermReset_w
+
+            permitBlock_w = self.tester.plutoGateway.VcrPumpPermBlock_w
+            permitBlock = self.tester.plutoGateway.VcrPumpPermBlock
+
+            mksPort = self.tester.testBox.plc.I34
+            mks = self.tester.plutoGateway.MKS925
+
+            turboPumpPort = self.tester.testBox.plc.IA7
+            turboPumpVoltage = self.tester.plutoGateway.CVTurboPumpVoltage
+            turboPumpSpeed = self.tester.plutoGateway.CVTurboPumpSpeed
+            turboPumpOn = self.tester.plutoGateway.CVTurboPumpON
+            turboPumpOff = self.tester.plutoGateway.CVTurboPumpOFF
+
+            vccAllowedOpenLatchStatus = self.tester.plutoGateway.MainVcrVccAllowedOpenLatchStatus
+            vccAllowedOpenLatch = self.tester.plutoGateway.MainVcrVccAllowedOpenLatch
+            vccAllowedOpenLatchReset_w =  self.tester.plutoGateway.MainVcrVccAllowedOpenLatchReset_w
+
+            vccNotForcedCloseLatch = self.tester.plutoGateway.MainVcrVccNotForcedCloseLatch
+
+
+
+            vccNotForcedCloseLatchStatus = self.tester.plutoGateway.MainVcrVccNotForcedCloseLatchStatus
+            vccNotForcedCloseLatchReset_w = self.tester.plutoGateway.MainVcrVccNotForcedCloseReset_w
+
+            vccPort   = self.tester.testBox.plc.Q2
+            vcc       = self.tester.plutoGateway.MainVcrVcc
+            openVcc   = self.tester.plutoGateway.OpenMainVcrVcc
+            openVcc_w = self.tester.plutoGateway.OpenMainVcrVcc_w
+            closeVcc  = self.tester.plutoGateway.CloseMainVcrVcc
+            closeVcc_w = self.tester.plutoGateway.CloseMainVcrVcc_w
+
+            try:
+
+
+                self.setDefault()
+                self.checkDefault()
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([(vccPort, 1),
+                                  (vcc, 1),
+                                  ],
+                                 1, compare)
+
+
+
+                val = 0
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                mksPort.write(0)
+                self.checkChange([(mksPort, 0),
+                                  (mks, 0),
+                                  (turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (vccNotForcedCloseLatch, 1),
+                                  (vccNotForcedCloseLatchStatus, 0),
+                                  (vccPort, 1),
+                                  (vcc, 1),
+                                  (vccAllowedOpenLatch, 1),
+                                  (vccAllowedOpenLatchStatus, 0),
+                                  ],
+                                 1, compare)
+
+
+                val = 9
+                self.step(str(val))
+                compare = self.readAllChannels()
+                mksPort.write(1)
+                self.sleep(1)
+                turboPumpPort.write(val)
+                self.checkChange([(mksPort, 1),
+                                  (mks, 1),
+                                  (turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (vccNotForcedCloseLatch, 1),
+                                  (vccNotForcedCloseLatchStatus, 0),
+                                  (vccPort, 1),
+                                  (vcc, 1),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, 2),
+                                  ],
+                                 1, compare)
+
+                val = 9
+                self.step(str(val))
+                compare = self.readAllChannels()
+                mksPort.write(0)
+                self.sleep(1)
+                turboPumpPort.write(val)
+                self.checkChange([(mksPort, 0),
+                                  (mks, 0),
+                                  (turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (vccNotForcedCloseLatch, 0),
+                                  (vccNotForcedCloseLatchStatus, 1),
+                                  (vccPort, 0),
+                                  (vcc, 0),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, 2),
+                                  (turboPumpPermit,0),
+                                  (turboPumpPermitPort,0),
+                                  (turboPumpPermitLatchStatus,1)
+                                  ],
+                                 1, compare)
+
+
+
+                compare = self.readAllChannels()
+                vccNotForcedCloseLatchReset_w.press()
+                self.checkChange([],1,compare)
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+                val = 0.09
+                self.step(str(val))
+                compare = self.readAllChannels()
+                mksPort.write(0)
+                self.sleep(1)
+                turboPumpPort.write(val)
+                self.checkChange([(mksPort, 0),
+                                  (mks, 0),
+                                  (turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (vccNotForcedCloseLatch, 0),
+                                  (vccNotForcedCloseLatchStatus, 2),
+                                  (vccPort, 0),
+                                  (vcc, 0),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, 2),
+                                  (turboPumpPermitLatchStatus, 2)
+                                  ],
+                                 1, compare)
+
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+
+                compare = self.readAllChannels()
+                vccNotForcedCloseLatchReset_w.press()
+                vccAllowedOpenLatchReset_w.press()
+                openVcc_w.press()
+                self.checkChange([(vccNotForcedCloseLatch, 1),
+                                  (vccNotForcedCloseLatchStatus, 0),
+                                  (vccAllowedOpenLatch, 1),
+                                  (vccAllowedOpenLatchStatus, 0),
+                                  (vccNotForcedCloseLatch, 1),
+                                  (vccNotForcedCloseLatchStatus, 0),
+                                  (vccPort, 1),
+                                  (vcc, 1),
+                                  ],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([(vcc,1),
+                                  (vccPort,1)
+                                  ],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                closeVcc_w.press()
+                self.checkChange([(vcc,0),
+                                  (vccPort,0)
+                                  ],
+                                 1, compare)
+
+
+                compare = self.readAllChannels()
+                closeVcc_w.write(1)
+                self.checkChange([(closeVcc_w,1),
+                                  (closeVcc,1)],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                closeVcc_w.write(0)
+                self.checkChange([(closeVcc_w,0),
+                                  (closeVcc,0)],
+                                 1, compare)
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([(vcc,1),
+                                  (vccPort,1)
+                                  ],
+                                 1, compare)
+
+
+
+
+
+
+
+                self.step("CvForceClose permit logic correct.")
+                return True
+
+            except Exception as e:
+                self.step("CvForceClose permit logic failed!"+str(e))
+                return False
+
+
+class TestCvAllowOpenTest(Test):
+    def __init__(self,tester,id):
+        Test.__init__(self,tester,id)
+        self.name = "TestCvAllowOpenTest"
+        self.desc = "Test TestCvAllowOpenTest permit logic"
+
+    def test(self):
+            self.step(self.desc)
+
+            turboPressurePort = self.tester.testBox.plc.IA3
+            turboPressureVoltage = self.tester.plutoGateway.CVTurboVoltage
+            turboPressurePressure = self.tester.plutoGateway.CVTurboPressure
+
+            interlockPressurePort = self.tester.testBox.plc.IA4
+            interlockPressureVoltage = self.tester.plutoGateway.CVInterlockVoltage
+            interlockPressurePressure = self.tester.plutoGateway.CVInterlockPressure
+
+            turboPressureDiff = self.tester.plutoGateway.CVPressureDiff
+
+            turboPumpPermitPort = self.tester.testBox.plc.Q4
+
+
+            turboPumpPermit = self.tester.plutoGateway.VcrPumpPerm
+            turboPumpPermitLatchStatus = self.tester.plutoGateway.VcrPumpPermLatchStatus
+
+            turboPumpPermitReset = self.tester.plutoGateway.VcrPumpPermReset_w
+
+            permitBlock_w = self.tester.plutoGateway.VcrPumpPermBlock_w
+            permitBlock = self.tester.plutoGateway.VcrPumpPermBlock
+
+            mksPort = self.tester.testBox.plc.I34
+            mks = self.tester.plutoGateway.MKS925
+
+            turboPumpPort = self.tester.testBox.plc.IA7
+            turboPumpVoltage = self.tester.plutoGateway.CVTurboPumpVoltage
+            turboPumpSpeed = self.tester.plutoGateway.CVTurboPumpSpeed
+            turboPumpOn = self.tester.plutoGateway.CVTurboPumpON
+            turboPumpOff = self.tester.plutoGateway.CVTurboPumpOFF
+
+            vccAllowedOpenLatchStatus = self.tester.plutoGateway.MainVcrVccAllowedOpenLatchStatus
+            vccAllowedOpenLatch = self.tester.plutoGateway.MainVcrVccAllowedOpenLatch
+            vccAllowedOpenLatchReset_w =  self.tester.plutoGateway.MainVcrVccAllowedOpenLatchReset_w
+
+            vccNotForcedCloseLatch = self.tester.plutoGateway.MainVcrVccNotForcedCloseLatch
+
+
+
+            vccNotForcedCloseLatchStatus = self.tester.plutoGateway.MainVcrVccNotForcedCloseLatchStatus
+            vccNotForcedCloseLatchReset_w = self.tester.plutoGateway.MainVcrVccNotForcedCloseReset_w
+
+            vccPort   = self.tester.testBox.plc.Q2
+            vcc       = self.tester.plutoGateway.MainVcrVcc
+            openVcc   = self.tester.plutoGateway.OpenMainVcrVcc
+            openVcc_w = self.tester.plutoGateway.OpenMainVcrVcc_w
+            closeVcc  = self.tester.plutoGateway.CloseMainVcrVcc
+            closeVcc_w = self.tester.plutoGateway.CloseMainVcrVcc_w
+
+            relay01Port = self.tester.testBox.plc.I35
+
+            relay01 = self.tester.plutoGateway.CV01
+
+            try:
+
+
+                self.setDefault()
+                self.checkDefault()
+
+
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([(vccPort, 1),
+                                  (vcc, 1),],
+                                 1, compare)
+
+
+                val = 4
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                self.checkChange([
+                                  (turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (vccNotForcedCloseLatch, 1),
+                                  (vccNotForcedCloseLatchStatus, 0),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, 1),
+                                  (turboPumpPermit, 1),
+                                  (turboPumpPermitPort, 1),
+                                  (turboPumpPermitLatchStatus, 0),
+                                  (vccPort, 1),
+                                  (vcc, 1),
+                                  ],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                closeVcc_w.press()
+                self.checkChange([(vccPort, 0),
+                                  (vcc, 0),],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                vccAllowedOpenLatchReset_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+                val = 1.1
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                self.checkChange([
+                                  (turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (vccNotForcedCloseLatch, 1),
+                                  (vccNotForcedCloseLatchStatus, 0),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, 1),
+                                  (turboPumpPermit, 1),
+                                  (turboPumpPermitPort, 1),
+                                  (turboPumpPermitLatchStatus, 0),
+                                  (vccPort, 0),
+                                  (vcc, 0),
+                                  ],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+
+                vccAllowedOpenLatchReset_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+
+
+
+
+                val = 0.9
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                self.checkChange([(turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (vccNotForcedCloseLatch, 1),
+                                  (vccNotForcedCloseLatchStatus, 0),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, 2),
+                                  (turboPumpPermit, 1),
+                                  (turboPumpPermitPort, 1),
+                                  (turboPumpPermitLatchStatus, 0),
+                                  (vccPort, 0),
+                                  (vcc, 0),
+                                  ],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+                vccAllowedOpenLatchReset_w.press()
+                self.checkChange([(vccAllowedOpenLatch, 1),
+                                  (vccAllowedOpenLatchStatus, 0),],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([(vccPort, 1),
+                                  (vcc, 1),],
+                                 1, compare)
+
+
+
+                # Aumentar a diferenca de pressao
+
+
+
+                compare = self.readAllChannels()
+                closeVcc_w.press()
+                self.checkChange([(vccPort, 0),
+                                  (vcc, 0),],
+                                 1, compare)
+
+
+
+                for n in range(3):
+                    print("for",n)
+                    a = random.uniform(0.3,9.5)
+                    b = a+ (0.24*1-(2*n%2))
+
+
+                    compare = self.readAllChannels()
+                    interlockPressurePort.write(a)
+                    turboPressurePort.write(b)
+                    self.checkChange([ (interlockPressurePort,a),
+                                       (interlockPressureVoltage,a*1000),
+                                       (interlockPressurePressure,a*1000),
+
+                                      (turboPressurePort, b),
+                                      (turboPressureVoltage, b * 1000),
+                                      (turboPressurePressure, b * 1000),
+
+                                       (turboPumpPermit, None),
+                                       (turboPumpPermitPort, None),
+                                       (turboPumpPermitLatchStatus, None),
+
+                                       (turboPressureDiff,abs(a-b)*1000),
+
+                                      (vccAllowedOpenLatch, 0),
+                                      (vccAllowedOpenLatchStatus, 1),
+
+                                      (vccPort, 0),
+                                      (vcc, 0)
+                                      ],
+                                     1, compare)
+
+                    print("for2",n)
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+                vccAllowedOpenLatchReset_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+                for n in range(3):
+                    a = random.uniform(0.1, 9.5)
+                    b = a + (0.20 * int(random.uniform(0, 1) > 0.5))
+
+                    compare = self.readAllChannels()
+                    interlockPressurePort.write(a)
+                    turboPressurePort.write(b)
+                    self.checkChange([(interlockPressurePort, a),
+                                      (interlockPressureVoltage, a * 1000),
+                                      (interlockPressurePressure, a * 1000),
+
+                                      (turboPressurePort, b),
+                                      (turboPressureVoltage, b * 1000),
+                                      (turboPressurePressure, b * 1000),
+
+                                      (turboPumpPermit, None),
+                                      (turboPumpPermitPort, None),
+                                      (turboPumpPermitLatchStatus, None),
+
+                                      (turboPressureDiff, abs(a - b) * 1000),
+
+                                      (vccAllowedOpenLatch, 0),
+                                      (vccAllowedOpenLatchStatus, 2),
+
+                                      (vccPort, 0),
+                                      (vcc, 0),
+                                      ],
+                                     1, compare)
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+
+                vccAllowedOpenLatchReset_w.press()
+                self.checkChange([(vccAllowedOpenLatch, 1),
+                                      (vccAllowedOpenLatchStatus, 0),],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([(vccPort, 1),
+                                  (vcc, 1),],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                relay01Port.write(0)
+                self.checkChange([(relay01Port, 0),
+                                  (relay01, 0),],
+                                 1, compare)
+
+
+
+
+                self.setDefault()
+                self.checkDefault()
+
+                compare = self.readAllChannels()
+                relay01Port.write(0)
+                self.checkChange([(relay01Port, 0),
+                                  (relay01, 0),],
+                                 1, compare)
+
+                val = 5.1
+                self.step(str(val))
+                compare = self.readAllChannels()
+                turboPumpPort.write(val)
+                self.sleep(0.5)
+                relay01Port.write(0)
+                self.checkChange([(turboPumpPort, val),
+                                  (turboPumpVoltage, val * 1000),
+                                  (turboPumpSpeed, val * 1000),
+                                  (turboPumpOn, int(val > 5)),
+                                  (turboPumpOff, int(val < 1)),
+                                  (vccNotForcedCloseLatch, 1),
+                                  (vccNotForcedCloseLatchStatus, 0),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, 1),
+                                  (turboPumpPermit, None),
+                                  (turboPumpPermitPort, None),
+                                  (turboPumpPermitLatchStatus, None),
+                                  (relay01Port, 0),
+                                  (relay01, 0)
+                                  ],
+                                 1, compare)
+
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+                vccAllowedOpenLatchReset_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+
+
+
+                compare = self.readAllChannels()
+                self.sleep(0.5)
+                relay01Port.write(1)
+                self.checkChange([
+                                  (vccNotForcedCloseLatch, 1),
+                                  (vccNotForcedCloseLatchStatus, 0),
+                                  (vccAllowedOpenLatch, 0),
+                                  (vccAllowedOpenLatchStatus, 2),
+                                  (turboPumpPermit, None),
+                                  (turboPumpPermitPort, None),
+                                  (turboPumpPermitLatchStatus, None),
+                                  (relay01Port, 0),
+                                  (relay01, 0)
+                                  ],
+                                 1, compare)
+
+
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([],
+                                 1, compare)
+
+
+                vccAllowedOpenLatchReset_w.press()
+                self.checkChange([(vccAllowedOpenLatch, 1),
+                                      (vccAllowedOpenLatchStatus, 0),],
+                                 1, compare)
+
+                compare = self.readAllChannels()
+                openVcc_w.press()
+                self.checkChange([(vccPort, 1),
+                                  (vcc, 1),],
+                                 1, compare)
+
+
+
+
+
+                self.step("CvForceClose permit logic correct.")
+                return True
+
+            except Exception as e:
+                self.step("CvForceClose permit logic failed!"+str(e))
+                return False
+'''
