@@ -2,20 +2,10 @@ from os import path
 from pydm import Display
 from pydm.PyQt.QtCore import *
 from pydm.PyQt.QtGui import *
-
-#from tester import Tester
 import tester
 
-import importlib
 
 
-import os
-
-
-
-
-maq20_ip = "192.168.1.101"
-maq20_port = 502
 
 class MpmTests(Display):
     def __init__(self, parent=None, args=None, macros=None):
@@ -26,25 +16,28 @@ class MpmTests(Display):
         import mpm_tests
 
         self.mpm_tester.tests.append(mpm_tests.TestPlutoGatewayConfig(self, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestPlutoWriteRegisters(self, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestPlutoPLCsPresent(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestTestBoxConnect(self, -1))
 
-        self.mpm_tester.tests.append(mpm_tests.TestPermitsValvesBoot(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestPlutoPLCsPresent(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestPlutoGatewayConfig(self, -1))
+
+
         self.mpm_tester.tests.append(mpm_tests.TestChannelsBootDefault(self, -1))
 
-        self.mpm_tester.tests.append(mpm_tests.TestNormalValuesBoot(self, -1))
-
         self.mpm_tester.tests.append(mpm_tests.TestPlutoWriteReadback(self, -1))
-
         self.mpm_tester.tests.append(mpm_tests.TestAnalogScaling(self, -1))
 
+        self.mpm_tester.tests.append(mpm_tests.TestTemperatureLimits(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestAcPermit(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestPermitsBlock(self, -1))
 
+        self.mpm_tester.tests.append(mpm_tests.TestPermitsBlock(self, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestColdPermits(self, -1))
+
+        self.mpm_tester.tests.append(mpm_tests.TestCryoPermits(self, -1))
 
         for i, test in enumerate( self.mpm_tester.tests):
             test.id=i
-
-
-
 
 
 
@@ -73,9 +66,7 @@ class MpmTests(Display):
         self.mpm_tester.monitor_update.connect(self.update_monitor_menu)
 
         self.ui.runAllButton.clicked.connect(self.mpm_tester.run_all)
-        #self.ui.runSelectedButton.clicked.connect(self.mpm_tester.run_selected)
         self.ui.abortButton.clicked.connect(self.mpm_tester.abort)
-
 
 
 
@@ -87,15 +78,8 @@ class MpmTests(Display):
     def update_table_line(self,i):
 
         test = self.mpm_tester.tests[i]
-
         name = QTableWidgetItem(test.name)
 
-    #    print(test.selected)
-
-     #   if test.selected:
-     #       name.setCheckState(Qt.Checked)
-     #   else:
-     #       name.setCheckState(Qt.Unchecked)
 
         self.table.setItem(i, 0, name)
 
@@ -103,7 +87,6 @@ class MpmTests(Display):
 
         run = QPushButton("RUN")
         test.set_run_button(run)
-
 
 
         color = " rgb(230, 230, 230)"
@@ -145,8 +128,6 @@ class MpmTests(Display):
         bar = self.ui.progressBar
         p = bar.palette()
         p.setColor(QPalette.Highlight, Qt.red);
-        #self.ui.progressBar.setStyleSheet("QProgressBar::chunk {background-color: lightblue;}")
-
 
 
         self.ui.progressCount.setText(progress_count)

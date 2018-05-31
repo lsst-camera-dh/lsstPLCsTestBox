@@ -3,12 +3,16 @@ from umodbus.client import tcp
 from utils import set_bit,get_bit
 import time
 from mapping_parser import import_mappings
-from dotmap import DotMap
+
+
+plutoGateway_ip = "192.168.1.101"
+plutoGateway_port = 502
+
 
 class PlutoGateway:
     def __init__(self,tester):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.connect(('192.168.1.100', 502))
+        self.sock.connect((plutoGateway_ip, plutoGateway_port))
         self.dict = None
 
         testBox, self.dict = import_mappings()
@@ -24,7 +28,6 @@ class PlutoGateway:
             except Exception as e:
                 pass
                 raise e
-       # print((self.channels))
 
 
     def read_holding_registers(self, slave_id, starting_address, quantity):
@@ -87,7 +90,7 @@ class PlutoGateway:
 
 class PlutoGatewayChannel():
 
-    def __init__(self, server, ch, type="D"):
+    def __init__(self, server, ch):
         self.ch = ch
         self.type = type
         self.server = server
@@ -151,15 +154,3 @@ class PlutoGatewayChannel():
                 return False
         return True
 
-
-
-
-#plutoGateway = PlutoGateway()
-
-#print(plutoGateway.read_holding_registers(4, 0, 42))
-
-#plutoGateway.HVStatBlock_w.write(0)
-
-
-
-#print( plutoGateway.write_ch('CVStatLatchReset_w',0) )

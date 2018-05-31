@@ -108,57 +108,6 @@ class TestPlutoPLCsPresent(Test):
         return True
 
 
-class TestPlutoWriteRegisters(Test):
-    def __init__(self, tester, id):
-        Test.__init__(self, tester, id)
-        self.name = "TestePlutoWriteRegisters"
-        self.desc = "Pluto Modbus write registers default"
-        self.expected_values = [0, 0]
-
-    def test(self):
-        read = []
-        for add in [2,5]:
-            reg = self.tester.plutoGateway.read_holding_registers(1, add, 1)
-            read.append(reg[0])
-        print(read)
-
-        for n in range(1):
-            self.step(("Read number %d/1:" % (n + 1)))
-            self.sleep(0.134)
-            for i, reg in enumerate(read):
-                if reg != self.expected_values[i]:
-                        self.step(("Digital Register %d doesn't match in expected value (%d) : %d " % (
-                        i, self.expected_values[i], reg)))
-                        return False
-
-        self.step("Pluto write modbus registers default values as expected")
-        return True
-
-
-class TestPermitsValvesBoot(Test):
-    def __init__(self,tester,id):
-        Test.__init__(self,tester,id)
-        self.name = "TestPermitsValvesBoot"
-        self.desc = "Check if all permits are off when the PLC is powered"
-
-    def test(self):
-        self.step(self.desc)
-
-        for port in ["Q0","Q1","Q2","Q3","Q4","Q5","IQ20","IQ21","IQ22","IQ23"]:
-            if self.tester.testBox.read_port("plc",port) > 0.5:
-                self.step("PLC output %s is not off."%port)
-                return False
-
-        for ch in ["HVStat","CVStat","VcrPumpPerm","VhxPumpPerm","MainVcrVcc","MainVhxVcc","VcrVcc01","VcrVcc02","VcrVcc03","VcrVcc04"]:
-            if self.tester.plutoGateway.read_ch(ch) != 0:
-                self.step("Pluto modbus indicator for %s is not off."%ch)
-                return False
-
-
-        self.step("Success message")
-        return True
-
-
 class TestChannelsBootDefault(Test):
     def __init__(self,tester,id):
         Test.__init__(self,tester,id)
@@ -186,40 +135,6 @@ class TestChannelsBootDefault(Test):
 
         self.step("Boot values do not match defaults.")
         return False
-
-
-class TestNormalValuesBoot(Test):
-    def __init__(self,tester,id):
-        Test.__init__(self,tester,id)
-        self.name = "TestNotmalValuesBoot"
-        self.desc = ""
-
-    def test(self):
-        self.step(self.desc)
-
-        self.step("Checking boot default values.")
-        chs = []
-        for ch in self.tester.testBox.plc.channels:
-            if str(ch.boot_value) != "":
-                ch.write(ch.default_value)
-
-        self.sleep(1)
-
-
-
-        for port in ["Q0","Q1","Q2","Q3","Q4","Q5","IQ20","IQ21","IQ22","IQ23"]:
-            if self.tester.testBox.read_port("plc",port) > 0.5:
-                self.step("PLC output %s is not off."%port)
-                return False
-
-        for ch in ["HVStat","CVStat","VcrPumpPerm","VhxPumpPerm","MainVcrVcc","MainVhxVcc","VcrVcc01","VcrVcc02","VcrVcc03","VcrVcc04"]:
-            if self.tester.plutoGateway.read_ch(ch) != 0:
-                self.step("Pluto modbus indicator for %s is not off."%ch)
-                return False
-
-
-        self.step("Success message")
-        return True
 
 
 class TestPlutoWriteReadback(Test):
@@ -814,11 +729,6 @@ class TestCvStat(Test):
             except Exception as e:
                 self.step("CvStat permit logic failed!"+str(e))
                 return False
-
-
-
-
-
 
 
 class TestCvTurboOnOfflogic(Test):

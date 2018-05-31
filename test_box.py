@@ -1,12 +1,15 @@
 from maq20 import MAQ20
 import time
 from mapping_parser import import_mappings
-from dotmap import DotMap
+
+
+testBox_ip = "192.168.1.100"
+testBox_port = 502
 
 
 class TestBox:
     def __init__(self,tester):
-        self.system = MAQ20(ip_address="192.168.1.101", port=502)
+        self.system = MAQ20(ip_address=testBox_ip, port=testBox_port)
         self.dict = None
 
         self.dict, plutoGateway = import_mappings()
@@ -19,8 +22,6 @@ class TestBox:
 
         self.tester=tester
 
-
-
         for ch in self.dict.keys():
             try:
                 pass
@@ -31,12 +32,11 @@ class TestBox:
 
             try:
                 pass
-                #exec("self.cam." + ch + " = TestBoxChannel(self,'cam','" + ch + "')")
-                #exec("self.cam.channels.append(self.cam." + ch + ")")
+                exec("self.cam." + ch + " = TestBoxChannel(self,'cam','" + ch + "')")
+                exec("self.cam.channels.append(self.cam." + ch + ")")
             except:
                 pass
 
-        #print(self.plc.channels)
 
     def close(self):
         pass
@@ -70,17 +70,16 @@ class TestBox:
             while abs(module.read_channel_data(port["maq20ModuleAddr"])-value)>0.4 and value !=1 and module.read_output_channels()>0:
                 module.write_channel_data(port["maq20ModuleAddr"], float(value))
                 time.sleep(0.01)
-                print("Can't write")
                 n+=1
-                #if n>10:
-                 #   break
+                if n>500:
+                    raise ValueError("Failed to write to channel")
 
 
     def press_port(self, ch):
         self.write_port(ch, 0)
         time.sleep(0.2)
         self.write_port(ch, 1)
-        time.sleep(0.2)
+        time.sleep(0.5)
         self.write_port(ch, 0)
 
 
@@ -91,7 +90,6 @@ class TestBoxChannel():
         self.side = side
         self.ch = ch
         self.type = self.server.dict[ch][side]["type"]
-
         self.default_value = self.server.dict[ch][side]["default_value"]
         self.boot_value = self.server.dict[ch][side]["boot_value"]
 
@@ -114,13 +112,50 @@ class TestBoxChannel():
         self.server.tester.log("Pressing %s. %s"%(self.ch,str(note)))
         return self.server.press_port(self.side, self.ch)
 
-    def checkValue(self,val):
+    def checkValue(self,val,checkBlink=False):
         if val==-1:
             return True
         if self.type == "Digital":
-            return int(self.read()) is int(val)
-        else:
-            return abs(int(self.read())-int(val))<40
+            if val == "P":
+                return int(self.read()) == int(0)
+            else:
+                return int(self.read()) is int(val)
+
+        elif self.type == "Analog":
+            return abs(self.read()-int(val))<40
+
+        elif self.type == "DigitalBlink":
+            if checkBlink:
+                if val == 0:
+                    return self.checkNoBlink()
+                elif val == 2:
+                    return self.checkBlink()
+            else:
+                return True
+
+    def checkBlink(self,timeout=3):
+        zero = 0
+        one = 0
+        start = time.time()
+        while time.time() - start < timeout:
+            time.sleep(0.03)
+            reg = self.read()
+            if reg:
+                one += 1
+            else:
+                zero += 1
+
+            if zero > 2 and one > 2:
+                return True
+        return False
+
+    def checkNoBlink(self,timeout=1):
+        start = time.time()
+        while time.time() - start < timeout:
+            reg = self.read()
+            if reg != 0:
+                return False
+        return True
 
 
 

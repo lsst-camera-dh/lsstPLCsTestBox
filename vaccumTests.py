@@ -26,13 +26,10 @@ class VaccumTests(Display):
         import vac_tests
 
         self.vac_tester.tests.append(vac_tests.TestPlutoGatewayConfig(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestPlutoWriteRegisters(self, -1))
         self.vac_tester.tests.append(vac_tests.TestPlutoPLCsPresent(self, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestPermitsValvesBoot(self, -1))
         self.vac_tester.tests.append(vac_tests.TestChannelsBootDefault(self, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestNormalValuesBoot(self, -1))
 
         self.vac_tester.tests.append(vac_tests.TestPlutoWriteReadback(self, -1))
 

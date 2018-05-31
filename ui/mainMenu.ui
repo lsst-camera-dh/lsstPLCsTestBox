@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="PyDMShellCommand" name="PyDMShellCommand_4">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="whatsThis">
+      <string>
+    A QPushButton capable of execute shell commands.
+    </string>
+     </property>
+     <property name="text">
+      <string>MPM Monitor </string>
+     </property>
+     <property name="allowMultipleExecutions" stdset="0">
+      <bool>true</bool>
+     </property>
+     <property name="command" stdset="0">
+      <string>python C:\\Users\\joaoprod\\AppData\\Local\\Continuum\\anaconda3\\envs\\lsstProtection\\Lib\\site-packages\\pydm_launcher\\main.py C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\mpmMonitor.py</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="PyDMShellCommand" name="PyDMShellCommand">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="whatsThis">
+      <string>
+    A QPushButton capable of execute shell commands.
+    </string>
+     </property>
+     <property name="text">
+      <string>MPM Tests </string>
+     </property>
+     <property name="allowMultipleExecutions" stdset="0">
+      <bool>true</bool>
+     </property>
+     <property name="command" stdset="0">
+      <string>python C:/Users\\joaoprod\\AppData\\Local\\Continuum\\anaconda3\\envs\\lsstProtection\\Lib\\site-packages\\pydm_launcher\\main.py C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\mpmTests.py</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="PyDMShellCommand" name="PyDMShellCommand_3">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="whatsThis">
+      <string>
+    A QPushButton capable of execute shell commands.
+    </string>
+     </property>
+     <property name="text">
+      <string>Vaccum Monitor </string>
+     </property>
+     <property name="allowMultipleExecutions" stdset="0">
+      <bool>true</bool>
+     </property>
+     <property name="command" stdset="0">
+      <string>python C:\\Users\\joaoprod\\AppData\\Local\\Continuum\\anaconda3\\envs\\lsstProtection\\Lib\\site-packages\\pydm_launcher\\main.py C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\vaccumMonitor.py</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="PyDMShellCommand" name="PyDMShellCommand_2">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="whatsThis">
+      <string>
+    A QPushButton capable of execute shell commands.
+    </string>
+     </property>
+     <property name="text">
+      <string>Vaccum Tests </string>
+     </property>
+     <property name="allowMultipleExecutions" stdset="0">
+      <bool>true</bool>
+     </property>
+     <property name="command" stdset="0">
+      <string>python C:/Users\\joaoprod\\AppData\\Local\\Continuum\\anaconda3\\envs\\lsstProtection\\Lib\\site-packages\\pydm_launcher\\main.py C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\vaccumTests.py</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PyDMShellCommand</class>
+   <extends>QPushButton</extends>
+   <header>pydm.widgets.shell_command</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
