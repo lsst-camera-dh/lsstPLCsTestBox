@@ -989,7 +989,7 @@ class TestColdPermits(Test):
             refPermitBlockReset_w = self.tester.plutoGateway.P2_ClpRefPermBlockReset_w
 
             refPermitLockLight = self.tester.plutoGateway.P2_ClpRefLockLight
-            refPermitLockLightPort =  self.tester.testBox.plc.P2.IQ16
+            refPermitLockLightPort =  self.tester.testBox.plc.P2.IQ17
             refPermit = self.tester.plutoGateway.P2_ClpRefPerm
             refPermitPort =  self.tester.testBox.plc.P2.Q1
 
@@ -1386,9 +1386,479 @@ class TestColdPermits(Test):
                 return False
 
 
-
 class TestCryoPermits(Test):
-    pass
+    def __init__(self,tester,id):
+        Test.__init__(self,tester,id)
+        self.name = "TestCryoPermits"
+        self.desc = "Test Cryo plate permits logic"
+
+    def test(self):
+            self.step(self.desc)
+
+
+            tmp0Port = self.tester.testBox.plc.P3.IA0
+            tmp1Port = self.tester.testBox.plc.P3.IA1
+            tmp2Port = self.tester.testBox.plc.P3.IA2
+            tmp3Port = self.tester.testBox.plc.P3.IA3
+
+            tmp0Current = self.tester.plutoGateway.P3_CryRtd0Current
+            tmp1Current = self.tester.plutoGateway.P3_CryRtd1Current
+            tmp2Current = self.tester.plutoGateway.P3_CryRtd2Current
+            tmp3Current = self.tester.plutoGateway.P3_CryRtd3Current
+
+            tmp0Temp = self.tester.plutoGateway.P3_CryRtd0Temp
+            tmp1Temp = self.tester.plutoGateway.P3_CryRtd1Temp
+            tmp2Temp = self.tester.plutoGateway.P3_CryRtd2Temp
+            tmp3Temp = self.tester.plutoGateway.P3_CryRtd3Temp
+
+            tmp0Valid = self.tester.plutoGateway.P3_CryRtd0Valid
+            tmp1Valid = self.tester.plutoGateway.P3_CryRtd1Valid
+            tmp2Valid = self.tester.plutoGateway.P3_CryRtd2Valid
+            tmp3Valid = self.tester.plutoGateway.P3_CryRtd3Valid
+
+            tmp0NotLow = self.tester.plutoGateway.P3_CryRtd0NotLow
+            tmp1NotLow = self.tester.plutoGateway.P3_CryRtd1NotLow
+            tmp2NotLow = self.tester.plutoGateway.P3_CryRtd2NotLow
+            tmp3NotLow = self.tester.plutoGateway.P3_CryRtd3NotLow
+
+            tmp0NotHigh = self.tester.plutoGateway.P3_CryRtd0NotHigh
+            tmp1NotHigh = self.tester.plutoGateway.P3_CryRtd1NotHigh
+            tmp2NotHigh = self.tester.plutoGateway.P3_CryRtd2NotHigh
+            tmp3NotHigh = self.tester.plutoGateway.P3_CryRtd3NotHigh
+
+            tempNotHigh =  self.tester.plutoGateway.P3_CryTempNotHigh
+            tempHighFilter =  self.tester.plutoGateway.P3_CryTempHighFilter
+            tempHighLimit =  self.tester.plutoGateway.P3_CryHighLimit
+
+            tempHighOkLatch = self.tester.plutoGateway.P3_CryTempHighOkLatch
+            tempHighOkLatchStatus = self.tester.plutoGateway.P3_CryTempHighOkLatchStatus
+            hotLight = self.tester.plutoGateway.P3_CryHotLight
+            hotLightPort =  self.tester.testBox.plc.P3.IQ12
+
+            resetTempHigh_w =  self.tester.plutoGateway.P2_ResetClpHigh_w
+
+            heatPermitBlock = self.tester.plutoGateway.P3_CryHeatPermBlock
+            heatPermitBlockSet_w = self.tester.plutoGateway.P3_CryHeatPermBlockSet_w
+            heatPermitBlockReset_w = self.tester.plutoGateway.P3_CryHeatPermBlockReset_w
+
+            heatPermitLockLight = self.tester.plutoGateway.P3_CryHeatLockLight
+            heatPermitLockLightPort =  self.tester.testBox.plc.P3.IQ16
+            heatPermit = self.tester.plutoGateway.P3_CryHeatPerm
+            heatPermitPort =  self.tester.testBox.plc.P3.Q0
+
+
+            tempNotLow =  self.tester.plutoGateway.P3_CryTempNotLow
+            tempLowFilter =  self.tester.plutoGateway.P3_CryTempLowFilter
+            tempLowLimit =  self.tester.plutoGateway.P3_CryLowLimit
+            tempLowOkLatch = self.tester.plutoGateway.P3_CryTempLowOkLatch
+            tempLowOkLatchStatus = self.tester.plutoGateway.P3_CryTempLowOkLatchStatus
+            coldLight = self.tester.plutoGateway.P3_CryColdLight
+            coldLightPort =  self.tester.testBox.plc.P3.IQ13
+
+
+            resetTempLow_w =  self.tester.plutoGateway.P3_ResetCryLow_w
+
+            refPermitBlock = self.tester.plutoGateway.P3_CryRefPermBlock
+            refPermitBlockSet_w = self.tester.plutoGateway.P3_CryRefPermBlockSet_w
+            refPermitBlockReset_w = self.tester.plutoGateway.P3_CryRefPermBlockReset_w
+
+            refPermitLockLight = self.tester.plutoGateway.P3_CryRefLockLight
+            refPermitLockLightPort =  self.tester.testBox.plc.P3.IQ17
+            refPermit = self.tester.plutoGateway.P3_CryRefPerm
+            refPermitPort =  self.tester.testBox.plc.P3.Q1
+
+
+            hexVacOk = self.tester.plutoGateway.P3_HexVacOk
+            hexVacOkPort = self.tester.testBox.plc.P3.IQ14
+            hexVacOkLatch = self.tester.plutoGateway.P3_HexVacOkLatch
+            hexVacLatchStatus = self.tester.plutoGateway.P3_HexVacOkLatchStatus
+            hexVavBadLight = self.tester.plutoGateway.P3_HexVacBadLight
+            hexVacReset_w = self.tester.plutoGateway.P3_ResetHexVac_w
+
+            cryVacOk = self.tester.plutoGateway.P3_CryVacOk
+            cryVacOkPort = self.tester.testBox.plc.P3.IQ15
+            cryVacOkLatch = self.tester.plutoGateway.P3_CryVacOkLatch
+            cryVacLatchStatus = self.tester.plutoGateway.P3_CryVacOkLatchStatus
+            cryVavBadLight = self.tester.plutoGateway.P3_CryVacBadLight
+            cryVacReset_w = self.tester.plutoGateway.P3_ResetCryVac_w
+
+
+            masterResetPort = self.tester.testBox.plc.P2.I7
+            masterReset = self.tester.plutoGateway.P2_MasterResetButton
+
+            normalTemp = 10
+
+            tmp0PortValues = [5,normalTemp,20]
+            tmp1PortValues = [5,normalTemp,20]
+            tmp2PortValues = [5,normalTemp,20]
+            tmp3PortValues = [5,normalTemp,20]
+            hexVacOkPortValues = [0,1]
+            cryVacOkPortValues = [0,1]
+
+            resetModes = ["soft", "hard"]
+
+
+            self.setDefault()
+
+            self.sleep(1)
+
+            n = 0
+
+            try:
+                for tmp0PortValue in tmp0PortValues:
+                    for tmp1PortValue in tmp1PortValues:
+                        for tmp2PortValue in tmp2PortValues:
+                            for tmp3PortValue in tmp3PortValues:
+                                for resetMode in resetModes:
+                                    for hexVacOkPortValue in hexVacOkPortValues:
+                                        for cryVacOkPortValue in cryVacOkPortValues:
+
+                                            n=n+1
+                                            print("--------------------------------------------------------------------------")
+
+                                            if n<0:
+                                                continue
+
+                                            compare = self.readAllChannels()
+
+                                            tmp0Port.write(tmp0PortValue)
+                                            tmp1Port.write(tmp1PortValue)
+                                            tmp2Port.write(tmp2PortValue)
+                                            tmp3Port.write(tmp3PortValue)
+                                            hexVacOkPort.write(hexVacOkPortValue)
+                                            cryVacOkPort.write(cryVacOkPortValue)
+                                            self.sleep(.6)
+
+                                            hexVacOkLatchValue = hexVacOkPortValue
+                                            hexVacLatchStatusValue = not hexVacOkPortValue
+                                            hexVavBadLightValue =  not hexVacOkPortValue
+
+                                            cryVacOkLatchValue = cryVacOkPortValue
+                                            cryVacLatchStatusValue = not cryVacOkPortValue
+                                            cryVavBadLightValue = not cryVacOkPortValue
+
+                                            lowLimit = 228
+                                            tmp0NotLowValue = int(tmp0PortValue >lowLimit)
+                                            tmp1NotLowValue = int(tmp1PortValue >lowLimit)
+                                            tmp2NotLowValue = int(tmp2PortValue >lowLimit)
+                                            tmp3NotLowValue = int(tmp3PortValue >lowLimit)
+
+                                            highLimit = 295
+                                            tmp0NotHighValue =int(tmp0PortValue < highLimit)
+                                            tmp1NotHighValue =int(tmp1PortValue < highLimit)
+                                            tmp2NotHighValue =int(tmp2PortValue < highLimit)
+                                            tmp3NotHighValue =int(tmp3PortValue < highLimit)
+
+                                            tempNotHighValue = int((int(tmp0NotHighValue) + int(tmp1NotHighValue) + int(tmp2NotHighValue) +int(tmp3NotHighValue)) >=3)
+                                            tempHighFilterValue = not tempNotHighValue
+
+                                            tempHighOkLatchValue = tempNotHighValue
+                                            tempHighOkLatchStatusValue = not tempHighOkLatch
+                                            hotLightValue = tempHighOkLatchStatusValue
+                                            hotLightPortValue = tempHighOkLatchStatusValue
+
+                                            heatPermitValue = tempNotHighValue
+                                            heatPermitPortValue = heatPermitValue
+                                            heatPermitLockLightValue = not heatPermitValue
+                                            heatPermitLockLightPortValue =  not heatPermitValue
+
+                                            tempNotLowValue = int((int(tmp0NotLowValue) + int(tmp1NotLowValue) + int(tmp2NotLowValue) +int(tmp3NotLowValue)) >=3)
+                                            tempLowFilterValue = not tempNotLowValue
+
+                                            tempLowOkLatchValue = tempNotLowValue
+                                            tempLowOkLatchStatusValue = not tempLowOkLatchValue
+                                            coldLightValue = tempLowOkLatchStatusValue
+                                            coldLightPortValue = tempLowOkLatchStatusValue
+
+
+                                            refPermitValue = hexVacOkPortValue and cryVacOkPortValue
+                                            refPermitPortValue = refPermitValue
+                                            refPermitLockLightValue = not refPermitValue
+                                            refPermitLockLightPortValue = not refPermitValue
+
+                                            refPermitValue10 = tempNotLowValue and hexVacOkPortValue and cryVacOkPortValue
+                                            refPermitPortValue10 = refPermitValue
+                                            refPermitLockLightValue10 = not refPermitValue
+                                            refPermitLockLightPortValue10 = not refPermitValue
+
+
+                                            # Should change imediatly
+                                            self.checkChange([
+                                                (tmp0Port, tmp0PortValue),
+                                                (tmp1Port, tmp1PortValue),
+                                                (tmp2Port, tmp2PortValue),
+                                                (tmp3Port, tmp3PortValue),
+
+                                                (tmp0Current, tmp0PortValue),
+                                                (tmp1Current, tmp1PortValue),
+                                                (tmp2Current, tmp2PortValue),
+                                                (tmp3Current, tmp3PortValue),
+
+                                                (tmp0Temp, tmp0PortValue),
+                                                (tmp1Temp, tmp1PortValue),
+                                                (tmp2Temp, tmp2PortValue),
+                                                (tmp3Temp, tmp3PortValue),
+
+                                                (hexVacOkPort,hexVacOkPortValue),
+                                                (hexVacOk,hexVacOkPortValue),
+                                                (hexVacOkLatch,hexVacOkLatchValue),
+                                                (hexVacLatchStatus, hexVacLatchStatusValue),
+                                                (hexVavBadLight,hexVavBadLightValue),
+
+                                                (cryVacOkPort, cryVacOkPortValue),
+                                                (cryVacOk, cryVacOkPortValue),
+                                                (cryVacOkLatch,cryVacOkLatchValue),
+                                                (cryVacLatchStatus,cryVacLatchStatusValue),
+                                                (cryVavBadLight,cryVavBadLightValue),
+
+
+                                                ( tmp0NotLow,tmp0NotLowValue ),
+                                                (tmp1NotLow,     tmp1NotLowValue ),
+                                                (tmp2NotLow,   tmp2NotLowValue),
+                                                (tmp3NotLow,       tmp3NotLowValue),
+
+                                                (tmp0NotHigh,       tmp0NotHighValue),
+                                                (tmp1NotHigh,    tmp1NotHighValue),
+                                                (tmp2NotHigh, tmp2NotHighValue),
+                                                (tmp3NotHigh, tmp3NotHighValue),
+
+                                                (tempNotHigh, tempNotHighValue),
+                                                #(tempHighFilter,   tempHighFilterValue),
+
+                                                #(tempHighOkLatch,  tempHighOkLatchValue),
+                                                #(tempHighOkLatchStatus,   tempHighOkLatchStatusValue),
+                                                #(hotLight,  hotLightValue),
+                                                #(hotLightPort,   hotLightPortValue),
+                                                #(heatPermit,   heatPermitValue),
+                                                #(heatPermitPort,   heatPermitPortValue),
+                                                #(heatPermitLockLight,   heatPermitLockLightValue),
+                                                #(heatPermitLockLightPort, heatPermitLockLightPortValue),
+
+                                                (tempNotLow, tempNotLowValue),
+                                                #(tempLowFilter,  tempLowFilterValue),
+                                                #(tempLowOkLatch,  tempLowOkLatchValue),
+                                                #(tempLowOkLatchStatus,  tempLowOkLatchStatusValue),
+                                                #(coldLight,  coldLightValue),
+                                                #(coldLightPort, coldLightPortValue),
+
+                                                (refPermit,  refPermitValue),
+                                                (refPermitPort, refPermitPortValue),
+                                                (refPermitLockLight, refPermitLockLightValue),
+                                                (refPermitLockLightPort, refPermitLockLightPortValue),
+
+
+                                                ], 2, compare)
+
+
+                                            # nothing should change during 9 seconds
+                                            self.checkDuring([(refPermitPort, 1),
+                                                              (refPermit,1,),
+                                                              (heatPermitPort,refPermitPortValue),
+                                                              (heatPermit,refPermitValue),
+                                                              ], 8)
+
+
+
+
+                                            self.pressChannels([resetTempHigh_w.press(), resetTempLow_w.press(), hexVacReset_w.press(), cryVacReset_w.press()])
+
+
+                                            self.checkChange([
+                                                (tmp0Port, tmp0PortValue),
+                                                (tmp1Port, tmp1PortValue),
+                                                (tmp2Port, tmp2PortValue),
+                                                (tmp3Port, tmp3PortValue),
+
+                                                (tmp0Current, tmp0PortValue),
+                                                (tmp1Current, tmp1PortValue),
+                                                (tmp2Current, tmp2PortValue),
+                                                (tmp3Current, tmp3PortValue),
+
+                                                (tmp0Temp, tmp0PortValue),
+                                                (tmp1Temp, tmp1PortValue),
+                                                (tmp2Temp, tmp2PortValue),
+                                                (tmp3Temp, tmp3PortValue),
+
+                                                (hexVacOkPort,hexVacOkPortValue),
+                                                (hexVacOk,hexVacOkPortValue),
+                                                (hexVacOkLatch,hexVacOkLatchValue),
+                                                (hexVacLatchStatus, hexVacLatchStatusValue),
+                                                (hexVavBadLight,hexVavBadLightValue),
+
+                                                (cryVacOkPort, cryVacOkPortValue),
+                                                (cryVacOk, cryVacOkPortValue),
+                                                (cryVacOkLatch,cryVacOkLatchValue),
+                                                (cryVacLatchStatus,cryVacLatchStatusValue),
+                                                (cryVavBadLight,cryVavBadLightValue),
+
+                                                (tmp0NotLow,tmp0NotLowValue ),
+                                                (tmp1NotLow,     tmp1NotLowValue ),
+                                                (tmp2NotLow,   tmp2NotLowValue),
+                                                (tmp3NotLow,       tmp3NotLowValue),
+
+                                                (tmp0NotHigh, tmp0NotHighValue),
+                                                (tmp1NotHigh, tmp1NotHighValue),
+                                                (tmp2NotHigh, tmp2NotHighValue),
+                                                (tmp3NotHigh, tmp3NotHighValue),
+
+                                                (tempNotHigh, tempNotHighValue),
+                                                (tempHighFilter,   tempHighFilterValue),
+
+                                                (tempHighOkLatch,  tempHighOkLatchValue),
+                                                (tempHighOkLatchStatus,   tempHighOkLatchStatusValue),
+                                                (hotLight,  hotLightValue),
+                                                (hotLightPort,   hotLightPortValue),
+                                                (heatPermit,   heatPermitValue),
+                                                (heatPermitPort,   heatPermitPortValue),
+                                                (heatPermitLockLight,   heatPermitLockLightValue),
+                                                (heatPermitLockLightPort, heatPermitLockLightPortValue),
+
+                                                (tempNotLow, tempNotLowValue),
+                                                (tempLowFilter,  tempLowFilterValue),
+                                                (tempLowOkLatch,  tempLowOkLatchValue),
+                                                (tempLowOkLatchStatus,  tempLowOkLatchStatusValue),
+                                                (coldLight,  coldLightValue),
+                                                (coldLightPort, coldLightPortValue),
+
+                                                (refPermit,  refPermitValue10),
+                                                (refPermitPort, refPermitPortValue10),
+                                                (refPermitLockLight, refPermitLockLightValue10),
+                                                (refPermitLockLightPort, refPermitLockLightPortValue10),
+
+
+                                                ], 2, compare)
+
+
+                                            resets=[]
+
+                                            if not hexVacOkPortValue:
+                                                hexVacOkPort.write(1)
+
+                                                self.checkChange([(hexVacOkPort, 1),
+                                                                  (hexVacOk, 1),
+
+                                                                    (hexVacOkLatch,0),
+                                                                    (hexVacLatchStatus, 2),
+                                                                    (hexVavBadLight,2),
+
+                                                                  ], 1, compare)
+                                                resets.append(hexVacReset_w.press())
+
+
+                                            if not cryVacOkPortValue:
+                                                cryVacOkPort.write(1)
+
+                                                self.checkChange([(cryVacOkPort, 1),
+                                                                  (cryVacOk, 1),
+
+                                                                    (cryVacOkLatch,0),
+                                                                    (cryVacLatchStatus, 2),
+                                                                    (cryVavBadLight,2),
+
+                                                                  ], 1, compare)
+                                                resets.append(cryVacReset_w.press())
+
+
+                                            if not tempNotHighValue:
+                                                changeTemps = []
+                                                if tmp0Port.read() > normalTemp:
+                                                    tmp0Port.write(normalTemp)
+                                                    changeTemps.append((tmp0Port,normalTemp))
+                                                    changeTemps.append((tmp0Current, ...))
+                                                    changeTemps.append((tmp0Temp, ...))
+                                                if tmp1Port.read() > normalTemp:
+                                                    tmp1Port.write(normalTemp)
+                                                    changeTemps.append((tmp1Port, normalTemp))
+                                                    changeTemps.append((tmp1Current, ...))
+                                                    changeTemps.append((tmp1Temp, ...))
+                                                if tmp2Port.read() > normalTemp:
+                                                    tmp2Port.write(normalTemp)
+                                                    changeTemps.append((tmp2Port, normalTemp))
+                                                    changeTemps.append((tmp2Current, ...))
+                                                    changeTemps.append((tmp2Temp, ...))
+                                                if tmp3Port.read() > normalTemp:
+                                                    tmp3Port.write(normalTemp)
+                                                    changeTemps.append((tmp3Port, normalTemp))
+                                                    changeTemps.append((tmp3Current, ...))
+                                                    changeTemps.append((tmp3Temp, ...))
+
+                                                self.checkChange(changeTemps +
+                                                                 [  (tmp0NotHigh, 1),
+                                                                    (tmp1NotHigh, 1),
+                                                                    (tmp2NotHigh, 1),
+                                                                    (tmp3NotHigh, 1),
+
+                                                                    (tempNotHigh, 1),
+
+                                                                    (tempHighFilter,0),
+                                                                    (tempHighOkLatch,0),
+                                                                    (tempHighOkLatchStatus,2),
+                                                                    (hotLight,2),
+                                                                    (hotLightPort,2),
+
+                                                                  ], 1, compare)
+                                                resets.append(resetTempHigh_w.press())
+
+                                            if not tempNotLowValue:
+                                                changeTemps = []
+                                                if tmp0Port.read() < normalTemp:
+                                                    tmp0Port.write(normalTemp)
+                                                    changeTemps.append((tmp0Port, normalTemp))
+                                                    changeTemps.append((tmp0Current, ...))
+                                                    changeTemps.append((tmp0Temp, ...))
+                                                if tmp1Port.read() < normalTemp:
+                                                    tmp1Port.write(normalTemp)
+                                                    changeTemps.append((tmp1Port, normalTemp))
+                                                    changeTemps.append((tmp1Current, ...))
+                                                    changeTemps.append((tmp1Temp, ...))
+                                                if tmp2Port.read() < normalTemp:
+                                                    tmp2Port.write(normalTemp)
+                                                    changeTemps.append((tmp2Port, normalTemp))
+                                                    changeTemps.append((tmp2Current, ...))
+                                                    changeTemps.append((tmp2Temp, ...))
+                                                if tmp3Port.read() < normalTemp:
+                                                    tmp3Port.write(normalTemp)
+                                                    changeTemps.append((tmp3Port, normalTemp))
+                                                    changeTemps.append((tmp3Current, ...))
+                                                    changeTemps.append((tmp3Temp, ...))
+
+                                                self.checkChange(changeTemps +
+                                                                 [(tmp0NotLow, 1),
+                                                                  (tmp1NotLow, 1),
+                                                                  (tmp2NotLow, 1),
+                                                                  (tmp3NotLow, 1),
+
+                                                                  (tempNotLow, 1),
+
+                                                                  (tempLowFilter, 0),
+                                                                  (tempLowOkLatch, 0),
+                                                                  (tempLowOkLatchStatus, 2),
+                                                                  (coldLight, 2),
+                                                                  (coldLightPort, 2),
+
+                                                                  ], 1, compare)
+                                                resets.append(resetTempLow_w.press())
+
+
+                                            if len(resets)>0:
+                                                if resetMode == "hard":
+                                                    masterResetPort.press()
+                                                else:
+                                                    self.pressChannels(resets)
+
+                                            self.checkDefault()
+
+
+
+
+                self.step("Cryo Plate permits logic correct.")
+                return True
+
+            except ValueError as e:
+                print (n)
+                self.step("Cryo Plate permits logic failed! Failed at %s. Error: %s "%(self.step_m,str(e)))
+                return False
+
 
 
 '''class TestCoolantValve(Test):
