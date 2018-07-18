@@ -2,20 +2,29 @@ import socket
 from umodbus.client import tcp
 from utils import set_bit,get_bit
 import time
-from mapping_parser import import_mappings
-
-
-plutoGateway_ip = "192.168.1.101"
-plutoGateway_port = 502
+import json
+from os import path
 
 
 class PlutoGateway:
-    def __init__(self,tester):
+    def __init__(self,tester,channels_dict):
+
+        with open(path.join(path.dirname(path.realpath(__file__)),"ip_config.json"),'r') as f:
+            configs = json.loads(f.read())
+            plutoGateway_ip= configs["plutoGateway_ip"]
+            plutoGateway_port=configs["plutoGateway_port"]
+            testBox_ip=configs["testBox_ip"]
+            testBox_port=configs["testBox_port"]
+
+        print("plutoGateway:",plutoGateway_ip,plutoGateway_port)
+        print("testBox:",testBox_ip,testBox_port)
+
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect((plutoGateway_ip, plutoGateway_port))
         self.dict = None
 
-        testBox, self.dict = import_mappings()
+
+        self.dict = channels_dict
 
         self.channels=[]
 
@@ -57,21 +66,21 @@ class PlutoGateway:
     def read_ch(self,ch):
         dict = self.dict
         if dict[ch]["bit"] != None:
-            return self.read_bit(dict[ch]["unitId"],dict[ch]["addr"],dict[ch]["bit"])
+            return self.read_bit(dict[ch]["unit_id"],dict[ch]["addr"],dict[ch]["bit"])
         else:
-            return self.read_holding_registers(dict[ch]["unitId"],dict[ch]["addr"],1)[0]
+            return self.read_holding_registers(dict[ch]["unit_id"],dict[ch]["addr"],1)[0]
 
     def write_ch(self,ch,val):
         dict = self.dict
         if dict[ch]["bit"] != None:
 
-            while (self.read_bit(dict[ch]["unitId"],dict[ch]["addr"],dict[ch]["bit"])!=val):
-                self.write_bit(dict[ch]["unitId"], dict[ch]["addr"], dict[ch]["bit"], val)
+            while (self.read_bit(dict[ch]["unit_id"],dict[ch]["addr"],dict[ch]["bit"])!=val):
+                self.write_bit(dict[ch]["unit_id"], dict[ch]["addr"], dict[ch]["bit"], val)
                 time.sleep(0.001)
 
         else:
-            while self.read_holding_registers(dict[ch]["unitId"],dict[ch]["addr"])!=val:
-                self.write_single_register(dict[ch]["unitId"],dict[ch]["addr"],val)[0]
+            while self.read_holding_registers(dict[ch]["unit_id"],dict[ch]["addr"])!=val:
+                self.write_single_register(dict[ch]["unit_id"],dict[ch]["addr"],val)[0]
                 time.sleep(0.001)
 
     def press_ch(self,ch):

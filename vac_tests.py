@@ -1,6 +1,4 @@
 from tester import Test
-from pluto_gateway import PlutoGateway
-from test_box import TestBox
 import random
 import time
 
@@ -17,52 +15,6 @@ class TestTemplate(Test):
             self.step("Failure message.")
             return False
         self.step("Success message")
-        return True
-
-
-class TestPlutoConnect (Test):
-    def __init__(self,tester,id):
-        Test.__init__(self,tester,id)
-        self.name = "TestPlutoConnect"
-        self.desc = "Connect to Pluto Gateway: 192.168.1.100:502"
-
-    def test(self):
-        try:
-            self.step("Trying to connect to Pluto Gateway.")
-            self.tester.plutoGateway = PlutoGateway(self.tester)
-            for ch in self.tester.plutoGateway.channels:
-                self.log(str(ch.read()))
-
-        except Exception as e:
-            self.step("Can't connect to Pluto Gateway :: "+str(e))
-            return False
-
-        self.step("Successfully connected to Pluto Gateway")
-        return True
-
-
-class TestTestBoxConnect(Test):
-    def __init__(self, tester, id):
-        Test.__init__(self, tester, id)
-        self.name = "TestTestBoxConnect"
-        self.desc = "Connect to Test Box: 192.168.1.101:502"
-
-    def test(self):
-        try:
-            self.step("Trying to connect to Test Box.")
-            self.tester.testBox = TestBox(self.tester)
-
-            for ch in self.tester.testBox.plc.channels:
-                self.log(str(ch.read()))
-
-            for ch in self.tester.testBox.cam.channels:
-                self.log(str(ch.read()))
-
-        except Exception as e:
-            self.step("Can't connect to Test Box :: " + str(e))
-            return False
-
-        self.step("Successfully connected to Test Box")
         return True
 
 
@@ -126,12 +78,10 @@ class TestChannelsBootDefault(Test):
             if ch.boot_value != "":
                 chs.append((ch, ch.boot_value))
 
-        try:
-            if self.checkChannels(chs):
-                self.step("Boot default values Ok.")
-                return True
-        except:
-            pass
+
+        if self.checkChannels(chs):
+            self.step("Boot default values Ok.")
+            return True
 
         self.step("Boot values do not match defaults.")
         return False
@@ -155,16 +105,16 @@ class TestPlutoWriteReadback(Test):
                 ch_rbv = ch.replace("_w","")
                 sleep=0.1
 
-                self.step("Testing %s (%s) and %s (%s)."%(ch,"%d:%d.%d"%(plutoGateway[ch]["unitId"],plutoGateway[ch]["addr"],plutoGateway[ch]["bit"]),ch_rbv,"%d:%d.%d"%(plutoGateway[ch_rbv]["unitId"],plutoGateway[ch_rbv]["addr"],plutoGateway[ch_rbv]["bit"])))
+                self.step("Testing %s (%s) and %s (%s)."%(ch,"%d:%d.%d"%(plutoGateway[ch]["unit_id"],plutoGateway[ch]["addr"],plutoGateway[ch]["bit"]),ch_rbv,"%d:%d.%d"%(plutoGateway[ch_rbv]["unit_id"],plutoGateway[ch_rbv]["addr"],plutoGateway[ch_rbv]["bit"])))
 
 
                 original_write = self.tester.plutoGateway.read_ch(ch)
                 read = self.tester.plutoGateway.read_ch( ch_rbv)
                 if original_write != read:
                     self.step("Failed on %s (%s) and %s (%s)." % (
-                    ch, "%d:%d.%d" % (plutoGateway[ch]["unitId"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
+                    ch, "%d:%d.%d" % (plutoGateway[ch]["unit_id"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
                     ch_rbv, "%d:%d.%d" % (
-                    plutoGateway[ch_rbv]["unitId"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
+                    plutoGateway[ch_rbv]["unit_id"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
                     return False
 
                 write = 1
@@ -173,9 +123,9 @@ class TestPlutoWriteReadback(Test):
                 read = self.tester.plutoGateway.read_ch( ch_rbv)
                 if write != read:
                     self.step("Failed on %s (%s) and %s (%s)." % (
-                    ch, "%d:%d.%d" % (plutoGateway[ch]["unitId"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
+                    ch, "%d:%d.%d" % (plutoGateway[ch]["unit_id"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
                     ch_rbv, "%d:%d.%d" % (
-                    plutoGateway[ch_rbv]["unitId"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
+                    plutoGateway[ch_rbv]["unit_id"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
                     return False
 
                 write = 0
@@ -184,9 +134,9 @@ class TestPlutoWriteReadback(Test):
                 read = self.tester.plutoGateway.read_ch( ch_rbv)
                 if write != read:
                     self.step("Failed on %s (%s) and %s (%s)." % (
-                    ch, "%d:%d.%d" % (plutoGateway[ch]["unitId"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
+                    ch, "%d:%d.%d" % (plutoGateway[ch]["unit_id"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
                     ch_rbv, "%d:%d.%d" % (
-                    plutoGateway[ch_rbv]["unitId"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
+                    plutoGateway[ch_rbv]["unit_id"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
                     return False
 
                 write = 1
@@ -195,9 +145,9 @@ class TestPlutoWriteReadback(Test):
                 read = self.tester.plutoGateway.read_ch( ch_rbv)
                 if write != read:
                     self.step("Failed on %s (%s) and %s (%s)." % (
-                    ch, "%d:%d.%d" % (plutoGateway[ch]["unitId"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
+                    ch, "%d:%d.%d" % (plutoGateway[ch]["unit_id"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
                     ch_rbv, "%d:%d.%d" % (
-                    plutoGateway[ch_rbv]["unitId"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
+                    plutoGateway[ch_rbv]["unit_id"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
                     return False
 
                 write = original_write
@@ -206,9 +156,9 @@ class TestPlutoWriteReadback(Test):
                 read = self.tester.plutoGateway.read_ch( ch_rbv)
                 if write != read:
                     self.step("Failed on %s (%s) and %s (%s)." % (
-                    ch, "%d:%d.%d" % (plutoGateway[ch]["unitId"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
+                    ch, "%d:%d.%d" % (plutoGateway[ch]["unit_id"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
                     ch_rbv, "%d:%d.%d" % (
-                    plutoGateway[ch_rbv]["unitId"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
+                    plutoGateway[ch_rbv]["unit_id"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
                     return False
 
 
@@ -340,8 +290,6 @@ class TestAnalogScaling(Test):
             y = test[port]["channel_scaled_array"]
             x = test[port]["channel_voltage_array"]
             values = stats.linregress(x, y)
-
-            print(values)
 
             if values.rvalue < 0.99:
                 self.step("R-square too high on %s" % port)
@@ -1213,29 +1161,17 @@ class TestCvTurboPermitAuto(Test):
                                                 if n<0:
                                                     continue
 
-                                                #time.sleep(.1)
-
-
-                           #                     input()
-                                                #time.sleep(.1)
-                                                #self.checkDefault()
-
-
 
                                                 turboPumpPermitValue = turboPressurePortValue<0.22 and not turboPressureNotValidPortValue
-                                                print (".....",turboPumpPermitValue)
 
                                                 if (turboPumpPortValue > 5 or turboPumpNotValidPortValue) and (mksPortValue == 0):
                                                     turboPumpPermitValue = 0
                                                     vccNotForcedCloseLatchValue = 0
-                                                    print(">>>>>>>>>>>>", turboPumpPermitValue,turboPumpPortValue > 5,(turboPumpPortValue > 5 or turboPumpNotValidPortValue, mksPortValue == 0),)
 
                                                 else:
                                                     vccNotForcedCloseLatchValue = 1
 
                                                 vccNotForcedCloseLatchStatusValue = int(not bool(vccNotForcedCloseLatchValue))
-
-
 
 
                                                 turboPumpPermitPortValue = turboPumpPermitValue
@@ -1244,9 +1180,6 @@ class TestCvTurboPermitAuto(Test):
 
                                                 vccAllowedOpenLatchValue = (turboPumpPortValue > 5 and not turboPumpNotValidPortValue and CV01PortValue) or (turboPumpPortValue <1 and not turboPumpNotValidPortValue and not turboPressureNotValidPortValue and not interlockPressureNotValidPortValue and abs(turboPressurePortValue-interlockPressurePortValue)<0.22)
                                                 vccAllowedOpenLatchStatusValue = int(not bool(vccAllowedOpenLatchValue))
-
-
-
 
 
                                                 ##################
@@ -1325,8 +1258,6 @@ class TestCvTurboPermitAuto(Test):
 
 
                                                                   ],                                                     1,compare)
-
-                                                print("\n\n///////////////////////\n\n",vccAllowedOpenLatchValue,vccNotForcedCloseLatchValue,turboPumpPermitPortValue)
 
 
                                                 #can always close
@@ -1417,8 +1348,6 @@ class TestCvTurboPermitAuto(Test):
 
                                                 self.checkChange(change1, 1)
 
-                                                print("\n\n222 ///////////////////////\n\n")
-
                                                 self.pressChannels(press)
 
 
@@ -1442,7 +1371,6 @@ class TestCvTurboPermitAuto(Test):
                 return True
 
             except ValueError as e:
-                print (n)
                 self.step("HvTurboPump permit logic failed! Failed at %s. Error: %s "%(self.step_m,str(e)))
                 return False
 
@@ -1551,22 +1479,11 @@ class TestHvTurboPermitAuto(Test):
                                                 if n<0:
                                                     continue
 
-                                                #time.sleep(.1)
-
-
-                           #                     input()
-                                                #time.sleep(.1)
-                                                #self.checkDefault()
-
-
-
                                                 turboPumpPermitValue = turboPressurePortValue<0.22 and not turboPressureNotValidPortValue
-                                                print (".....",turboPumpPermitValue)
 
                                                 if (turboPumpPortValue > 5 or turboPumpNotValidPortValue) and (mksPortValue == 0):
                                                     turboPumpPermitValue = 0
                                                     vccNotForcedCloseLatchValue = 0
-                                                    print(">>>>>>>>>>>>", turboPumpPermitValue,turboPumpPortValue > 5,(turboPumpPortValue > 5 or turboPumpNotValidPortValue, mksPortValue == 0),)
 
                                                 else:
                                                     vccNotForcedCloseLatchValue = 1
@@ -1664,8 +1581,6 @@ class TestHvTurboPermitAuto(Test):
 
                                                                   ],                                                     1,compare)
 
-                                                print("\n\n///////////////////////\n\n",vccAllowedOpenLatchValue,vccNotForcedCloseLatchValue,turboPumpPermitPortValue)
-
 
                                                 #can always close
                                                 vccClose_w.press()
@@ -1755,8 +1670,6 @@ class TestHvTurboPermitAuto(Test):
 
                                                 self.checkChange(change1, 1)
 
-                                                print("\n\n222 ///////////////////////\n\n")
-
                                                 self.pressChannels(press)
 
 
@@ -1780,7 +1693,6 @@ class TestHvTurboPermitAuto(Test):
                 return True
 
             except ValueError as e:
-                print (n)
                 self.step("TestHvTurboPermitAuto permit logic failed! Failed at %s. Error: %s "%(self.step_m,str(e)))
                 return False
 

@@ -2,15 +2,14 @@ from pydm.PyQt.QtCore import *
 from pluto_gateway import PlutoGateway
 from test_box import TestBox
 import time
-
-
+import logging
 
 class Tester(QThread):
 
     test_line_update = pyqtSignal(int)
     monitor_update = pyqtSignal(str,str,float,str,int,str)
 
-    def __init__(self):
+    def __init__(self,testBox_chs , plutoGateway_chs):
         QThread.__init__(self)
 
         self.tests = []
@@ -28,35 +27,23 @@ class Tester(QThread):
 
         self.plutoGateway = None
         self.testBox = None
-
         self.running_tests = []
 
+        self.plutoGateway_chs= plutoGateway_chs
+        self.testBox_chs = testBox_chs
 
-        self.plutoGateway = PlutoGateway(self)
-        self.testBox = TestBox(self)
+        self.plutoGateway = PlutoGateway(self,self.plutoGateway_chs)
+        self.testBox = TestBox(self,self.testBox_chs)
 
-
-        self.always = False
-
-
+        self.logger = logging.getLogger("tester")
 
 
     def run_all(self):
-        #self.always = True
         if not self.isRunning():
             self.clean_display()
             self.running_tests = self.tests
             self.start()
 
-    def run_selected(self):
-        if not self.isRunning():
-            self.clean_display()
-            selected_tests = []
-            for test in self.tests:
-                if test.selected == 2:
-                    selected_tests.append(test)
-            self.running_tests = selected_tests
-            self.start()
 
     def abort(self):
         self.abortion = True
@@ -74,6 +61,8 @@ class Tester(QThread):
             self.result_bar_message = "Aborted."
             self.update_menu()
 
+            self.logger.warning("aborted by the user")
+
         self.reconnect()
 
     def clean_display(self):
@@ -81,6 +70,7 @@ class Tester(QThread):
             test.result = ""
             test.details = ""
             self.update_test_line(test.id)
+
 
     def update_test_line(self,id):
         self.test_line_update.emit(id)
@@ -90,18 +80,13 @@ class Tester(QThread):
 
     def reconnect(self,timeout=15):
 
-        #start = time.time()
-        #while time.time() - start < timeout:
-        #    try:
         if self.plutoGateway is not None:
             self.plutoGateway.close()
 
-
         self.plutoGateway = None
+        self.plutoGateway = PlutoGateway(self,self.plutoGateway_chs)
+        self.logger.warning("Reconnected to Pluto Gateway")
 
-        self.plutoGateway = PlutoGateway(self)
-          #  except:
-          #      pass
 
         start = time.time()
         while time.time() - start < timeout:
@@ -110,7 +95,8 @@ class Tester(QThread):
                     self.testBox.close()
 
                 self.testBox = None
-                self.testBox = TestBox(self)
+                self.testBox = TestBox(self, self.testBox_chs)
+                self.logger.warning("Reconnected to Testbox")
                 break
             except:
                 self.sleep(1)
@@ -133,13 +119,16 @@ class Tester(QThread):
 
             results = []
 
+            for test in self.running_tests:
+                self.logger.info('>>>>>>>>>>> Will run ' + str(test.name))
+
+
             for n, test in enumerate(self.running_tests):
 
-
-
-               # self.reconnect()
-
                 self.current_test_obj = test
+
+                self.logger.info('>>>>>>> Running '+str(self.current_test_obj.name))
+                self.logger.info ('>>>>>>>>>>>>. '+str(self.current_test_obj.desc))
 
                 test.run()
                 self.progress_bar = (n + 1) / float(self.n_tests)
@@ -149,8 +138,12 @@ class Tester(QThread):
 
                 if test.result == "OK":
                     results.append(True)
+                    self.logger.info('>>>>>>> ' + str(self.current_test_obj.name)+' passed!')
                 else:
                     results.append(False)
+                    self.logger.error('>>>>>>> ' + str(self.current_test_obj.name) + ' failed!')
+
+                print(n)
 
                 self.sleep(0.2)
 
@@ -158,13 +151,13 @@ class Tester(QThread):
             self.current_test_message = ""
             if all(results):
                 self.result_bar_message = "Finished."
+                self.logger.info('>>>>>>> Finished with success!')
             else:
                 self.result_bar_message = "Failed."
+                self.logger.error('>>>>>>> Tests Failed!')
             self.update_menu()
 
-            #if not self.always:
-            #break
-            self.clean_display()
+            break
 
     def log(self,log):
         self.current_test_obj.log(log)
@@ -186,6 +179,8 @@ class Test:
 
         self.id = id
 
+        self.logger = logging.getLogger(self.name)
+
     def update(self):
         self.tester.current_test = str(self.id+1) + "- " + self.name
         self.tester.current_test_message = self.details
@@ -202,7 +197,6 @@ class Test:
         except Exception as e:
             result = 2
             self.details = str(e)
-            print (e)
 
         if result == False:
             self.result = "FAILED"
@@ -210,8 +204,8 @@ class Test:
             self.result = "OK"
         elif result == 2:
             self.result = "error"
-        self.running = 0
 
+        self.running = 0
         self.update()
 
     def abort(self):
@@ -233,15 +227,24 @@ class Test:
             if self.abortion:
                 break
 
-    def log(self,log):
+    def log(self,log,error=False):
         self.details = log
         self.update()
-        print(log)
+        if error:
+            self.logger.error(log)
+        else:
+            self.logger.info(log)
 
-    def step(self,step):
+        #print(log)
+
+    def step(self,step,error=False):
         self.step_m = step
         self.update()
-        print("-----> "+str(step))
+        if error:
+            self.logger.error("-----> "+str(step))
+        else:
+            self.logger.info("-----> "+str(step))
+        #print("-----> "+str(step))
 
     def set_run_button(self,button):
         self.run_button = button
@@ -253,7 +256,6 @@ class Test:
             self.tester.start()
 
     def readChannels(self, chs):
-  #      self.log("Reading channels")
         results = []
         digitalBlink = []
 
@@ -263,7 +265,6 @@ class Test:
             else:
                 results.append((ch, ch.read()))
 
-#        self.log("Reading DigitalBlink channels")
         blinks = self.readDigitalBlinks(digitalBlink)
         for i, ch in enumerate(digitalBlink):
             results.append((ch, blinks[i]))
@@ -284,8 +285,6 @@ class Test:
                         one[i] += 1
                   else:
                         zero[i] += 1
-                #if sum(zero)+sum(one) > len(chs)*2*2:
-                #    break
 
             for i,v in enumerate(zero):
                 if zero[i] > 2 and one[i] > 2:
@@ -297,38 +296,46 @@ class Test:
             return results
 
     def readAllChannels(self):
+        self.log("Reading all channels")
         chs = self.tester.testBox.plc.channels + self.tester.plutoGateway.channels
         return self.readChannels(chs)
-
-    def readPermitChannels(self):
-        chs = self.tester.testBox.plc.channels + self.tester.plutoGateway.channels
-        return self.readChannels(chs)
-
 
 
     def checkChannels(self,channelsValues,checkBlinks = True):
+
         digitalBlink = []
         for chV in channelsValues:
             if chV[1] is not  None:
                 if chV[0].type == "DigitalBlink":
                     digitalBlink.append(chV)
                 else:
+                    self.log("Checking channel %s. Expected %s"%(str(chV[0].ch),str(chV[1])))
                     if not chV[0].checkValue(chV[1]):
-                        raise ValueError("Do not match. %s should be %s. It is %s"%(chV[0].ch,str(chV[1]),str(chV[0].read())))
+                        error = "Do not match. %s should be %s. It is %s"%(chV[0].ch,str(chV[1]),str(chV[0].read()))
+                        self.log (error,True)
+                        raise ValueError(error)
 
         if checkBlinks:
-            if not self.checkDigitalBlinks(digitalBlink):
-                raise ValueError("Blinks do not match ")
+            self.checkDigitalBlinks(digitalBlink)
 
         return True
 
-    def checkDigitalBlinks(self,channelsValues,timeout=0.5):
+    def checkDigitalBlinks(self,channelsValues,timeout=0.8):
             vals = []
             chs = []
             for chV in channelsValues:
                 vals.append(int(chV[1]))
                 chs.append(chV[0])
-            return vals == self.readDigitalBlinks(chs,timeout)
+            results = self.readDigitalBlinks(chs,timeout)
+            if vals == results:
+                return  True
+            else:
+                string="Blinks do not match: "
+                for n in range(len(vals)):
+                    if vals[n] != results[n]:
+                        string = string + ("%s is %d (should be %d);  "%(str(chs[n].ch),results[n],vals[n]))
+                self.log(string,True)
+                raise ValueError(string)
 
 
     def checkDefault(self):
@@ -347,7 +354,7 @@ class Test:
             return True
         except ValueError as e:
             error = "Normal operation values not found. :: " + str(e)
-            self.log(error)
+            self.log(error,True)
             raise ValueError(error)
 
 
@@ -364,7 +371,7 @@ class Test:
                     try:
                         ch.write(float(ch.default_value))
                     except ValueError:
-                        self.log("Can't write to testBox.plc " + ch.ch)
+                        self.log("Can't write to testBox.plc " + ch.ch,True)
                         raise ValueError("Can't write to " + ch.ch)
 
             for ch in self.tester.plutoGateway.channels:
@@ -372,10 +379,9 @@ class Test:
                     try:
                         ch.write(int(ch.default_value))
                     except ValueError:
-                        self.log("Can't write to plutoGateway " + ch.ch)
+                        self.log("Can't write to plutoGateway " + ch.ch,True)
                         raise ValueError("Can't write to " + ch.ch)
                 elif str(ch.default_value) == "P":
-                    #ch.press()
                     press_chs.append(ch)
 
             self.sleep(0.2)
@@ -402,7 +408,7 @@ class Test:
                 read = ch[0].read()
                 if read != ch[1]:
                     error = "A channel not suposed to change changed its value. :: %s in %s, not %s."%(ch[0].ch,read, ch[1])
-                    self.log(error)
+                    self.log(error,True)
                     raise ValueError(error)
 
         return True
@@ -427,12 +433,16 @@ class Test:
                 self.checkChannels(channelsValues)
             except ValueError as e:
                 error = "A value expected to change did not change. ::" + str(e)
-                self.log(error)
+                self.log(error,True)
                 raise ValueError(error)
 
         else:
             if compare is not None:
-                self.log ("Check if any other channel has changed.")
+                channels = ''
+                for chV in compare:
+                    channels +="%s,"%chV[0].ch
+
+                self.log ("Check if any other channel has changed.(%s)"%channels)
                 chs = []
                 for chV in compare:
                     scan = True
@@ -446,7 +456,7 @@ class Test:
                     self.log("No other channel has changed.")
                 except ValueError as e:
                     error = "A value not supposed to change changed. :: "+ str(e)
-                    self.log(error)
+                    self.log(error,True)
                     raise ValueError(error)
 
             self.log("Channels changed as expected.")
@@ -457,6 +467,7 @@ class Test:
 
         for chV in chVs:
             try:
+                self.log("Writing %s to %s"%(str(chV[1]),str(chV[0])))
                 chV[0].write(chV[1])
             except:
                 pass

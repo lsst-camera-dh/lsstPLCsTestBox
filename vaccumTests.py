@@ -2,53 +2,53 @@ from os import path
 from pydm import Display
 from pydm.PyQt.QtCore import *
 from pydm.PyQt.QtGui import *
-
-#from tester import Tester
 import tester
-
-import importlib
-
-
-import os
-
-
-
-
-maq20_ip = "192.168.1.101"
-maq20_port = 502
+import vac_tests
+from mapping_parser import import_mappings
+import logging
 
 class VaccumTests(Display):
     def __init__(self, parent=None, args=None, macros=None):
         super(VaccumTests, self).__init__(parent=parent, macros=macros)
 
-        self.vac_tester = tester.Tester()
+        #logging.basicConfig(filename=path.join(path.dirname(path.realpath(__file__)), "logs",'vaccumTests.log'), level=logging.DEBUG)
+        logging.basicConfig(filename='C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\logs\\vaccumTests2.log',
+                            level=logging.DEBUG)
+        logging.debug('This message should go to the log file')
+        logging.info('So should this')
+        logging.warning('And this, too')
+        print(path.join(path.dirname(path.realpath(__file__)), "logs",'vaccumTests.log'))
 
-        import vac_tests
+        plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "vac_modbus_mapping.csv")
+        testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "vac_testbox_mapping.csv")
+        testbox , plutoGateway = import_mappings(plutoGateway_mapping_path, testbox_mapping_path)
 
-        self.vac_tester.tests.append(vac_tests.TestPlutoGatewayConfig(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestPlutoPLCsPresent(self, -1))
-
-        self.vac_tester.tests.append(vac_tests.TestChannelsBootDefault(self, -1))
+        self.vac_tester = tester.Tester(testbox , plutoGateway)
 
 
-        self.vac_tester.tests.append(vac_tests.TestPlutoWriteReadback(self, -1))
+        self.vac_tester.tests.append(vac_tests.TestPlutoGatewayConfig(self.vac_tester, -1))
+        self.vac_tester.tests.append(vac_tests.TestPlutoPLCsPresent(self.vac_tester, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestAnalogScaling(self, -1))
+        self.vac_tester.tests.append(vac_tests.TestChannelsBootDefault(self.vac_tester, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestHvCvDifferences(self, -1))
+        self.vac_tester.tests.append(vac_tests.TestPlutoWriteReadback(self.vac_tester, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestCvValves(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestValveMonitors(self, -1))
+        self.vac_tester.tests.append(vac_tests.TestAnalogScaling(self.vac_tester, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestHvStat(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestHvTurboOnOfflogic(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestHvTurboPermitBlock(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestHvTurboPermitAuto(self, -1))
+        self.vac_tester.tests.append(vac_tests.TestHvCvDifferences(self.vac_tester, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestCvStat(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestCvTurboOnOfflogic(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestCvTurboPermitBlock(self, -1))
-        self.vac_tester.tests.append(vac_tests.TestCvTurboPermitAuto(self, -1))
+        self.vac_tester.tests.append(vac_tests.TestCvValves(self.vac_tester, -1))
+        self.vac_tester.tests.append(vac_tests.TestValveMonitors(self.vac_tester, -1))
+
+        self.vac_tester.tests.append(vac_tests.TestHvStat(self.vac_tester, -1))
+        self.vac_tester.tests.append(vac_tests.TestHvTurboOnOfflogic(self.vac_tester, -1))
+        self.vac_tester.tests.append(vac_tests.TestHvTurboPermitBlock(self.vac_tester, -1))
+        self.vac_tester.tests.append(vac_tests.TestHvTurboPermitAuto(self.vac_tester, -1))
+
+        self.vac_tester.tests.append(vac_tests.TestCvStat(self.vac_tester, -1))
+        self.vac_tester.tests.append(vac_tests.TestCvTurboOnOfflogic(self.vac_tester, -1))
+        self.vac_tester.tests.append(vac_tests.TestCvTurboPermitBlock(self.vac_tester, -1))
+        self.vac_tester.tests.append(vac_tests.TestCvTurboPermitAuto(self.vac_tester, -1))
 
 
         for i, test in enumerate( self.vac_tester.tests):
@@ -81,23 +81,7 @@ class VaccumTests(Display):
         self.vac_tester.monitor_update.connect(self.update_monitor_menu)
 
         self.ui.runAllButton.clicked.connect(self.vac_tester.run_all)
-        #self.ui.runSelectedButton.clicked.connect(self.vac_tester.run_selected)
         self.ui.abortButton.clicked.connect(self.vac_tester.abort)
-
-
-
-   # def resizeEvent(self, event):
-   #     print("resize")
-
-    #    original =  self.ui.tableWidget.width()
-    #    self.ui.tableWidget.setColumnWidth(0,original/5)
-
-        #self.QMainWindow.resizeEvent(self, event)
-
-
-       # os.system("python C:\\Users\\joaoprod\\AppData\\Local\\Continuum\\anaconda3\\envs\\lsstProtection\\Lib\\site-packages\\pydm_launcher\\main.py C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\vaccumMonitor.py")
-
-
 
 
     def item_changed(self,item):
@@ -107,16 +91,10 @@ class VaccumTests(Display):
 
     def update_table_line(self,i):
 
+
         test = self.vac_tester.tests[i]
 
         name = QTableWidgetItem(test.name)
-
-    #    print(test.selected)
-
-     #   if test.selected:
-     #       name.setCheckState(Qt.Checked)
-     #   else:
-     #       name.setCheckState(Qt.Unchecked)
 
         self.table.setItem(i, 0, name)
 
@@ -166,9 +144,6 @@ class VaccumTests(Display):
         bar = self.ui.progressBar
         p = bar.palette()
         p.setColor(QPalette.Highlight, Qt.red);
-        #self.ui.progressBar.setStyleSheet("QProgressBar::chunk {background-color: lightblue;}")
-
-
 
         self.ui.progressCount.setText(progress_count)
         self.ui.currentTest.setText(current_test)

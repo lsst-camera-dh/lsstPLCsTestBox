@@ -1,4 +1,4 @@
-permissions,type,unitId,addr,bit,name,type,related,default_value,boot_value
+permissions,mb_type,unit_id,addr,bit,name,type,related,default_value,boot_value
 R,HR,36,67,,HVTurboVoltage,Analog,IA0,20,22
 R,HR,36,68,,HVTurboPressure,Analog,IA0,20,22
 R,HR,36,,,,,,,
@@ -98,6 +98,20 @@ R,HR,36,102,4,CV01,Digital,I35,1,0
 R,HR,36,102,5,CV001,Digital,I36,1,0
 R,HR,36,102,6,HV01,Digital,I37,1,0
 R,HR,36,102,7,HV001,Digital,I40,1,0
+,,,,,,,,,
+R,HR,36,104,0,CVInterlockHighLatchNeedsReset,Digital,,0,1
+R,HR,36,104,1,MainVcrVccNotForcedCloseLatchNeedsReset,Digital,,0,1
+R,HR,36,104,2,MainVcrVccAllowedOpenLatchNeedsReset,Digital,,0,1
+R,HR,36,104,3,VcrPumpPermLatchNeedsReset,Digital,,0,1
+R,HR,36,104,4,HVInterlockHighLatchNeedsReset,Digital,,0,1
+R,HR,36,104,5,MainVhxVccNotForcedCloseLatchNeedsReset,Digital,,0,1
+R,HR,36,104,6,MainVhxVccAllowedOpenLatchNeedsReset,Digital,,0,1
+R,HR,36,104,7,VhxPumpPermLatchNeedsReset,Digital,,0,1
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
 RW,HR,1,2,0,HVStatLatchReset_w,Digital,Q1,P,0
 RW,HR,1,2,1,CVStatLatchReset_w,Digital,Q0,P,0
 RW,HR,1,2,2,CloseMainVhxVcc_w,Digital,Q3,P,0

@@ -1,18 +1,28 @@
 from maq20 import MAQ20
 import time
-from mapping_parser import import_mappings
-
-
-testBox_ip = "192.168.1.100"
-testBox_port = 502
+import json
+from os import path
 
 
 class TestBox:
-    def __init__(self,tester):
+    def __init__(self,tester,channels_dict):
+        with open(path.join(path.dirname(path.realpath(__file__)),"ip_config.json"),'r') as f:
+            configs = json.loads(f.read())
+            plutoGateway_ip= configs["plutoGateway_ip"]
+            plutoGateway_port=configs["plutoGateway_port"]
+            testBox_ip=configs["testBox_ip"]
+            testBox_port=configs["testBox_port"]
+
+        print("plutoGateway:",plutoGateway_ip,plutoGateway_port)
+        print("testBox:",testBox_ip,testBox_port)
+
         self.system = MAQ20(ip_address=testBox_ip, port=testBox_port)
         self.dict = None
 
-        self.dict, plutoGateway = import_mappings()
+
+        self.dict = channels_dict
+
+
 
         self.plc = Object()
         self.plc.channels=[]

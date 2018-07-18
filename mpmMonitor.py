@@ -1,20 +1,27 @@
 from os import path
 from pydm import Display
 from mapping_parser import *
+import json
 
-plutoGateway_ip = "192.168.1.101"
-plutoGateway_port = 502
-testBox_ip = "192.168.1.100"
-testBox_port = 502
 
 class VaccumMonitor(Display):
     def __init__(self, parent=None, args=None, macros=None):
         super(VaccumMonitor, self).__init__(parent=parent, macros=macros)
 
-        modbus_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "mpm_modbus_mapping.csv")
+        with open(path.join(path.dirname(path.realpath(__file__)),"ip_config.json"),'r') as f:
+            configs = json.loads(f.read())
+        plutoGateway_ip= configs["plutoGateway_ip"]
+        plutoGateway_port=configs["plutoGateway_port"]
+        testBox_ip=configs["testBox_ip"]
+        testBox_port=configs["testBox_port"]
+
+        print("plutoGateway:",plutoGateway_ip,plutoGateway_port)
+        print("testBox:",testBox_ip,testBox_port)
+
+        plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "mpm_modbus_mapping.csv")
         testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "mpm_testbox_mapping.csv")
 
-        self.testBox, self.plutoGateway = import_mappings(modbus_mapping_path,testbox_mapping_path)
+        self.testBox, self.plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path)
 
         for widget in dir(self.ui):
             if "channel" in dir(getattr(self.ui,widget)):

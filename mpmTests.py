@@ -3,20 +3,23 @@ from pydm import Display
 from pydm.PyQt.QtCore import *
 from pydm.PyQt.QtGui import *
 import tester
-
-
-
+import mpm_tests
+from mapping_parser import import_mappings
+import logging
 
 class MpmTests(Display):
     def __init__(self, parent=None, args=None, macros=None):
         super(MpmTests, self).__init__(parent=parent, macros=macros)
 
-        self.mpm_tester = tester.Tester()
+        logging.basicConfig(filename='vaccumTests%s.log', level=logging.DEBUG)
 
-        import mpm_tests
+        modbus_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "mpm_modbus_mapping.csv")
+        testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "mpm_testbox_mapping.csv")
+        testBox , plutoGateway = import_mappings(modbus_mapping_path, testbox_mapping_path)
+
+        self.mpm_tester = tester.Tester(testBox , plutoGateway)
 
         self.mpm_tester.tests.append(mpm_tests.TestPlutoGatewayConfig(self, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestTestBoxConnect(self, -1))
 
         self.mpm_tester.tests.append(mpm_tests.TestPlutoPLCsPresent(self, -1))
         self.mpm_tester.tests.append(mpm_tests.TestPlutoGatewayConfig(self, -1))
@@ -128,7 +131,6 @@ class MpmTests(Display):
         bar = self.ui.progressBar
         p = bar.palette()
         p.setColor(QPalette.Highlight, Qt.red);
-
 
         self.ui.progressCount.setText(progress_count)
         self.ui.currentTest.setText(current_test)

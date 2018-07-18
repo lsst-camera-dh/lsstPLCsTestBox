@@ -7,9 +7,9 @@ vac_tester = tester.Tester()
 
 #asdas
 
-a=vac_tests.TestPlutoConnect(vac_tester, -1)
+a= vac_tests.TestPlutoConnect(vac_tester, -1)
 a.run()
-a=vac_tests.TestTestBoxConnect(vac_tester, -1)
+a= vac_tests.TestTestBoxConnect(vac_tester, -1)
 a.run()
 
 

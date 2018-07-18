@@ -1,53 +1,5 @@
 from tester import Test
-from pluto_gateway import PlutoGateway
-from test_box import TestBox
 import random
-
-
-class TestPlutoConnect (Test):
-    def __init__(self,tester,id):
-        Test.__init__(self,tester,id)
-        self.name = "TestPlutoConnect"
-        self.desc = "Connect to Pluto Gateway"
-
-    def test(self):
-        try:
-            self.step("Trying to connect to Pluto Gateway.")
-            self.tester.plutoGateway = PlutoGateway(self.tester)
-            for ch in self.tester.plutoGateway.channels:
-                self.log(str(ch.read()))
-
-        except Exception as e:
-            self.step("Can't connect to Pluto Gateway :: "+str(e))
-            return False
-
-        self.step("Successfully connected to Pluto Gateway")
-        return True
-
-
-class TestTestBoxConnect(Test):
-    def __init__(self, tester, id):
-        Test.__init__(self, tester, id)
-        self.name = "TestTestBoxConnect"
-        self.desc = "Connect to Test Box"
-
-    def test(self):
-        try:
-            self.step("Trying to connect to Test Box.")
-            self.tester.testBox = TestBox(self.tester)
-
-            for ch in self.tester.testBox.plc.channels:
-                self.log(str(ch.read()))
-
-            for ch in self.tester.testBox.cam.channels:
-                self.log(str(ch.read()))
-
-        except Exception as e:
-            self.step("Can't connect to Test Box :: " + str(e))
-            return False
-
-        self.step("Successfully connected to Test Box")
-        return True
 
 
 class TestPlutoGatewayConfig(Test):
@@ -138,16 +90,16 @@ class TestPlutoWriteReadback(Test):
                 ch_rbv = ch.replace("_w","")
                 sleep=0.1
 
-                self.step("Testing %s (%s) and %s (%s)."%(ch,"%d:%d.%d"%(plutoGateway[ch]["unitId"],plutoGateway[ch]["addr"],plutoGateway[ch]["bit"]),ch_rbv,"%d:%d.%d"%(plutoGateway[ch_rbv]["unitId"],plutoGateway[ch_rbv]["addr"],plutoGateway[ch_rbv]["bit"])))
+                self.step("Testing %s (%s) and %s (%s)."%(ch,"%d:%d.%d"%(plutoGateway[ch]["unit_id"],plutoGateway[ch]["addr"],plutoGateway[ch]["bit"]),ch_rbv,"%d:%d.%d"%(plutoGateway[ch_rbv]["unit_id"],plutoGateway[ch_rbv]["addr"],plutoGateway[ch_rbv]["bit"])))
 
 
                 original_write = self.tester.plutoGateway.read_ch(ch)
                 read = self.tester.plutoGateway.read_ch( ch_rbv)
                 if original_write != read:
                     self.step("Failed on %s (%s) and %s (%s)." % (
-                    ch, "%d:%d.%d" % (plutoGateway[ch]["unitId"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
+                    ch, "%d:%d.%d" % (plutoGateway[ch]["unit_id"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
                     ch_rbv, "%d:%d.%d" % (
-                    plutoGateway[ch_rbv]["unitId"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
+                    plutoGateway[ch_rbv]["unit_id"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
                     return False
 
                 write = 1
@@ -156,9 +108,9 @@ class TestPlutoWriteReadback(Test):
                 read = self.tester.plutoGateway.read_ch( ch_rbv)
                 if write != read:
                     self.step("Failed on %s (%s) and %s (%s)." % (
-                    ch, "%d:%d.%d" % (plutoGateway[ch]["unitId"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
+                    ch, "%d:%d.%d" % (plutoGateway[ch]["unit_id"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
                     ch_rbv, "%d:%d.%d" % (
-                    plutoGateway[ch_rbv]["unitId"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
+                    plutoGateway[ch_rbv]["unit_id"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
                     return False
 
                 write = 0
@@ -167,9 +119,9 @@ class TestPlutoWriteReadback(Test):
                 read = self.tester.plutoGateway.read_ch( ch_rbv)
                 if write != read:
                     self.step("Failed on %s (%s) and %s (%s)." % (
-                    ch, "%d:%d.%d" % (plutoGateway[ch]["unitId"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
+                    ch, "%d:%d.%d" % (plutoGateway[ch]["unit_id"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
                     ch_rbv, "%d:%d.%d" % (
-                    plutoGateway[ch_rbv]["unitId"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
+                    plutoGateway[ch_rbv]["unit_id"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
                     return False
 
                 write = 1
@@ -178,9 +130,9 @@ class TestPlutoWriteReadback(Test):
                 read = self.tester.plutoGateway.read_ch( ch_rbv)
                 if write != read:
                     self.step("Failed on %s (%s) and %s (%s)." % (
-                    ch, "%d:%d.%d" % (plutoGateway[ch]["unitId"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
+                    ch, "%d:%d.%d" % (plutoGateway[ch]["unit_id"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
                     ch_rbv, "%d:%d.%d" % (
-                    plutoGateway[ch_rbv]["unitId"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
+                    plutoGateway[ch_rbv]["unit_id"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
                     return False
 
                 write = original_write
@@ -189,9 +141,9 @@ class TestPlutoWriteReadback(Test):
                 read = self.tester.plutoGateway.read_ch( ch_rbv)
                 if write != read:
                     self.step("Failed on %s (%s) and %s (%s)." % (
-                    ch, "%d:%d.%d" % (plutoGateway[ch]["unitId"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
+                    ch, "%d:%d.%d" % (plutoGateway[ch]["unit_id"], plutoGateway[ch]["addr"], plutoGateway[ch]["bit"]),
                     ch_rbv, "%d:%d.%d" % (
-                    plutoGateway[ch_rbv]["unitId"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
+                    plutoGateway[ch_rbv]["unit_id"], plutoGateway[ch_rbv]["addr"], plutoGateway[ch_rbv]["bit"])))
                     return False
 
 
