@@ -1161,13 +1161,10 @@ class TestCvTurboPermitAuto(Test):
                                                 if n<0:
                                                     continue
 
-
-                                                turboPumpPermitValue = turboPressurePortValue<0.22 and not turboPressureNotValidPortValue
+                                                turboPumpPermitValue = turboPressurePortValue<0.22 and not turboPressureNotValidPortValue and mksPortValue == 1
 
                                                 if (turboPumpPortValue > 5 or turboPumpNotValidPortValue) and (mksPortValue == 0):
-                                                    turboPumpPermitValue = 0
                                                     vccNotForcedCloseLatchValue = 0
-
                                                 else:
                                                     vccNotForcedCloseLatchValue = 1
 
