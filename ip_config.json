@@ -1,1 +1,1 @@
-{"plutoGateway_port": 1502, "testBox_port": 502, "testBox_ip": "192.168.1.101", "plutoGateway_ip": "localhost"}
+{"plutoGateway_ip": "192.168.1.100", "testBox_port": 502, "testBox_ip": "192.168.1.101", "plutoGateway_port": 502}
