@@ -1,66 +1,94 @@
 from os import path
 import csv
+import pyexcel_xlsx
 
 
 
-def import_mappings(modbus_mapping_path ,testbox_mapping_path):
+def import_mappings(modbus_mapping_path ,testbox_mapping_path,sheet):
 
     testBox = dict()
     modbus = dict()
     headers = dict()
 
-    with open(testbox_mapping_path, 'r') as csvfile:
-        reader = csv.reader(csvfile)
-        first = True
-        for row in reader:
-            if first:
-                for i,h in enumerate(row):
-                    headers[h]=i
-                first = False
-            else:
+    testbox_mapping = pyexcel_xlsx.get_data(testbox_mapping_path)
 
-                port = row[headers["PlcPort"]]
 
-                if port != "":
-                    try:
-                        values = testBox[port]
-                    except KeyError:
-                        testBox[port] = dict(plc=dict(), cam=dict())
 
-                    try:
-                        if testBox[port]["device"] == "":
-                            raise KeyError
-                    except KeyError:
-                        testBox[port]["device"] = row[headers["Device"]]
+    headers_row=testbox_mapping[sheet][7]
+    for i, h in enumerate(headers_row):
+        headers[h] = i
 
-                    try:
-                        if testBox[port]["connector"] == "":
-                            raise KeyError
-                    except KeyError:
-                        testBox[port]["connector"] = row[headers["Connector"]]
+    names = []
+    for row in testbox_mapping['Internal connections']:
+        try:
+            names.append(row[12])
+        except:
+            names.append('')
 
-                    try:
-                        if testBox[port]["pin"] == "":
-                            raise KeyError
-                    except KeyError:
-                        testBox[port]["pin"] = row[headers["ConnectorPin"]]
+    def getMaq20Add(name):
 
-                    try:
-                        if testBox[port]["modbus"] == "":
-                            raise KeyError
-                    except KeyError:
-                        testBox[port]["modbus"] =[]
+        n = names.index(name)
 
-                    side = row[headers["TestBoxSide"]]
+        while len(testbox_mapping['Internal connections'][n])<15:
+            testbox_mapping['Internal connections'][n].append('')
 
-                    testBox[port][side]["testBoxPin"] = row[headers["TestBoxPin"]]
-                    testBox[port][side]["testBoxName"] = row[headers["TestBoxName"]]
-                    testBox[port][side]["maq20ModuleAddr"] = int(row[headers["Maq20ModuleAddr"]])
-                    testBox[port][side]["maq20ModuleSn"] = row[headers["Maq20ModuleSn"]]
-                    testBox[port][side]["maq20Module"] = row[headers["Maq20Module"]]
-                    testBox[port][side]["type"] = row[headers["Type"]]
-                    testBox[port][side]["default_value"] = row[headers["DefaultValue"]]
-                    testBox[port][side]["boot_value"] = row[headers["BootValue"]]
+        #print(name,testbox_mapping['Internal connections'][n])
+
+        maq20ModuleAddr = testbox_mapping['Internal connections'][n][13]
+        maq20ModuleSn =testbox_mapping['Internal connections'][n][7]
+        maq20Module = testbox_mapping['Internal connections'][n][8]
+
+        return maq20ModuleAddr,maq20ModuleSn,maq20Module
+
+
+    for row in testbox_mapping[sheet][9:]:
+
+        while len(row)<30:
+            row.append('')
+
+        port = row[headers["Plc Port"]]
+
+
+
+        if port != "" and port!='SHIELD' and port!='0V' and port.find('GND')!=0:
+            try:
+                values = testBox[port]
+            except KeyError:
+                testBox[port] = dict(plc=dict(), cam=dict())
+
+            try:
+                if testBox[port]["device"] == "":
+                    raise KeyError
+            except KeyError:
+                testBox[port]["device"] = row[headers["Device"]]
+
+            try:
+                if testBox[port]["modbus"] == '':
+                    raise KeyError
+            except KeyError:
+                testBox[port]["modbus"] = []
+
+            side = 'plc'
+
+            testBox[port][side]["testBoxPin"] = row[1]
+            testBox[port][side]["testBoxName"] = row[2]
+            print(port)
+            testBox[port][side]["maq20ModuleAddr"], testBox[port][side]["maq20ModuleSn"], testBox[port][side]["maq20Module"] = getMaq20Add(testBox[port][side]["testBoxName"])
+
+            testBox[port][side]["type"] = row[headers["Type"]]
+            testBox[port][side]["default_value"] = row[headers["PlcDefaultValue"]]
+            testBox[port][side]["boot_value"] = row[headers["PlcBootValue"]]
+
+            side = 'cam'
+
+            testBox[port][side]["testBoxPin"] = row[11]
+            testBox[port][side]["testBoxName"] = row[12]
+            testBox[port][side]["maq20ModuleAddr"], testBox[port][side]["maq20ModuleSn"],testBox[port][side]["maq20Module"] = getMaq20Add(testBox[port][side]["testBoxName"])
+
+            testBox[port][side]["type"] = row[headers["Type"]]
+            testBox[port][side]["default_value"] = row[headers["PlcDefaultValue"]]
+            testBox[port][side]["boot_value"] = row[headers["PlcBootValue"]]
+
 
 
 
@@ -101,4 +129,4 @@ def import_mappings(modbus_mapping_path ,testbox_mapping_path):
     return testBox,modbus
 
 
-#testBox, modbus =import_mappings()
+#testBox,modbus = import_mappings(path.join(path.dirname(path.realpath(__file__)), "mapping", "vac_modbus_mapping.csv"),'V:\KIPAC\LSST\Camera\Protection\PLCs Test Box\PLC_Certification_Chassis.xlsx','Vaccum cables')

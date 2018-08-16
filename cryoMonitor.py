@@ -17,10 +17,10 @@ class CryoMonitor(Display):
         print("plutoGateway:",plutoGateway_ip,plutoGateway_port)
         print("testBox:",testBox_ip,testBox_port)
 
-        plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "cryo_modbus_mapping.csv")
-        testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "vac_testbox_mapping.csv")
+        plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "cold_modbus_mapping.csv")
+        testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "PLC_Certification_Chassis.xlsx")
 
-        self.testBox, self.plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path)
+        self.testBox, self.plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'ColdCryo Cables')
 
         for widget in dir(self.ui):
             if "channel" in dir(getattr(self.ui,widget)):

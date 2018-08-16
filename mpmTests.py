@@ -13,9 +13,10 @@ class MpmTests(Display):
 
         logging.basicConfig(filename='vaccumTests%s.log', level=logging.DEBUG)
 
-        modbus_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "mpm_modbus_mapping.csv")
-        testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "mpm_testbox_mapping.csv")
-        testBox , plutoGateway = import_mappings(modbus_mapping_path, testbox_mapping_path)
+        plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "mpm_modbus_mapping.csv")
+        testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "PLC_Certification_Chassis.xlsx")
+
+        testBox, plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'MPM Cables')
 
         self.mpm_tester = tester.Tester(testBox , plutoGateway)
 

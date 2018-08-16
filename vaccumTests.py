@@ -20,8 +20,9 @@ class VaccumTests(Display):
         print(path.join(path.dirname(path.realpath(__file__)), "logs",'vaccumTests.log'))
 
         plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "vac_modbus_mapping.csv")
-        testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "vac_testbox_mapping.csv")
-        testbox , plutoGateway = import_mappings(plutoGateway_mapping_path, testbox_mapping_path)
+        testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "PLC_Certification_Chassis.xlsx")
+
+        testbox , plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'Vaccum cables')
 
         self.vac_tester = tester.Tester(testbox , plutoGateway)
 
