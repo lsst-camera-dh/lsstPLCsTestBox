@@ -46,48 +46,50 @@ def import_mappings(modbus_mapping_path ,testbox_mapping_path,sheet):
         while len(row)<30:
             row.append('')
 
-        port = row[headers["Plc Port"]]
+        ports = row[headers["Plc Port"]]
 
+        ports = ports.split(';')
 
+        for port in ports:
 
-        if port != "" and port!='SHIELD' and port!='0V' and port.find('GND')!=0:
-            try:
-                values = testBox[port]
-            except KeyError:
-                testBox[port] = dict(plc=dict(), cam=dict())
+            if port != "" and port!='SHIELD' and port!='0V' and port.find('GND')!=0:
+                try:
+                    testBox[port]
+                except KeyError:
+                    testBox[port] = dict(plc=dict(), cam=dict())
 
-            try:
-                if testBox[port]["device"] == "":
-                    raise KeyError
-            except KeyError:
-                testBox[port]["device"] = row[headers["Device"]]
+                try:
+                    if testBox[port]["device"] == "":
+                        raise KeyError
+                except KeyError:
+                    testBox[port]["device"] = row[headers["Device"]]
 
-            try:
-                if testBox[port]["modbus"] == '':
-                    raise KeyError
-            except KeyError:
-                testBox[port]["modbus"] = []
+                try:
+                    if testBox[port]["modbus"] == '':
+                        raise KeyError
+                except KeyError:
+                    testBox[port]["modbus"] = []
 
-            side = 'plc'
+                side = 'plc'
 
-            testBox[port][side]["testBoxPin"] = row[1]
-            testBox[port][side]["testBoxName"] = row[2]
-            print(port)
-            testBox[port][side]["maq20ModuleAddr"], testBox[port][side]["maq20ModuleSn"], testBox[port][side]["maq20Module"] = getMaq20Add(testBox[port][side]["testBoxName"])
+                testBox[port][side]["testBoxPin"] = row[1]
+                testBox[port][side]["testBoxName"] = row[2]
+                print(port)
+                testBox[port][side]["maq20ModuleAddr"], testBox[port][side]["maq20ModuleSn"], testBox[port][side]["maq20Module"] = getMaq20Add(testBox[port][side]["testBoxName"])
 
-            testBox[port][side]["type"] = row[headers["Type"]]
-            testBox[port][side]["default_value"] = row[headers["PlcDefaultValue"]]
-            testBox[port][side]["boot_value"] = row[headers["PlcBootValue"]]
+                testBox[port][side]["type"] = row[headers["Type"]]
+                testBox[port][side]["default_value"] = row[headers["PlcDefaultValue"]]
+                testBox[port][side]["boot_value"] = row[headers["PlcBootValue"]]
 
-            side = 'cam'
+                side = 'cam'
 
-            testBox[port][side]["testBoxPin"] = row[11]
-            testBox[port][side]["testBoxName"] = row[12]
-            testBox[port][side]["maq20ModuleAddr"], testBox[port][side]["maq20ModuleSn"],testBox[port][side]["maq20Module"] = getMaq20Add(testBox[port][side]["testBoxName"])
+                testBox[port][side]["testBoxPin"] = row[11]
+                testBox[port][side]["testBoxName"] = row[12]
+                testBox[port][side]["maq20ModuleAddr"], testBox[port][side]["maq20ModuleSn"],testBox[port][side]["maq20Module"] = getMaq20Add(testBox[port][side]["testBoxName"])
 
-            testBox[port][side]["type"] = row[headers["Type"]]
-            testBox[port][side]["default_value"] = row[headers["PlcDefaultValue"]]
-            testBox[port][side]["boot_value"] = row[headers["PlcBootValue"]]
+                testBox[port][side]["type"] = row[headers["Type"]]
+                testBox[port][side]["default_value"] = row[headers["PlcDefaultValue"]]
+                testBox[port][side]["boot_value"] = row[headers["PlcBootValue"]]
 
 
 

@@ -36,6 +36,7 @@ class VaccumMonitor(Display):
                         module_sn = self.testBox[port][side]['maq20ModuleSn']
                         address = self.testBox[port][side]['maq20ModuleAddr']
                         channel = "maq20://"+maq20_ip+":"+str(maq20_port)+"/"+module_sn+":"+str(address)
+                        print('     ',channel)
                         setattr(getattr(self.ui, widget), "channel",channel)
                     except:
                         print("Failed to parse channel: ",channel)

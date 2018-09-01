@@ -6173,7 +6173,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:I33</string>
+                 <string>testBox://plc:cryo.I33</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -6217,7 +6217,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:I33</string>
+                 <string>testBox://plc:cryo.I33</string>
                 </property>
                </widget>
               </item>
@@ -6252,7 +6252,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:I34</string>
+                 <string>testBox://plc:cryo.I34</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -6841,7 +6841,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA2</string>
+                 <string>testBox://plc:cryo.IA5</string>
                 </property>
                </widget>
               </item>
@@ -6860,7 +6860,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>IA2</string>
+                 <string>IA5</string>
                 </property>
                </widget>
               </item>
@@ -6894,7 +6894,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA1</string>
+                 <string>testBox://plc:cryo.IA1</string>
                 </property>
                </widget>
               </item>
@@ -6953,7 +6953,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA2</string>
+                 <string>testBox://plc:cryo.IA5</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -6969,72 +6969,6 @@
                 </property>
                 <property name="userMaximum" stdset="0">
                  <double>20.000000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="1">
-               <widget class="QLabel" name="label_144">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Not Valid</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0">
-               <widget class="PyDMCheckbox" name="PyDMCheckbox_50">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    A QCheckbox with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:IA2v</string>
                 </property>
                </widget>
               </item>
@@ -7093,7 +7027,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA0</string>
+                 <string>testBox://plc:cryo.IA0</string>
                 </property>
                </widget>
               </item>
@@ -7130,7 +7064,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA6</string>
+                 <string>testBox://plc:cryo.IA6</string>
                 </property>
                </widget>
               </item>
@@ -7171,7 +7105,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA1v</string>
+                 <string>testBox://plc:cryo.IA1v</string>
                 </property>
                </widget>
               </item>
@@ -7205,7 +7139,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA6</string>
+                 <string>testBox://plc:cryo.IA6</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -7320,7 +7254,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA1</string>
+                 <string>testBox://plc:cryo.IA1</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -7392,7 +7326,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA6v</string>
+                 <string>testBox://plc:cryo.IA6v</string>
                 </property>
                </widget>
               </item>
@@ -7477,7 +7411,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IQ11</string>
+                 <string>testBox://plc:cryo.IQ11</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -7515,7 +7449,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IQ10</string>
+                 <string>testBox://plc:cryo.IQ10</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -7559,7 +7493,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IQ12</string>
+                 <string>testBox://plc:cryo.IQ12</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -7603,7 +7537,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IQ13</string>
+                 <string>testBox://plc:cryo.IQ13</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -7723,7 +7657,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:I31</string>
+                 <string>testBox://plc:cryo.I31</string>
                 </property>
                </widget>
               </item>
@@ -7758,7 +7692,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:I31</string>
+                 <string>testBox://plc:cryo.I31</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -7802,7 +7736,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IQ14</string>
+                 <string>testBox://plc:cryo.IQ14</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -7871,7 +7805,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA7v</string>
+                 <string>testBox://plc:cryo.IA7v</string>
                 </property>
                </widget>
               </item>
@@ -7906,7 +7840,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:Q1</string>
+                 <string>testBox://plc:cryo.Q1</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -7949,7 +7883,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA3</string>
+                 <string>testBox://plc:cryo.IA3</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -7995,7 +7929,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA7</string>
+                 <string>testBox://plc:cryo.IA7</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -8035,7 +7969,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA7</string>
+                 <string>testBox://plc:cryo.IA7</string>
                 </property>
                </widget>
               </item>
@@ -8063,7 +7997,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA4</string>
+                 <string>testBox://plc:cryo.IA4</string>
                 </property>
                </widget>
               </item>
@@ -8097,7 +8031,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA0</string>
+                 <string>testBox://plc:cryo.IA0</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -8169,7 +8103,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA0v</string>
+                 <string>testBox://plc:cryo.IA0v</string>
                 </property>
                </widget>
               </item>
@@ -8203,7 +8137,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA4</string>
+                 <string>testBox://plc:cryo.IA4</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -8246,139 +8180,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:IA3</string>
-                </property>
-               </widget>
-              </item>
-              <item row="12" column="1">
-               <widget class="QLabel" name="label_126">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Not Valid</string>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="1">
-               <widget class="QLabel" name="label_140">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Not Valid</string>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="0">
-               <widget class="PyDMCheckbox" name="PyDMCheckbox_56">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    A QCheckbox with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:IA3v</string>
-                </property>
-               </widget>
-              </item>
-              <item row="12" column="0">
-               <widget class="PyDMCheckbox" name="PyDMCheckbox_54">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    A QCheckbox with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:IA4v</string>
+                 <string>testBox://plc:cryo.IA3</string>
                 </property>
                </widget>
               </item>
@@ -8583,7 +8385,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:I32</string>
+                 <string>testBox://plc:cryo.I32</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -8615,7 +8417,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:I34</string>
+                 <string>testBox://plc:cryo.I34</string>
                 </property>
                </widget>
               </item>
@@ -8656,7 +8458,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:I32</string>
+                 <string>testBox://plc:cryo.I32</string>
                 </property>
                </widget>
               </item>
@@ -8876,7 +8678,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:Q0</string>
+                 <string>testBox://plc:cryo.Q0</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -8989,7 +8791,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:I30</string>
+                 <string>testBox://plc:cryo.I30</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -9027,7 +8829,73 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:I30</string>
+                 <string>testBox://plc:cryo.I30</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="QLabel" name="label_144">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Not Valid</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="0">
+               <widget class="PyDMCheckbox" name="PyDMCheckbox_55">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    A QCheckbox with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:cryo.IA5v</string>
                 </property>
                </widget>
               </item>
@@ -9208,7 +9076,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IQ10</string>
+                 <string>testBox://cam:cryo.IQ10</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -9246,7 +9114,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IQ10</string>
+                 <string>testBox://cam:cryo.IQ10</string>
                 </property>
                </widget>
               </item>
@@ -9274,7 +9142,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IA7</string>
+                 <string>testBox://cam:cryo.IA7</string>
                 </property>
                </widget>
               </item>
@@ -9296,7 +9164,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IA1</string>
+                 <string>testBox://cam:cryo.IA1</string>
                 </property>
                </widget>
               </item>
@@ -9318,7 +9186,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IA2</string>
+                 <string>testBox://cam:cryo.IA5</string>
                 </property>
                </widget>
               </item>
@@ -9391,7 +9259,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IQ13</string>
+                 <string>testBox://cam:cryo.IQ13</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -9416,7 +9284,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IA0</string>
+                 <string>testBox://cam:cryo.IA0</string>
                 </property>
                </widget>
               </item>
@@ -9671,7 +9539,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IQ11</string>
+                 <string>testBox://cam:cryo.IQ11</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -9709,7 +9577,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IQ14</string>
+                 <string>testBox://cam:cryo.IQ14</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -9747,7 +9615,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IQ12</string>
+                 <string>testBox://cam:cryo.IQ12</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -9782,7 +9650,7 @@
                  <enum>Qt::RightToLeft</enum>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:Q0</string>
+                 <string>testBox://cam:cryo.Q0</string>
                 </property>
                </widget>
               </item>
@@ -10005,7 +9873,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IA6</string>
+                 <string>testBox://cam:cryo.IA6</string>
                 </property>
                </widget>
               </item>
@@ -10033,7 +9901,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IA4</string>
+                 <string>testBox://cam:cryo.IA4</string>
                 </property>
                </widget>
               </item>
@@ -10068,7 +9936,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:Q0</string>
+                 <string>testBox://cam:cryo.Q0</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -10194,7 +10062,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:I31</string>
+                 <string>testBox://cam:cryo.I31</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -10267,7 +10135,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IQ12</string>
+                 <string>testBox://cam:cryo.IQ12</string>
                 </property>
                </widget>
               </item>
@@ -10302,7 +10170,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IQ11</string>
+                 <string>testBox://cam:cryo.IQ11</string>
                 </property>
                </widget>
               </item>
@@ -10337,7 +10205,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IQ13</string>
+                 <string>testBox://cam:cryo.IQ13</string>
                 </property>
                </widget>
               </item>
@@ -10372,7 +10240,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IQ14</string>
+                 <string>testBox://cam:cryo.IQ14</string>
                 </property>
                </widget>
               </item>
@@ -10631,7 +10499,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:I32</string>
+                 <string>testBox://cam:cryo.I32</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -10669,7 +10537,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:I33</string>
+                 <string>testBox://cam:cryo.I33</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -10700,7 +10568,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:IA3</string>
+                 <string>testBox://cam:cryo.IA3</string>
                 </property>
                </widget>
               </item>
@@ -10760,7 +10628,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:I34</string>
+                 <string>testBox://cam:cryo.I34</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -10868,7 +10736,7 @@
                  <enum>Qt::RightToLeft</enum>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:Q1</string>
+                 <string>testBox://cam:cryo.Q1</string>
                 </property>
                </widget>
               </item>
@@ -10985,7 +10853,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:I30</string>
+                 <string>testBox://cam:cryo.I30</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -11023,7 +10891,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:Q1</string>
+                 <string>testBox://cam:cryo.Q1</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -11045,24 +10913,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PyDMDrawingImage</class>
-   <extends>QWidget</extends>
-   <header>pydm.widgets.drawing</header>
-  </customwidget>
-  <customwidget>
    <class>PyDMShellCommand</class>
    <extends>QPushButton</extends>
    <header>pydm.widgets.shell_command</header>
-  </customwidget>
-  <customwidget>
-   <class>PyDMByteIndicator</class>
-   <extends>QWidget</extends>
-   <header>pydm.widgets.byte</header>
-  </customwidget>
-  <customwidget>
-   <class>PyDMCheckbox</class>
-   <extends>QCheckBox</extends>
-   <header>pydm.widgets.checkbox</header>
   </customwidget>
   <customwidget>
    <class>PyDMLabel</class>
@@ -11070,14 +10923,29 @@
    <header>pydm.widgets.label</header>
   </customwidget>
   <customwidget>
+   <class>PyDMDrawingImage</class>
+   <extends>QWidget</extends>
+   <header>pydm.widgets.drawing</header>
+  </customwidget>
+  <customwidget>
    <class>PyDMLineEdit</class>
    <extends>QLineEdit</extends>
    <header>pydm.widgets.line_edit</header>
   </customwidget>
   <customwidget>
+   <class>PyDMCheckbox</class>
+   <extends>QCheckBox</extends>
+   <header>pydm.widgets.checkbox</header>
+  </customwidget>
+  <customwidget>
    <class>PyDMSlider</class>
    <extends>QFrame</extends>
    <header>pydm.widgets.slider</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMByteIndicator</class>
+   <extends>QWidget</extends>
+   <header>pydm.widgets.byte</header>
   </customwidget>
  </customwidgets>
  <resources>
