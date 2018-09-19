@@ -195,27 +195,6 @@
           </property>
          </spacer>
         </item>
-        <item>
-         <widget class="PyDMShellCommand" name="PyDMShellCommand">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="whatsThis">
-           <string>
-    A QPushButton capable of execute shell commands.
-    </string>
-          </property>
-          <property name="text">
-           <string>Vaccum Monitor </string>
-          </property>
-          <property name="allowMultipleExecutions" stdset="0">
-           <bool>true</bool>
-          </property>
-          <property name="command" stdset="0">
-           <string>python C:\\Users\\joaoprod\\AppData\\Local\\Continuum\\anaconda3\\envs\\lsstProtection\\Lib\\site-packages\\pydm_launcher\\main.py C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\vaccumMonitor.py</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
      </layout>
@@ -341,13 +320,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>PyDMShellCommand</class>
-   <extends>QPushButton</extends>
-   <header>pydm.widgets.shell_command</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

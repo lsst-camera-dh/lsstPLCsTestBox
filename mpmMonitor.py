@@ -5,8 +5,11 @@ import json
 
 
 class VaccumMonitor(Display):
-    def __init__(self, parent=None, args=None, macros=None):
-        super(VaccumMonitor, self).__init__(parent=parent, macros=macros)
+    def __init__(self, parent=None, args=None, macros={'IP':"192.168.1.132"}):
+
+
+
+
 
         with open(path.join(path.dirname(path.realpath(__file__)),"ip_config.json"),'r') as f:
             configs = json.loads(f.read())
@@ -14,6 +17,10 @@ class VaccumMonitor(Display):
         plutoGateway_port=configs["plutoGateway_port"]
         testBox_ip=configs["testBox_ip"]
         testBox_port=configs["testBox_port"]
+
+        #macros = {'IP':"192.168.1.132"}
+
+        super(VaccumMonitor, self).__init__(parent=parent, macros=macros)
 
         print("plutoGateway:",plutoGateway_ip,plutoGateway_port)
         print("testBox:",testBox_ip,testBox_port)
@@ -23,6 +30,9 @@ class VaccumMonitor(Display):
 
         self.testBox, self.plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'MPM Cables')
 
+
+
+
         for widget in dir(self.ui):
             if "channel" in dir(getattr(self.ui,widget)):
                 channel = getattr(getattr(self.ui, widget),"channel")
@@ -30,16 +40,18 @@ class VaccumMonitor(Display):
                 if channel.split("://")[0] == "testBox":
                     side = channel.split("://")[1].split(":")[0]
                     port = channel.split("://")[1].split(":")[1]
+
                     try:
                         maq20_ip = testBox_ip
                         maq20_port = testBox_port
                         module_sn = self.testBox[port][side]['maq20ModuleSn']
                         address = self.testBox[port][side]['maq20ModuleAddr']
                         channel = "maq20://"+maq20_ip+":"+str(maq20_port)+"/"+module_sn+":"+str(address)
-                        print('     ',channel)
+#                        print('     ',channel)
                         setattr(getattr(self.ui, widget), "channel",channel)
-                    except:
+                    except Exception as e:
                         print("Failed to parse channel: ",channel)
+                        print(e)
 
                 elif channel.split("://")[0] == "plutoGateway" :
                     channel = channel.split("://")[1]
@@ -57,7 +69,8 @@ class VaccumMonitor(Display):
                     except:
                         print("Failed to parse channel: ",channel)
                 else:
-                    print(channel)
+                    #print(channel)
+                    pass
 
     def ui_filename(self):
         return 'mpmMonitor.ui'

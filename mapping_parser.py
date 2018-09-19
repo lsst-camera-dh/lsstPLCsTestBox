@@ -8,20 +8,21 @@ def import_mappings(modbus_mapping_path ,testbox_mapping_path,sheet):
 
     testBox = dict()
     modbus = dict()
-    headers = dict()
+
 
     testbox_mapping = pyexcel_xlsx.get_data(testbox_mapping_path)
 
-
-
-    headers_row=testbox_mapping[sheet][7]
+    indexHeaders = dict()
+    headers_row=testbox_mapping['Internal connections'][3]
     for i, h in enumerate(headers_row):
-        headers[h] = i
+        indexHeaders[h] = i
+        #print(headers)
+
 
     names = []
     for row in testbox_mapping['Internal connections']:
         try:
-            names.append(row[12])
+            names.append(row[indexHeaders['Logical Name']])
         except:
             names.append('')
 
@@ -29,16 +30,22 @@ def import_mappings(modbus_mapping_path ,testbox_mapping_path,sheet):
 
         n = names.index(name)
 
-        while len(testbox_mapping['Internal connections'][n])<15:
+        while len(testbox_mapping['Internal connections'][n])<16:
             testbox_mapping['Internal connections'][n].append('')
 
+        #print(name)
         #print(name,testbox_mapping['Internal connections'][n])
 
-        maq20ModuleAddr = testbox_mapping['Internal connections'][n][13]
-        maq20ModuleSn =testbox_mapping['Internal connections'][n][7]
-        maq20Module = testbox_mapping['Internal connections'][n][8]
+        maq20ModuleAddr = testbox_mapping['Internal connections'][n][indexHeaders['Address']]
+        maq20ModuleSn =testbox_mapping['Internal connections'][n][indexHeaders['MAQ20 Module SN']]
+        if maq20ModuleSn.find('S')!=0:
+            maq20ModuleSn = 'S'+maq20ModuleSn
+        maq20Module = testbox_mapping['Internal connections'][n][indexHeaders['MAQ20 Module Label']]
+
 
         return maq20ModuleAddr,maq20ModuleSn,maq20Module
+
+
 
 
     for row in testbox_mapping[sheet][9:]:
@@ -46,7 +53,7 @@ def import_mappings(modbus_mapping_path ,testbox_mapping_path,sheet):
         while len(row)<30:
             row.append('')
 
-        ports = row[headers["Plc Port"]]
+        ports = row[7]
 
         ports = ports.split(';')
 
@@ -62,7 +69,7 @@ def import_mappings(modbus_mapping_path ,testbox_mapping_path,sheet):
                     if testBox[port]["device"] == "":
                         raise KeyError
                 except KeyError:
-                    testBox[port]["device"] = row[headers["Device"]]
+                    testBox[port]["device"] = row[17]
 
                 try:
                     if testBox[port]["modbus"] == '':
@@ -74,12 +81,11 @@ def import_mappings(modbus_mapping_path ,testbox_mapping_path,sheet):
 
                 testBox[port][side]["testBoxPin"] = row[1]
                 testBox[port][side]["testBoxName"] = row[2]
-                print(port)
                 testBox[port][side]["maq20ModuleAddr"], testBox[port][side]["maq20ModuleSn"], testBox[port][side]["maq20Module"] = getMaq20Add(testBox[port][side]["testBoxName"])
 
-                testBox[port][side]["type"] = row[headers["Type"]]
-                testBox[port][side]["default_value"] = row[headers["PlcDefaultValue"]]
-                testBox[port][side]["boot_value"] = row[headers["PlcBootValue"]]
+                testBox[port][side]["type"] = row[20]
+                testBox[port][side]["default_value"] = row[21]
+                testBox[port][side]["boot_value"] = row[22]
 
                 side = 'cam'
 
@@ -87,21 +93,22 @@ def import_mappings(modbus_mapping_path ,testbox_mapping_path,sheet):
                 testBox[port][side]["testBoxName"] = row[12]
                 testBox[port][side]["maq20ModuleAddr"], testBox[port][side]["maq20ModuleSn"],testBox[port][side]["maq20Module"] = getMaq20Add(testBox[port][side]["testBoxName"])
 
-                testBox[port][side]["type"] = row[headers["Type"]]
-                testBox[port][side]["default_value"] = row[headers["PlcDefaultValue"]]
-                testBox[port][side]["boot_value"] = row[headers["PlcBootValue"]]
-
-
+                testBox[port][side]["type"] = row[20]
+                testBox[port][side]["default_value"] = ''
+                testBox[port][side]["boot_value"] = ''
 
 
     with open(modbus_mapping_path, 'r') as csvfile:
         reader = csv.reader(csvfile)
         first = True
+        headers = dict()
         for row in reader:
             if first:
                 for i, h in enumerate(row):
                     headers[h] = i
                 first = False
+
+
             else:
                 name = row[headers["name"]]
 
@@ -122,7 +129,7 @@ def import_mappings(modbus_mapping_path ,testbox_mapping_path,sheet):
                     modbus[name]["related"] = row[headers["related"]]
                     modbus[name]["default_value"] = row[headers["default_value"]]
                     modbus[name]["type"] = row[headers["type"]]
-                    modbus[name]["boot_value"] = row[headers["boot_value"]]
+                    #modbus[name]["boot_value"] = row[headers["boot_value"]]
 
                     if modbus[name]["related"] != "":
                         testBox[modbus[name]["related"]]["modbus"].append(name)
@@ -131,4 +138,4 @@ def import_mappings(modbus_mapping_path ,testbox_mapping_path,sheet):
     return testBox,modbus
 
 
-#testBox,modbus = import_mappings(path.join(path.dirname(path.realpath(__file__)), "mapping", "vac_modbus_mapping.csv"),'V:\KIPAC\LSST\Camera\Protection\PLCs Test Box\PLC_Certification_Chassis.xlsx','Vaccum cables')
+testBox,modbus = import_mappings(path.join(path.dirname(path.realpath(__file__)), "mapping", "mpm_modbus_mapping.csv"),path.join(path.dirname(path.realpath(__file__)), "mapping", "PLC_Certification_Chassis.xlsx"),'MPM Cables')

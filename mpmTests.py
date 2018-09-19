@@ -6,6 +6,7 @@ import tester
 import mpm_tests
 from mapping_parser import import_mappings
 import logging
+import time
 
 class MpmTests(Display):
     def __init__(self, parent=None, args=None, macros=None):
@@ -18,31 +19,61 @@ class MpmTests(Display):
 
         testBox, plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'MPM Cables')
 
+        #print(testBox)
+
         self.mpm_tester = tester.Tester(testBox , plutoGateway)
 
-        self.mpm_tester.tests.append(mpm_tests.TestPlutoGatewayConfig(self, -1))
-
-        self.mpm_tester.tests.append(mpm_tests.TestPlutoPLCsPresent(self, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestPlutoGatewayConfig(self, -1))
+        self.mpm_tester.connectTestBox()
 
 
-        self.mpm_tester.tests.append(mpm_tests.TestChannelsBootDefault(self, -1))
+        #print(self.mpm_tester.testBox.plc.channels)
 
-        self.mpm_tester.tests.append(mpm_tests.TestPlutoWriteReadback(self, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestAnalogScaling(self, -1))
+        for ch in self.mpm_tester.testBox.plc.channels:
 
-        self.mpm_tester.tests.append(mpm_tests.TestTemperatureLimits(self, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestAcPermit(self, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestPermitsBlock(self, -1))
 
-        self.mpm_tester.tests.append(mpm_tests.TestPermitsBlock(self, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestColdPermits(self, -1))
 
-        self.mpm_tester.tests.append(mpm_tests.TestCryoPermits(self, -1))
+            if str(ch.default_value) != "":
+                try:
+                    pass
+                    print(ch, ch.ch, ch.default_value)
+                    ch.write(float(ch.default_value))
+
+                except ValueError:
+                    raise ValueError("Can't write to " + ch.ch)
+
+        #self.mpm_tester.testBox.cam.P1_Q0.write(0)
+
+        #time.sleep(5)
+
+        #self.mpm_tester.testBox.cam.P1_Q0.write(1)
+
+
+        self.mpm_tester.connectGateway(timeout=30)
+
+
+
+        self.mpm_tester.tests.append(mpm_tests.TestPlutoGatewayConfig(self.mpm_tester, -1))
+
+        self.mpm_tester.tests.append(mpm_tests.TestPlutoPLCsPresent(self.mpm_tester, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestPlutoGatewayConfig(self.mpm_tester, -1))
+
+
+        self.mpm_tester.tests.append(mpm_tests.TestChannelsBootDefault(self.mpm_tester, -1))
+
+        self.mpm_tester.tests.append(mpm_tests.TestPlutoWriteReadback(self.mpm_tester, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestAnalogScaling(self.mpm_tester, -1))
+
+        self.mpm_tester.tests.append(mpm_tests.TestTemperatureSetpoints(self.mpm_tester, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestAcPermitCoolantValve(self.mpm_tester, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestPermitsBlock(self.mpm_tester, -1))
+
+        self.mpm_tester.tests.append(mpm_tests.TestPermitsBlock(self.mpm_tester, -1))
+        self.mpm_tester.tests.append(mpm_tests.TestColdPermits(self.mpm_tester, -1))
+
+        self.mpm_tester.tests.append(mpm_tests.TestCryoPermits(self.mpm_tester, -1))
 
         for i, test in enumerate( self.mpm_tester.tests):
             test.id=i
-
 
 
         self.table = self.ui.tableWidget
@@ -72,12 +103,9 @@ class MpmTests(Display):
         self.ui.runAllButton.clicked.connect(self.mpm_tester.run_all)
         self.ui.abortButton.clicked.connect(self.mpm_tester.abort)
 
-
-
     def item_changed(self,item):
         id = self.table.row(item)
         self.mpm_tester.tests[id].selected = item.checkState()
-
 
     def update_table_line(self,i):
 
@@ -153,9 +181,6 @@ class MpmTests(Display):
 
         else:
             self.ui.resultMessage.setStyleSheet("background-color:rgb(230, 230, 230);")
-
-
-
 
     def ui_filename(self):
         return 'testMenu.ui'

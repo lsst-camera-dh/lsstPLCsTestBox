@@ -32,10 +32,38 @@ class Tester(QThread):
         self.plutoGateway_chs= plutoGateway_chs
         self.testBox_chs = testBox_chs
 
-        self.plutoGateway = PlutoGateway(self,self.plutoGateway_chs)
-        self.testBox = TestBox(self,self.testBox_chs)
+        self.plutoGateway = None #PlutoGateway(self,self.plutoGateway_chs)
+        self.testBox = None #TestBox(self,self.testBox_chs)
 
         self.logger = logging.getLogger("tester")
+
+    def connectTestBox(self,timeout=15):
+        start = time.time()
+        while time.time() - start < timeout:
+            try:
+                if self.testBox is not None:
+                    self.testBox.close()
+
+                self.testBox = None
+                self.testBox = TestBox(self, self.testBox_chs)
+                self.logger.warning("Reconnected to Testbox")
+                break
+            except:
+                self.sleep(1)
+
+    def connectGateway(self,timeout=15):
+        start = time.time()
+        while time.time() - start < timeout:
+            try:
+                if self.plutoGateway is not None:
+                    self.plutoGateway.close()
+
+                self.plutoGateway = None
+                self.plutoGateway = PlutoGateway(self,self.plutoGateway_chs)
+                self.logger.warning("Reconnected to Pluto Gateway")
+                break
+            except:
+                self.sleep(1)
 
 
     def run_all(self):
@@ -43,7 +71,6 @@ class Tester(QThread):
             self.clean_display()
             self.running_tests = self.tests
             self.start()
-
 
     def abort(self):
         self.abortion = True
@@ -71,7 +98,6 @@ class Tester(QThread):
             test.details = ""
             self.update_test_line(test.id)
 
-
     def update_test_line(self,id):
         self.test_line_update.emit(id)
 
@@ -80,26 +106,12 @@ class Tester(QThread):
 
     def reconnect(self,timeout=15):
 
-        if self.plutoGateway is not None:
-            self.plutoGateway.close()
+        self.connectGateway()
 
-        self.plutoGateway = None
-        self.plutoGateway = PlutoGateway(self,self.plutoGateway_chs)
-        self.logger.warning("Reconnected to Pluto Gateway")
+        self.connectTestBox(timeout)
 
 
-        start = time.time()
-        while time.time() - start < timeout:
-            try:
-                if self.testBox is not None:
-                    self.testBox.close()
 
-                self.testBox = None
-                self.testBox = TestBox(self, self.testBox_chs)
-                self.logger.warning("Reconnected to Testbox")
-                break
-            except:
-                self.sleep(1)
 
     def run(self):
 
@@ -360,7 +372,7 @@ class Test:
 
 
 
-    def setDefault(self):
+    def setDefault(self,gateway=True):
         self.log("Setting normal operation values.")
 
         for a in range(3):
@@ -374,15 +386,16 @@ class Test:
                         self.log("Can't write to testBox.plc " + ch.ch,True)
                         raise ValueError("Can't write to " + ch.ch)
 
-            for ch in self.tester.plutoGateway.channels:
-                if str(ch.default_value) != "" and str(ch.default_value) != "P" and ch.ch.find("_w") >= 0:
-                    try:
-                        ch.write(int(ch.default_value))
-                    except ValueError:
-                        self.log("Can't write to plutoGateway " + ch.ch,True)
-                        raise ValueError("Can't write to " + ch.ch)
-                elif str(ch.default_value) == "P":
-                    press_chs.append(ch)
+            if gateway:
+                for ch in self.tester.plutoGateway.channels:
+                    if str(ch.default_value) != "" and str(ch.default_value) != "P" and ch.ch.find("_w") >= 0:
+                        try:
+                            ch.write(int(ch.default_value))
+                        except ValueError:
+                            self.log("Can't write to plutoGateway " + ch.ch,True)
+                            raise ValueError("Can't write to " + ch.ch)
+                    elif str(ch.default_value) == "P":
+                        press_chs.append(ch)
 
             self.sleep(0.2)
 

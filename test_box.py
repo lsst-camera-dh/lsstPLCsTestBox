@@ -22,8 +22,6 @@ class TestBox:
 
         self.dict = channels_dict
 
-
-
         self.plc = Object()
         self.plc.channels=[]
 
@@ -33,18 +31,20 @@ class TestBox:
         self.tester=tester
 
         for ch in self.dict.keys():
+            print(ch)
             try:
                 pass
-                exec(("self.plc."+ch+" = TestBoxChannel(self,'plc','"+ch+"')"))
+                exec("self.plc."+ch+" = TestBoxChannel(self,'plc','"+ch+"')")
                 exec("self.plc.channels.append(self.plc." + ch + ")")
             except Exception as e:
                 pass
 
             try:
                 pass
-                exec("self.cam." + ch + " = TestBoxChannel(self,'cam','" + ch + "')")
+                exec("self.cam." + ch + " = TestBoxChannel(self,'cam','" +ch + "')")
                 exec("self.cam.channels.append(self.cam." + ch + ")")
-            except:
+            except Exception as e:
+                print(e)
                 pass
 
 
@@ -68,6 +68,7 @@ class TestBox:
     def write_port(self,side,port,value):
         port = self.dict[port][side]
         module = self.system.find(port["maq20ModuleSn"])
+
         value=float(value)
 
 
@@ -115,7 +116,8 @@ class TestBoxChannel():
             return read
 
     def write(self,val,note=""):
-        self.server.tester.log("Write %s to %s. %s" % (str(val),str(self.ch),  str(note)))
+        #print('>>>>>>>>>>>>>>',dir(self.server.tester))
+        #self.server.tester.log("Write %s to %s. %s" % (str(val),str(self.ch),  str(note)))
         return self.server.write_port(self.side, self.ch,val)
 
     def press(self,note=""):

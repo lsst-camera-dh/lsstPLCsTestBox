@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>2169</width>
+    <width>2223</width>
     <height>1334</height>
    </rect>
   </property>
@@ -126,8 +126,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>250</width>
-          <height>1253</height>
+          <width>262</width>
+          <height>1256</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -229,7 +229,7 @@
     </string>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/36:HR:2</string>
+                   <string>modbus://{IP}:502/36:HR:2</string>
                   </property>
                   <property name="numBits" stdset="0">
                    <number>8</number>
@@ -255,7 +255,7 @@
     </string>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/36:HR:1</string>
+                   <string>modbus://{IP}:502/36:HR:1</string>
                   </property>
                   <property name="numBits" stdset="0">
                    <number>8</number>
@@ -288,7 +288,7 @@
     </string>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:1</string>
+                   <string>modbus://{IP}:502/4:HR:1</string>
                   </property>
                   <property name="numBits" stdset="0">
                    <number>4</number>
@@ -326,7 +326,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:2</string>
+                   <string>modbus://{IP}:502/4:HR:2</string>
                   </property>
                  </widget>
                 </item>
@@ -361,7 +361,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:5</string>
+                   <string>modbus://{IP}:502/4:HR:5</string>
                   </property>
                  </widget>
                 </item>
@@ -396,7 +396,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:6</string>
+                   <string>modbus://{IP}:502/4:HR:6</string>
                   </property>
                  </widget>
                 </item>
@@ -431,7 +431,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:7</string>
+                   <string>modbus://{IP}:502/4:HR:7</string>
                   </property>
                  </widget>
                 </item>
@@ -466,7 +466,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:8</string>
+                   <string>modbus://{IP}:502/4:HR:8</string>
                   </property>
                  </widget>
                 </item>
@@ -501,7 +501,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:9</string>
+                   <string>modbus://{IP}:502/4:HR:9</string>
                   </property>
                  </widget>
                 </item>
@@ -536,7 +536,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:10</string>
+                   <string>modbus://{IP}:502/4:HR:10</string>
                   </property>
                  </widget>
                 </item>
@@ -571,7 +571,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:11</string>
+                   <string>modbus://{IP}:502/4:HR:11</string>
                   </property>
                  </widget>
                 </item>
@@ -606,7 +606,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:12</string>
+                   <string>modbus://{IP}:502/4:HR:12</string>
                   </property>
                  </widget>
                 </item>
@@ -641,7 +641,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:13</string>
+                   <string>modbus://{IP}:502/4:HR:13</string>
                   </property>
                  </widget>
                 </item>
@@ -676,7 +676,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:14</string>
+                   <string>modbus://{IP}:502/4:HR:14</string>
                   </property>
                  </widget>
                 </item>
@@ -711,7 +711,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:15</string>
+                   <string>modbus://{IP}:502/4:HR:15</string>
                   </property>
                  </widget>
                 </item>
@@ -746,7 +746,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:16</string>
+                   <string>modbus://{IP}:502/4:HR:16</string>
                   </property>
                  </widget>
                 </item>
@@ -781,7 +781,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:17</string>
+                   <string>modbus://{IP}:502/4:HR:17</string>
                   </property>
                  </widget>
                 </item>
@@ -816,7 +816,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:18</string>
+                   <string>modbus://{IP}:502/4:HR:18</string>
                   </property>
                  </widget>
                 </item>
@@ -851,7 +851,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:19</string>
+                   <string>modbus://{IP}:502/4:HR:19</string>
                   </property>
                  </widget>
                 </item>
@@ -886,7 +886,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:20</string>
+                   <string>modbus://{IP}:502/4:HR:20</string>
                   </property>
                  </widget>
                 </item>
@@ -921,7 +921,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:21</string>
+                   <string>modbus://{IP}:502/4:HR:21</string>
                   </property>
                  </widget>
                 </item>
@@ -956,7 +956,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:22</string>
+                   <string>modbus://{IP}:502/4:HR:22</string>
                   </property>
                  </widget>
                 </item>
@@ -991,7 +991,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:23</string>
+                   <string>modbus://{IP}:502/4:HR:23</string>
                   </property>
                  </widget>
                 </item>
@@ -1026,7 +1026,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:24</string>
+                   <string>modbus://{IP}:502/4:HR:24</string>
                   </property>
                  </widget>
                 </item>
@@ -1061,7 +1061,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:25</string>
+                   <string>modbus://{IP}:502/4:HR:25</string>
                   </property>
                  </widget>
                 </item>
@@ -1096,7 +1096,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:26</string>
+                   <string>modbus://{IP}:502/4:HR:26</string>
                   </property>
                  </widget>
                 </item>
@@ -1131,7 +1131,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:27</string>
+                   <string>modbus://{IP}:502/4:HR:27</string>
                   </property>
                  </widget>
                 </item>
@@ -1166,7 +1166,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:28</string>
+                   <string>modbus://{IP}:502/4:HR:28</string>
                   </property>
                  </widget>
                 </item>
@@ -1201,7 +1201,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:29</string>
+                   <string>modbus://{IP}:502/4:HR:29</string>
                   </property>
                  </widget>
                 </item>
@@ -1236,7 +1236,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:30</string>
+                   <string>modbus://{IP}:502/4:HR:30</string>
                   </property>
                  </widget>
                 </item>
@@ -1271,7 +1271,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:31</string>
+                   <string>modbus://{IP}:502/4:HR:31</string>
                   </property>
                  </widget>
                 </item>
@@ -1306,7 +1306,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:32</string>
+                   <string>modbus://{IP}:502/4:HR:32</string>
                   </property>
                  </widget>
                 </item>
@@ -1341,7 +1341,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:33</string>
+                   <string>modbus://{IP}:502/4:HR:33</string>
                   </property>
                  </widget>
                 </item>
@@ -1376,7 +1376,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:34</string>
+                   <string>modbus://{IP}:502/4:HR:34</string>
                   </property>
                  </widget>
                 </item>
@@ -1411,7 +1411,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:35</string>
+                   <string>modbus://{IP}:502/4:HR:35</string>
                   </property>
                  </widget>
                 </item>
@@ -1446,7 +1446,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://192.168.1.100:502/4:HR:36</string>
+                   <string>modbus://{IP}:502/4:HR:36</string>
                   </property>
                  </widget>
                 </item>
@@ -1485,9 +1485,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-69</y>
-          <width>1897</width>
-          <height>1497</height>
+          <y>0</y>
+          <width>2264</width>
+          <height>1609</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -10264,7 +10264,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IQ15</string>
+                 <string>testBox://plc:P2_IQ15</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -10337,7 +10337,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.IQ15</string>
+                 <string>P2_IQ15</string>
                 </property>
                </widget>
               </item>
@@ -10356,7 +10356,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.IA0</string>
+                 <string>P3_IA0</string>
                 </property>
                </widget>
               </item>
@@ -10397,7 +10397,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IQ17</string>
+                 <string>testBox://plc:P1_IQ17</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -10426,7 +10426,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.IA1</string>
+                 <string>P3_IA1</string>
                 </property>
                </widget>
               </item>
@@ -10445,7 +10445,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.IQ15</string>
+                 <string>P1_IQ15</string>
                 </property>
                </widget>
               </item>
@@ -10552,7 +10552,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.IQ14</string>
+                 <string>P3_IQ14</string>
                 </property>
                </widget>
               </item>
@@ -10571,7 +10571,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.IQ12</string>
+                 <string>P3_IQ12</string>
                 </property>
                </widget>
               </item>
@@ -10612,7 +10612,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IQ14</string>
+                 <string>testBox://plc:P2_IQ14</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -10666,7 +10666,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.I5</string>
+                 <string>P3_I5</string>
                 </property>
                </widget>
               </item>
@@ -10707,7 +10707,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.I5</string>
+                 <string>testBox://plc:P2_I5</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -10735,7 +10735,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.IA3</string>
+                 <string>P3_IA3</string>
                 </property>
                </widget>
               </item>
@@ -10754,7 +10754,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.IQ15</string>
+                 <string>P3_IQ15</string>
                 </property>
                </widget>
               </item>
@@ -10788,7 +10788,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IA0</string>
+                 <string>testBox://plc:P3_IA0</string>
                 </property>
                </widget>
               </item>
@@ -10807,7 +10807,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.IQ11</string>
+                 <string>P3_IQ11</string>
                 </property>
                </widget>
               </item>
@@ -10826,7 +10826,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.I6</string>
+                 <string>P3_I6</string>
                 </property>
                </widget>
               </item>
@@ -10845,7 +10845,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.Q0</string>
+                 <string>P3_Q0</string>
                 </property>
                </widget>
               </item>
@@ -10864,7 +10864,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.IQ13</string>
+                 <string>P3_IQ13</string>
                 </property>
                </widget>
               </item>
@@ -10905,7 +10905,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.Q0</string>
+                 <string>testBox://plc:P1_Q0</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -10942,7 +10942,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IA0</string>
+                 <string>testBox://plc:P2_IA0</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -10954,10 +10954,10 @@
                  <bool>true</bool>
                 </property>
                 <property name="userMinimum" stdset="0">
-                 <double>4.000000000000000</double>
+                 <double>0.000000000000000</double>
                 </property>
                 <property name="userMaximum" stdset="0">
-                 <double>20.000000000000000</double>
+                 <double>25.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -10976,7 +10976,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.IA2</string>
+                 <string>P3_IA2</string>
                 </property>
                </widget>
               </item>
@@ -10995,7 +10995,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.Q1</string>
+                 <string>P3_Q1</string>
                 </property>
                </widget>
               </item>
@@ -11036,7 +11036,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IQ11</string>
+                 <string>testBox://plc:P3_IQ11</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -11058,7 +11058,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.IA2</string>
+                 <string>P1_IA2</string>
                 </property>
                </widget>
               </item>
@@ -11099,7 +11099,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IQ15</string>
+                 <string>testBox://plc:P3_IQ15</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -11150,7 +11150,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IQ14</string>
+                 <string>testBox://plc:P3_IQ14</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -11220,7 +11220,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IQ10</string>
+                 <string>testBox://plc:P3_IQ10</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -11264,7 +11264,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.I4</string>
+                 <string>testBox://plc:P2_I4</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -11286,7 +11286,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.IQ10</string>
+                 <string>P3_IQ10</string>
                 </property>
                </widget>
               </item>
@@ -11371,7 +11371,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.I7</string>
+                 <string>testBox://plc:P2_I7</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -11425,7 +11425,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.IQ17</string>
+                 <string>P1_IQ17</string>
                 </property>
                </widget>
               </item>
@@ -11444,7 +11444,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.IQ11</string>
+                 <string>P1_IQ11</string>
                 </property>
                </widget>
               </item>
@@ -11485,7 +11485,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.I7</string>
+                 <string>testBox://plc:P2_I7</string>
                 </property>
                </widget>
               </item>
@@ -11526,7 +11526,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.I5</string>
+                 <string>testBox://plc:P3_I5</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -11570,7 +11570,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IQ13</string>
+                 <string>testBox://plc:P3_IQ13</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -11621,7 +11621,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.Q1</string>
+                 <string>testBox://plc:P3_Q1</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -11658,7 +11658,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IA0</string>
+                 <string>testBox://plc:P2_IA0</string>
                 </property>
                </widget>
               </item>
@@ -11699,7 +11699,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.I5</string>
+                 <string>testBox://plc:P3_I5</string>
                 </property>
                </widget>
               </item>
@@ -11733,7 +11733,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IA1</string>
+                 <string>testBox://plc:P2_IA1</string>
                 </property>
                </widget>
               </item>
@@ -11774,7 +11774,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IQ12</string>
+                 <string>testBox://plc:P3_IQ12</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -11825,7 +11825,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IA3</string>
+                 <string>testBox://plc:P1_IA3</string>
                 </property>
                </widget>
               </item>
@@ -11865,7 +11865,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IA2</string>
+                 <string>testBox://plc:P2_IA2</string>
                 </property>
                </widget>
               </item>
@@ -11906,7 +11906,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.Q0</string>
+                 <string>testBox://plc:P3_Q0</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -12016,7 +12016,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.I4</string>
+                 <string>P1_I4</string>
                 </property>
                </widget>
               </item>
@@ -12057,7 +12057,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.I4</string>
+                 <string>testBox://plc:P1_I4</string>
                 </property>
                </widget>
               </item>
@@ -12098,7 +12098,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.Q1</string>
+                 <string>testBox://plc:P1_Q1</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -12154,7 +12154,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IA3</string>
+                 <string>testBox://plc:P2_IA3</string>
                 </property>
                </widget>
               </item>
@@ -12220,7 +12220,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IQ10</string>
+                 <string>testBox://plc:P1_IQ10</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -12242,7 +12242,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.Q1</string>
+                 <string>P1_Q1</string>
                 </property>
                </widget>
               </item>
@@ -12283,7 +12283,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.I4</string>
+                 <string>testBox://plc:P1_I4</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -12305,7 +12305,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.IA1</string>
+                 <string>P1_IA1</string>
                 </property>
                </widget>
               </item>
@@ -12437,7 +12437,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.IQ10</string>
+                 <string>P1_IQ10</string>
                 </property>
                </widget>
               </item>
@@ -12462,7 +12462,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.IA3</string>
+                 <string>P2_IA3</string>
                 </property>
                </widget>
               </item>
@@ -12481,7 +12481,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.I4</string>
+                 <string>P2_I4</string>
                 </property>
                </widget>
               </item>
@@ -12522,7 +12522,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IA2</string>
+                 <string>testBox://plc:P1_IA2</string>
                 </property>
                </widget>
               </item>
@@ -12541,7 +12541,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.I5</string>
+                 <string>P2_I5</string>
                 </property>
                </widget>
               </item>
@@ -12575,7 +12575,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IA3</string>
+                 <string>testBox://plc:P2_IA3</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -12587,10 +12587,10 @@
                  <bool>true</bool>
                 </property>
                 <property name="userMinimum" stdset="0">
-                 <double>4.000000000000000</double>
+                 <double>0.000000000000000</double>
                 </property>
                 <property name="userMaximum" stdset="0">
-                 <double>20.000000000000000</double>
+                 <double>25.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -12609,7 +12609,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.Q0</string>
+                 <string>P2_Q0</string>
                 </property>
                </widget>
               </item>
@@ -12628,7 +12628,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.IA1</string>
+                 <string>P2_IA1</string>
                 </property>
                </widget>
               </item>
@@ -12669,7 +12669,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IQ12</string>
+                 <string>testBox://plc:P1_IQ12</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -12691,7 +12691,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.IA2</string>
+                 <string>P2_IA2</string>
                 </property>
                </widget>
               </item>
@@ -12725,7 +12725,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IA1</string>
+                 <string>testBox://plc:P2_IA1</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -12737,10 +12737,10 @@
                  <bool>true</bool>
                 </property>
                 <property name="userMinimum" stdset="0">
-                 <double>4.000000000000000</double>
+                 <double>0.000000000000000</double>
                 </property>
                 <property name="userMaximum" stdset="0">
-                 <double>20.000000000000000</double>
+                 <double>25.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -12759,7 +12759,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.I7</string>
+                 <string>P2_I7</string>
                 </property>
                </widget>
               </item>
@@ -12778,7 +12778,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.Q1</string>
+                 <string>P2_Q1</string>
                 </property>
                </widget>
               </item>
@@ -12819,7 +12819,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IA2</string>
+                 <string>testBox://plc:P1_IA2</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -12863,7 +12863,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IA1</string>
+                 <string>testBox://plc:P1_IA1</string>
                 </property>
                </widget>
               </item>
@@ -12904,7 +12904,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.I4</string>
+                 <string>testBox://plc:P2_I4</string>
                 </property>
                </widget>
               </item>
@@ -12945,7 +12945,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.I6</string>
+                 <string>testBox://plc:P3_I6</string>
                 </property>
                </widget>
               </item>
@@ -12986,7 +12986,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.I5</string>
+                 <string>testBox://plc:P2_I5</string>
                 </property>
                </widget>
               </item>
@@ -13027,7 +13027,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IA3</string>
+                 <string>testBox://plc:P1_IA3</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -13071,7 +13071,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IQ11</string>
+                 <string>testBox://plc:P1_IQ11</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -13115,7 +13115,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IA1</string>
+                 <string>testBox://plc:P1_IA1</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -13159,7 +13159,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IA0</string>
+                 <string>testBox://plc:P1_IA0</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -13202,7 +13202,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IA2</string>
+                 <string>testBox://plc:P2_IA2</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -13214,10 +13214,10 @@
                  <bool>true</bool>
                 </property>
                 <property name="userMinimum" stdset="0">
-                 <double>4.000000000000000</double>
+                 <double>0.000000000000000</double>
                 </property>
                 <property name="userMaximum" stdset="0">
-                 <double>20.000000000000000</double>
+                 <double>25.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -13236,7 +13236,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.IA0</string>
+                 <string>P2_IA0</string>
                 </property>
                </widget>
               </item>
@@ -13277,7 +13277,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IQ15</string>
+                 <string>testBox://plc:P1_IQ15</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -13394,7 +13394,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.Q2</string>
+                 <string>P1_Q2</string>
                 </property>
                </widget>
               </item>
@@ -13435,7 +13435,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IQ13</string>
+                 <string>testBox://plc:P1_IQ13</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -13464,7 +13464,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.IQ16</string>
+                 <string>P1_IQ16</string>
                 </property>
                </widget>
               </item>
@@ -13505,7 +13505,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IA0</string>
+                 <string>testBox://plc:P3_IA0</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -13517,10 +13517,10 @@
                  <bool>true</bool>
                 </property>
                 <property name="userMinimum" stdset="0">
-                 <double>4.000000000000000</double>
+                 <double>0.000000000000000</double>
                 </property>
                 <property name="userMaximum" stdset="0">
-                 <double>20.000000000000000</double>
+                 <double>25.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -13539,7 +13539,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.Q0</string>
+                 <string>P1_Q0</string>
                 </property>
                </widget>
               </item>
@@ -13605,7 +13605,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.Q2</string>
+                 <string>testBox://plc:P1_Q2</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -13627,7 +13627,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.IQ16</string>
+                 <string>P3_IQ16</string>
                 </property>
                </widget>
               </item>
@@ -13646,7 +13646,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.IQ13</string>
+                 <string>P1_IQ13</string>
                 </property>
                </widget>
               </item>
@@ -13774,7 +13774,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IA2</string>
+                 <string>testBox://plc:P3_IA2</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -13786,10 +13786,10 @@
                  <bool>true</bool>
                 </property>
                 <property name="userMinimum" stdset="0">
-                 <double>4.000000000000000</double>
+                 <double>0.000000000000000</double>
                 </property>
                 <property name="userMaximum" stdset="0">
-                 <double>20.000000000000000</double>
+                 <double>25.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -13984,7 +13984,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.IQ16</string>
+                 <string>P2_IQ16</string>
                 </property>
                </widget>
               </item>
@@ -14106,7 +14106,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IA1</string>
+                 <string>testBox://plc:P3_IA1</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -14118,10 +14118,10 @@
                  <bool>true</bool>
                 </property>
                 <property name="userMinimum" stdset="0">
-                 <double>4.000000000000000</double>
+                 <double>0.000000000000000</double>
                 </property>
                 <property name="userMaximum" stdset="0">
-                 <double>20.000000000000000</double>
+                 <double>25.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -14140,7 +14140,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.IQ17</string>
+                 <string>P2_IQ17</string>
                 </property>
                </widget>
               </item>
@@ -14218,7 +14218,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IA3</string>
+                 <string>testBox://plc:P3_IA3</string>
                 </property>
                 <property name="showLimitLabels" stdset="0">
                  <bool>false</bool>
@@ -14230,10 +14230,10 @@
                  <bool>true</bool>
                 </property>
                 <property name="userMinimum" stdset="0">
-                 <double>4.000000000000000</double>
+                 <double>0.000000000000000</double>
                 </property>
                 <property name="userMaximum" stdset="0">
-                 <double>20.000000000000000</double>
+                 <double>25.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -14252,7 +14252,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.I5</string>
+                 <string>P1_I5</string>
                 </property>
                </widget>
               </item>
@@ -14340,7 +14340,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.IA0</string>
+                 <string>P1_IA0</string>
                 </property>
                </widget>
               </item>
@@ -14381,7 +14381,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IQ16</string>
+                 <string>testBox://plc:P3_IQ16</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -14410,7 +14410,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P3.IQ17</string>
+                 <string>P3_IQ17</string>
                 </property>
                </widget>
               </item>
@@ -14451,7 +14451,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IQ17</string>
+                 <string>testBox://plc:P3_IQ17</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -14509,7 +14509,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IQ14</string>
+                 <string>testBox://plc:P1_IQ14</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -14538,7 +14538,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.IQ12</string>
+                 <string>P1_IQ12</string>
                 </property>
                </widget>
               </item>
@@ -14579,7 +14579,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IQ16</string>
+                 <string>testBox://plc:P2_IQ16</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -14629,7 +14629,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IA2</string>
+                 <string>testBox://plc:P3_IA2</string>
                 </property>
                </widget>
               </item>
@@ -14670,7 +14670,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IQ17</string>
+                 <string>testBox://plc:P2_IQ17</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -14743,7 +14743,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.IQ10</string>
+                 <string>P2_IQ10</string>
                 </property>
                </widget>
               </item>
@@ -14762,7 +14762,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.IQ14</string>
+                 <string>P2_IQ14</string>
                 </property>
                </widget>
               </item>
@@ -14803,7 +14803,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IA0</string>
+                 <string>testBox://plc:P1_IA0</string>
                 </property>
                </widget>
               </item>
@@ -14844,7 +14844,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.IQ16</string>
+                 <string>testBox://plc:P1_IQ16</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -14888,7 +14888,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IA1</string>
+                 <string>testBox://plc:P3_IA1</string>
                 </property>
                </widget>
               </item>
@@ -14929,7 +14929,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.Q1</string>
+                 <string>testBox://plc:P2_Q1</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -14973,7 +14973,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.Q0</string>
+                 <string>testBox://plc:P2_Q0</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -15001,7 +15001,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.IA3</string>
+                 <string>P1_IA3</string>
                 </property>
                </widget>
               </item>
@@ -15042,7 +15042,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IQ13</string>
+                 <string>testBox://plc:P2_IQ13</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -15086,7 +15086,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.I6</string>
+                 <string>testBox://plc:P3_I6</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -15108,7 +15108,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P2.IQ13</string>
+                 <string>P2_IQ13</string>
                 </property>
                </widget>
               </item>
@@ -15127,7 +15127,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.IQ14</string>
+                 <string>P1_IQ14</string>
                 </property>
                </widget>
               </item>
@@ -15155,7 +15155,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3.IA3</string>
+                 <string>testBox://plc:P3_IA3</string>
                 </property>
                </widget>
               </item>
@@ -15196,7 +15196,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P2.IQ10</string>
+                 <string>testBox://plc:P2_IQ10</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -15240,7 +15240,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.I6</string>
+                 <string>testBox://plc:P1_I6</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -15284,7 +15284,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.I6</string>
+                 <string>testBox://plc:P1_I6</string>
                 </property>
                </widget>
               </item>
@@ -15303,7 +15303,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.I7</string>
+                 <string>P1_I7</string>
                 </property>
                </widget>
               </item>
@@ -15344,7 +15344,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.I5</string>
+                 <string>testBox://plc:P1_I5</string>
                 </property>
                </widget>
               </item>
@@ -15385,7 +15385,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.I5</string>
+                 <string>testBox://plc:P1_I5</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -15407,7 +15407,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1.I6</string>
+                 <string>P1_I6</string>
                 </property>
                </widget>
               </item>
@@ -15448,7 +15448,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.I7</string>
+                 <string>testBox://plc:P1_I7</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -15492,7 +15492,99 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1.I7</string>
+                 <string>testBox://plc:P1_I7</string>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="4">
+               <widget class="PyDMCheckbox" name="PyDMCheckbox_62">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    A QCheckbox with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://cam:P1_Q0</string>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="4">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_62">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>50</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Widget for graphical representation of bits from an integer number
+    with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://cam:P1_Q0</string>
+                </property>
+                <property name="onColor" stdset="0">
+                 <color>
+                  <red>0</red>
+                  <green>255</green>
+                  <blue>0</blue>
+                 </color>
+                </property>
+                <property name="showLabels" stdset="0">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -15616,7 +15708,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IQ10</string>
+                 <string>testBox://cam:P2_IQ10</string>
                 </property>
                </widget>
               </item>
@@ -15657,7 +15749,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ11</string>
+                 <string>testBox://cam:P3_IQ11</string>
                 </property>
                </widget>
               </item>
@@ -15698,7 +15790,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ12</string>
+                 <string>testBox://cam:P3_IQ12</string>
                 </property>
                </widget>
               </item>
@@ -15739,7 +15831,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ10</string>
+                 <string>testBox://cam:P3_IQ10</string>
                 </property>
                </widget>
               </item>
@@ -15799,7 +15891,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ13</string>
+                 <string>testBox://cam:P3_IQ13</string>
                 </property>
                </widget>
               </item>
@@ -15840,7 +15932,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ14</string>
+                 <string>testBox://cam:P3_IQ14</string>
                 </property>
                </widget>
               </item>
@@ -15881,7 +15973,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IQ13</string>
+                 <string>testBox://cam:P2_IQ13</string>
                 </property>
                </widget>
               </item>
@@ -15922,7 +16014,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IQ14</string>
+                 <string>testBox://cam:P2_IQ14</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -15973,7 +16065,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IQ13</string>
+                 <string>testBox://cam:P2_IQ13</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16017,7 +16109,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IQ10</string>
+                 <string>testBox://cam:P2_IQ10</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16061,7 +16153,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ10</string>
+                 <string>testBox://cam:P3_IQ10</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16124,7 +16216,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ11</string>
+                 <string>testBox://cam:P3_IQ11</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16168,7 +16260,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ13</string>
+                 <string>testBox://cam:P3_IQ13</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -16219,7 +16311,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ14</string>
+                 <string>testBox://cam:P3_IQ14</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -16270,7 +16362,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ14</string>
+                 <string>testBox://cam:P3_IQ14</string>
                 </property>
                </widget>
               </item>
@@ -16311,7 +16403,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ14</string>
+                 <string>testBox://cam:P3_IQ14</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -16362,7 +16454,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ12</string>
+                 <string>testBox://cam:P3_IQ12</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -16413,7 +16505,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IA1</string>
+                 <string>testBox://cam:P1_IA1</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16457,7 +16549,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.I4</string>
+                 <string>testBox://cam:P1_I4</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16501,7 +16593,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IA2</string>
+                 <string>testBox://cam:P1_IA2</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16545,7 +16637,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.I6</string>
+                 <string>testBox://cam:P1_I6</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16589,7 +16681,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.Q0</string>
+                 <string>testBox://cam:P1_Q0</string>
                 </property>
                </widget>
               </item>
@@ -16630,7 +16722,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IA3</string>
+                 <string>testBox://cam:P1_IA3</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16674,7 +16766,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.Q0</string>
+                 <string>testBox://cam:P1_Q0</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16718,7 +16810,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IA0</string>
+                 <string>testBox://cam:P1_IA0</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16762,7 +16854,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.I7</string>
+                 <string>testBox://cam:P1_I7</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16806,7 +16898,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.I5</string>
+                 <string>testBox://cam:P1_I5</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -16850,7 +16942,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.Q1</string>
+                 <string>testBox://cam:P1_Q1</string>
                 </property>
                </widget>
               </item>
@@ -16891,58 +16983,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ17</string>
-                </property>
-               </widget>
-              </item>
-              <item row="8" column="3">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_62">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ16</string>
-                </property>
-                <property name="onColor" stdset="0">
-                 <color>
-                  <red>0</red>
-                  <green>255</green>
-                  <blue>0</blue>
-                 </color>
-                </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
+                 <string>testBox://cam:P1_IQ17</string>
                 </property>
                </widget>
               </item>
@@ -16983,7 +17024,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ17</string>
+                 <string>testBox://cam:P1_IQ17</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -16994,47 +17035,6 @@
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="8" column="2">
-               <widget class="PyDMCheckbox" name="PyDMCheckbox_62">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    A QCheckbox with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ16</string>
                 </property>
                </widget>
               </item>
@@ -17075,7 +17075,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.Q1</string>
+                 <string>testBox://cam:P1_Q1</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -17119,7 +17119,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.Q2</string>
+                 <string>testBox://cam:P1_Q2</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -17163,7 +17163,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ12</string>
+                 <string>testBox://cam:P1_IQ12</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -17207,7 +17207,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ13</string>
+                 <string>testBox://cam:P1_IQ13</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -17258,7 +17258,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ14</string>
+                 <string>testBox://cam:P1_IQ14</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -17309,7 +17309,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ15</string>
+                 <string>testBox://cam:P1_IQ15</string>
                 </property>
                </widget>
               </item>
@@ -17350,7 +17350,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ14</string>
+                 <string>testBox://cam:P1_IQ14</string>
                 </property>
                </widget>
               </item>
@@ -17391,7 +17391,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ13</string>
+                 <string>testBox://cam:P1_IQ13</string>
                 </property>
                </widget>
               </item>
@@ -17495,7 +17495,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ15</string>
+                 <string>testBox://cam:P1_IQ15</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -17546,7 +17546,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ10</string>
+                 <string>testBox://cam:P1_IQ10</string>
                 </property>
                </widget>
               </item>
@@ -17587,7 +17587,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ10</string>
+                 <string>testBox://cam:P1_IQ10</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -17631,7 +17631,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ11</string>
+                 <string>testBox://cam:P1_IQ11</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -17675,7 +17675,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ12</string>
+                 <string>testBox://cam:P1_IQ12</string>
                 </property>
                </widget>
               </item>
@@ -17716,7 +17716,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.IQ11</string>
+                 <string>testBox://cam:P1_IQ11</string>
                 </property>
                </widget>
               </item>
@@ -17757,7 +17757,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1.Q2</string>
+                 <string>testBox://cam:P1_Q2</string>
                 </property>
                </widget>
               </item>
@@ -19817,7 +19817,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IA0</string>
+                 <string>testBox://cam:P3_IA0</string>
                 </property>
                </widget>
               </item>
@@ -19902,7 +19902,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.Q0</string>
+                 <string>testBox://cam:P2_Q0</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -19946,7 +19946,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.I5</string>
+                 <string>testBox://cam:P3_I5</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -19990,7 +19990,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.I6</string>
+                 <string>testBox://cam:P3_I6</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -20027,7 +20027,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IA0</string>
+                 <string>testBox://cam:P2_IA0</string>
                 </property>
                </widget>
               </item>
@@ -20068,7 +20068,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.Q1</string>
+                 <string>testBox://cam:P2_Q1</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -20105,7 +20105,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IA1</string>
+                 <string>testBox://cam:P3_IA1</string>
                 </property>
                </widget>
               </item>
@@ -20133,7 +20133,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IA3</string>
+                 <string>testBox://cam:P3_IA3</string>
                 </property>
                </widget>
               </item>
@@ -20173,7 +20173,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IA2</string>
+                 <string>testBox://cam:P3_IA2</string>
                 </property>
                </widget>
               </item>
@@ -20214,7 +20214,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IQ17</string>
+                 <string>testBox://cam:P2_IQ17</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -20265,7 +20265,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.Q1</string>
+                 <string>testBox://cam:P2_Q1</string>
                 </property>
                </widget>
               </item>
@@ -20309,7 +20309,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IQ16</string>
+                 <string>testBox://cam:P2_IQ16</string>
                 </property>
                </widget>
               </item>
@@ -20350,7 +20350,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.Q1</string>
+                 <string>testBox://cam:P3_Q1</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -20394,7 +20394,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IQ16</string>
+                 <string>testBox://cam:P2_IQ16</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -20445,7 +20445,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.Q0</string>
+                 <string>testBox://cam:P2_Q0</string>
                 </property>
                </widget>
               </item>
@@ -20486,7 +20486,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ16</string>
+                 <string>testBox://cam:P3_IQ16</string>
                 </property>
                </widget>
               </item>
@@ -20527,7 +20527,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.Q0</string>
+                 <string>testBox://cam:P3_Q0</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -20571,7 +20571,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ17</string>
+                 <string>testBox://cam:P3_IQ17</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -20622,7 +20622,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ16</string>
+                 <string>testBox://cam:P3_IQ16</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -20673,7 +20673,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IQ17</string>
+                 <string>testBox://cam:P2_IQ17</string>
                 </property>
                </widget>
               </item>
@@ -20714,7 +20714,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.Q0</string>
+                 <string>testBox://cam:P3_Q0</string>
                 </property>
                </widget>
               </item>
@@ -20755,7 +20755,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.IQ17</string>
+                 <string>testBox://cam:P3_IQ17</string>
                 </property>
                </widget>
               </item>
@@ -20796,7 +20796,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IQ14</string>
+                 <string>testBox://cam:P2_IQ14</string>
                 </property>
                </widget>
               </item>
@@ -20824,7 +20824,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IA3</string>
+                 <string>testBox://cam:P2_IA3</string>
                 </property>
                </widget>
               </item>
@@ -20865,7 +20865,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IQ15</string>
+                 <string>testBox://cam:P2_IQ15</string>
                 </property>
                </widget>
               </item>
@@ -20906,7 +20906,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.I4</string>
+                 <string>testBox://cam:P2_I4</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -20943,7 +20943,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IA1</string>
+                 <string>testBox://cam:P2_IA1</string>
                 </property>
                </widget>
               </item>
@@ -20984,7 +20984,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P3.Q1</string>
+                 <string>testBox://cam:P3_Q1</string>
                 </property>
                </widget>
               </item>
@@ -21024,7 +21024,7 @@
                  <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IA2</string>
+                 <string>testBox://cam:P2_IA2</string>
                 </property>
                </widget>
               </item>
@@ -21084,7 +21084,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.I5</string>
+                 <string>testBox://cam:P2_I5</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
@@ -21128,7 +21128,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.I7</string>
+                 <string>testBox://cam:P2_I7</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -21198,7 +21198,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P2.IQ15</string>
+                 <string>testBox://cam:P2_IQ15</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -21227,29 +21227,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PyDMShellCommand</class>
-   <extends>QPushButton</extends>
-   <header>pydm.widgets.shell_command</header>
-  </customwidget>
-  <customwidget>
-   <class>PyDMLabel</class>
-   <extends>QLabel</extends>
-   <header>pydm.widgets.label</header>
-  </customwidget>
-  <customwidget>
-   <class>PyDMDrawingImage</class>
+   <class>PyDMByteIndicator</class>
    <extends>QWidget</extends>
-   <header>pydm.widgets.drawing</header>
-  </customwidget>
-  <customwidget>
-   <class>PyDMLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>pydm.widgets.line_edit</header>
-  </customwidget>
-  <customwidget>
-   <class>PyDMCheckbox</class>
-   <extends>QCheckBox</extends>
-   <header>pydm.widgets.checkbox</header>
+   <header>pydm.widgets.byte</header>
   </customwidget>
   <customwidget>
    <class>PyDMSlider</class>
@@ -21257,9 +21237,29 @@
    <header>pydm.widgets.slider</header>
   </customwidget>
   <customwidget>
-   <class>PyDMByteIndicator</class>
+   <class>PyDMLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>pydm.widgets.line_edit</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMShellCommand</class>
+   <extends>QPushButton</extends>
+   <header>pydm.widgets.shell_command</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMCheckbox</class>
+   <extends>QCheckBox</extends>
+   <header>pydm.widgets.checkbox</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMDrawingImage</class>
    <extends>QWidget</extends>
-   <header>pydm.widgets.byte</header>
+   <header>pydm.widgets.drawing</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMLabel</class>
+   <extends>QLabel</extends>
+   <header>pydm.widgets.label</header>
   </customwidget>
  </customwidgets>
  <resources>
