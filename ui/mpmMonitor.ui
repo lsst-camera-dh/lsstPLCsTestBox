@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>2223</width>
-    <height>1334</height>
+    <width>2600</width>
+    <height>1467</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -126,8 +126,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>262</width>
-          <height>1256</height>
+          <width>266</width>
+          <height>1370</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -229,7 +229,7 @@
     </string>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/36:HR:2</string>
+                   <string>modbus://${IP}:${PORT}/36:HR:2</string>
                   </property>
                   <property name="numBits" stdset="0">
                    <number>8</number>
@@ -255,7 +255,7 @@
     </string>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/36:HR:1</string>
+                   <string>modbus://${IP}:${PORT}/36:HR:1</string>
                   </property>
                   <property name="numBits" stdset="0">
                    <number>8</number>
@@ -288,7 +288,7 @@
     </string>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:1</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:1</string>
                   </property>
                   <property name="numBits" stdset="0">
                    <number>4</number>
@@ -326,7 +326,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:2</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:2</string>
                   </property>
                  </widget>
                 </item>
@@ -361,7 +361,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:5</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:5</string>
                   </property>
                  </widget>
                 </item>
@@ -396,7 +396,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:6</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:6</string>
                   </property>
                  </widget>
                 </item>
@@ -431,7 +431,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:7</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:7</string>
                   </property>
                  </widget>
                 </item>
@@ -466,7 +466,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:8</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:8</string>
                   </property>
                  </widget>
                 </item>
@@ -501,7 +501,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:9</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:9</string>
                   </property>
                  </widget>
                 </item>
@@ -536,7 +536,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:10</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:10</string>
                   </property>
                  </widget>
                 </item>
@@ -571,7 +571,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:11</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:11</string>
                   </property>
                  </widget>
                 </item>
@@ -606,7 +606,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:12</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:12</string>
                   </property>
                  </widget>
                 </item>
@@ -641,7 +641,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:13</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:13</string>
                   </property>
                  </widget>
                 </item>
@@ -676,7 +676,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:14</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:14</string>
                   </property>
                  </widget>
                 </item>
@@ -711,7 +711,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:15</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:15</string>
                   </property>
                  </widget>
                 </item>
@@ -746,7 +746,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:16</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:16</string>
                   </property>
                  </widget>
                 </item>
@@ -781,7 +781,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:17</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:17</string>
                   </property>
                  </widget>
                 </item>
@@ -816,7 +816,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:18</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:18</string>
                   </property>
                  </widget>
                 </item>
@@ -851,7 +851,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:19</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:19</string>
                   </property>
                  </widget>
                 </item>
@@ -886,7 +886,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:20</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:20</string>
                   </property>
                  </widget>
                 </item>
@@ -921,7 +921,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:21</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:21</string>
                   </property>
                  </widget>
                 </item>
@@ -956,7 +956,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:22</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:22</string>
                   </property>
                  </widget>
                 </item>
@@ -991,7 +991,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:23</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:23</string>
                   </property>
                  </widget>
                 </item>
@@ -1026,7 +1026,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:24</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:24</string>
                   </property>
                  </widget>
                 </item>
@@ -1061,7 +1061,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:25</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:25</string>
                   </property>
                  </widget>
                 </item>
@@ -1096,7 +1096,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:26</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:26</string>
                   </property>
                  </widget>
                 </item>
@@ -1131,7 +1131,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:27</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:27</string>
                   </property>
                  </widget>
                 </item>
@@ -1166,7 +1166,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:28</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:28</string>
                   </property>
                  </widget>
                 </item>
@@ -1201,7 +1201,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:29</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:29</string>
                   </property>
                  </widget>
                 </item>
@@ -1236,7 +1236,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:30</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:30</string>
                   </property>
                  </widget>
                 </item>
@@ -1271,7 +1271,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:31</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:31</string>
                   </property>
                  </widget>
                 </item>
@@ -1306,7 +1306,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:32</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:32</string>
                   </property>
                  </widget>
                 </item>
@@ -1341,7 +1341,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:33</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:33</string>
                   </property>
                  </widget>
                 </item>
@@ -1376,7 +1376,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:34</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:34</string>
                   </property>
                  </widget>
                 </item>
@@ -1411,7 +1411,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:35</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:35</string>
                   </property>
                  </widget>
                 </item>
@@ -1446,7 +1446,7 @@
                    <set>Qt::AlignCenter</set>
                   </property>
                   <property name="channel" stdset="0">
-                   <string>modbus://{IP}:502/4:HR:36</string>
+                   <string>modbus://${IP}:${PORT}/4:HR:36</string>
                   </property>
                  </widget>
                 </item>
@@ -1486,8 +1486,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>2264</width>
-          <height>1609</height>
+          <width>2298</width>
+          <height>1697</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -2385,7 +2385,7 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>plutoGateway://P2_ClpClpLight</string>
+                 <string>plutoGateway://P2_ClpColdLight</string>
                 </property>
                 <property name="onColor" stdset="0">
                  <color>
@@ -7847,7 +7847,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>P2_ClpClpLight</string>
+                 <string>P2_ClpColdLight</string>
                 </property>
                </widget>
               </item>
@@ -10160,6 +10160,109 @@
                 </property>
                 <property name="text">
                  <string>P1_BPower</string>
+                </property>
+               </widget>
+              </item>
+              <item row="24" column="4">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_81">
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Widget for graphical representation of bits from an integer number
+    with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>plutoGateway://P2_ClpTempHighOkLatch</string>
+                </property>
+                <property name="showLabels" stdset="0">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="24" column="5">
+               <widget class="QLabel" name="label_114">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>P2_ClpTempHighOkLatch</string>
+                </property>
+               </widget>
+              </item>
+              <item row="46" column="4">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_404">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>50</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Widget for graphical representation of bits from an integer number
+    with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>plutoGateway://P3_CryTempHighOkLatchNeedsReset</string>
+                </property>
+                <property name="onColor" stdset="0">
+                 <color>
+                  <red>255</red>
+                  <green>0</green>
+                  <blue>0</blue>
+                 </color>
+                </property>
+                <property name="showLabels" stdset="0">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="46" column="5">
+               <widget class="QLabel" name="label_284">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>P3_CryTempHighOkLatchNeedsReset</string>
                 </property>
                </widget>
               </item>
@@ -15496,49 +15599,61 @@
                 </property>
                </widget>
               </item>
-              <item row="10" column="4">
-               <widget class="PyDMCheckbox" name="PyDMCheckbox_62">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
+              <item row="14" column="1">
+               <widget class="PyDMLineEdit" name="PyDMLineEdit_35">
                 <property name="maximumSize">
                  <size>
-                  <width>15</width>
-                  <height>15</height>
+                  <width>54</width>
+                  <height>16777215</height>
                  </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
                 </property>
                 <property name="toolTip">
                  <string/>
                 </property>
                 <property name="whatsThis">
-                 <string>
-    A QCheckbox with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-
-    </string>
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="precisionFromPV" stdset="0">
+                 <bool>false</bool>
+                </property>
+                <property name="precision" stdset="0">
+                 <number>2</number>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1_Q0</string>
+                 <string>testBox://plc:P1_IQ11</string>
                 </property>
                </widget>
               </item>
-              <item row="11" column="4">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_62">
+              <item row="36" column="3">
+               <widget class="QLabel" name="label_285">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>P2_IQ11</string>
+                </property>
+               </widget>
+              </item>
+              <item row="36" column="2">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_204">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -15574,17 +15689,44 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://cam:P1_Q0</string>
-                </property>
-                <property name="onColor" stdset="0">
-                 <color>
-                  <red>0</red>
-                  <green>255</green>
-                  <blue>0</blue>
-                 </color>
+                 <string>testBox://plc:P2_IQ11</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="36" column="1">
+               <widget class="PyDMLineEdit" name="PyDMLineEdit_36">
+                <property name="maximumSize">
+                 <size>
+                  <width>54</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="precisionFromPV" stdset="0">
+                 <bool>false</bool>
+                </property>
+                <property name="precision" stdset="0">
+                 <number>2</number>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P2_IQ11</string>
                 </property>
                </widget>
               </item>
@@ -21212,6 +21354,98 @@
                 </property>
                </widget>
               </item>
+              <item row="8" column="2">
+               <widget class="PyDMCheckbox" name="PyDMCheckbox_62">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    A QCheckbox with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://cam:P1_IQ16</string>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="3">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_62">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>50</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Widget for graphical representation of bits from an integer number
+    with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://cam:P1_IQ16</string>
+                </property>
+                <property name="onColor" stdset="0">
+                 <color>
+                  <red>0</red>
+                  <green>255</green>
+                  <blue>0</blue>
+                 </color>
+                </property>
+                <property name="showLabels" stdset="0">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
            </layout>
@@ -21232,24 +21466,9 @@
    <header>pydm.widgets.byte</header>
   </customwidget>
   <customwidget>
-   <class>PyDMSlider</class>
-   <extends>QFrame</extends>
-   <header>pydm.widgets.slider</header>
-  </customwidget>
-  <customwidget>
    <class>PyDMLineEdit</class>
    <extends>QLineEdit</extends>
    <header>pydm.widgets.line_edit</header>
-  </customwidget>
-  <customwidget>
-   <class>PyDMShellCommand</class>
-   <extends>QPushButton</extends>
-   <header>pydm.widgets.shell_command</header>
-  </customwidget>
-  <customwidget>
-   <class>PyDMCheckbox</class>
-   <extends>QCheckBox</extends>
-   <header>pydm.widgets.checkbox</header>
   </customwidget>
   <customwidget>
    <class>PyDMDrawingImage</class>
@@ -21257,9 +21476,24 @@
    <header>pydm.widgets.drawing</header>
   </customwidget>
   <customwidget>
+   <class>PyDMCheckbox</class>
+   <extends>QCheckBox</extends>
+   <header>pydm.widgets.checkbox</header>
+  </customwidget>
+  <customwidget>
    <class>PyDMLabel</class>
    <extends>QLabel</extends>
    <header>pydm.widgets.label</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMShellCommand</class>
+   <extends>QPushButton</extends>
+   <header>pydm.widgets.shell_command</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMSlider</class>
+   <extends>QFrame</extends>
+   <header>pydm.widgets.slider</header>
   </customwidget>
  </customwidgets>
  <resources>

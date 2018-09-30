@@ -5,10 +5,7 @@ import json
 
 
 class VaccumMonitor(Display):
-    def __init__(self, parent=None, args=None, macros={'IP':"192.168.1.132"}):
-
-
-
+    def __init__(self, parent=None, args=None, macros=None):
 
 
         with open(path.join(path.dirname(path.realpath(__file__)),"ip_config.json"),'r') as f:
@@ -18,7 +15,7 @@ class VaccumMonitor(Display):
         testBox_ip=configs["testBox_ip"]
         testBox_port=configs["testBox_port"]
 
-        #macros = {'IP':"192.168.1.132"}
+        macros = {'IP':plutoGateway_ip,"PORT":plutoGateway_port}
 
         super(VaccumMonitor, self).__init__(parent=parent, macros=macros)
 

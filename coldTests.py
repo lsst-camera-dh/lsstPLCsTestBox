@@ -3,48 +3,50 @@ from pydm import Display
 from pydm.PyQt.QtCore import *
 from pydm.PyQt.QtGui import *
 import tester
-import mpm_tests
+import cold_tests
 from mapping_parser import import_mappings
 import logging
 import time
 
-class MpmTests(Display):
+class ColdTests(Display):
     def __init__(self, parent=None, args=None, macros=None):
-        super(MpmTests, self).__init__(parent=parent, macros=macros)
+        super(ColdTests, self).__init__(parent=parent, macros=macros)
 
         logging.basicConfig(filename='vaccumTests%s.log', level=logging.DEBUG)
 
-        plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "mpm_modbus_mapping.csv")
+        plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "cold_modbus_mapping.csv")
         testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "PLC_Certification_Chassis.xlsx")
 
-        testBox, plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'MPM Cables')
-
-        print('ola')
+        testBox, plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'ColdCryo Cables')
 
 
-
-        self.mpm_tester = tester.Tester(testBox , plutoGateway)
-        #self.mpm_tester.connectTestBox()
-        #self.mpm_tester.connectGateway(timeout=30)
-
-
-        self.mpm_tester.tests.append(mpm_tests.TestPlutoGatewayConfig(self.mpm_tester, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestPlutoPLCsPresent(self.mpm_tester, -1))
+        self.cold_tester = tester.Tester(testBox , plutoGateway)
+        self.cold_tester.connectTestBox()
+        self.cold_tester.connectGateway(timeout=30)
 
 
-        self.mpm_tester.tests.append(mpm_tests.TestChannelsBootDefault(self.mpm_tester, -1))
 
-        self.mpm_tester.tests.append(mpm_tests.TestPlutoWriteReadback(self.mpm_tester, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestAnalogScaling(self.mpm_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestPlutoGatewayConfig(self.cold_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestPlutoPLCsPresent(self.cold_tester, -1))
 
-        self.mpm_tester.tests.append(mpm_tests.TestTemperatureSetpoints(self.mpm_tester, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestPermitsBlock(self.mpm_tester, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestAcPermitCoolantValve(self.mpm_tester, -1))
 
-        self.mpm_tester.tests.append(mpm_tests.TestVacuumToRefPermits(self.mpm_tester, -1))
-        self.mpm_tester.tests.append(mpm_tests.TestColdCryoPermits(self.mpm_tester, -1))
+        #self.cold_tester.tests.append(cold_tests.TestChannelsBootDefault(self.cold_tester, -1))
 
-        for i, test in enumerate( self.mpm_tester.tests):
+        self.cold_tester.tests.append(cold_tests.TestPlutoWriteReadback(self.cold_tester, -1))
+        #self.cold_tester.tests.append(cold_tests.TestAnalogScaling(self.cold_tester, -1))
+
+
+        self.cold_tester.tests.append(cold_tests.TestDigitalInputs(self.cold_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestSensorsValid(self.cold_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestImmediateTrips(self.cold_tester, -1))
+        #####self.cold_tester.tests.append(cold_tests.TestImmediatePowerTrips(self.cold_tester, -1))
+
+        self.cold_tester.tests.append(cold_tests.TestDelay0(self.cold_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestDelay1(self.cold_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestDelay2(self.cold_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestDelay3(self.cold_tester, -1))
+
+        for i, test in enumerate( self.cold_tester.tests):
             test.id=i
 
 
@@ -52,13 +54,13 @@ class MpmTests(Display):
 
         headers= ["Test","Description","","Step","Details"]
 
-        self.table.setRowCount(len(self.mpm_tester.tests))
+        self.table.setRowCount(len(self.cold_tester.tests))
         self.table.setColumnCount(len(headers))
 
         self.table.setHorizontalHeaderLabels(headers)
-        self.table.setVerticalHeaderLabels([str(e)  for e in list(range(1,len(self.mpm_tester.tests)+1))])
+        self.table.setVerticalHeaderLabels([str(e)  for e in list(range(1,len(self.cold_tester.tests)+1))])
 
-        for i, test in enumerate(self.mpm_tester.tests):
+        for i, test in enumerate(self.cold_tester.tests):
             self.update_table_line(i)
         self.table.setCurrentCell(0, 0 ,QItemSelectionModel.Rows)
 
@@ -69,19 +71,19 @@ class MpmTests(Display):
         self.table.setColumnWidth(2, 50)
         self.table.setColumnWidth(3, 250)
 
-        self.mpm_tester.test_line_update.connect(self.update_table_line)
-        self.mpm_tester.monitor_update.connect(self.update_monitor_menu)
+        self.cold_tester.test_line_update.connect(self.update_table_line)
+        self.cold_tester.monitor_update.connect(self.update_monitor_menu)
 
-        self.ui.runAllButton.clicked.connect(self.mpm_tester.run_all)
-        self.ui.abortButton.clicked.connect(self.mpm_tester.abort)
+        self.ui.runAllButton.clicked.connect(self.cold_tester.run_all)
+        self.ui.abortButton.clicked.connect(self.cold_tester.abort)
 
     def item_changed(self,item):
         id = self.table.row(item)
-        self.mpm_tester.tests[id].selected = item.checkState()
+        self.cold_tester.tests[id].selected = item.checkState()
 
     def update_table_line(self,i):
 
-        test = self.mpm_tester.tests[i]
+        test = self.cold_tester.tests[i]
         name = QTableWidgetItem(test.name)
 
 

@@ -43,10 +43,11 @@ class Tester(QThread):
             try:
                 if self.testBox is not None:
                     self.testBox.close()
+                    self.sleep(1)
 
                 self.testBox = None
                 self.testBox = TestBox(self, self.testBox_chs)
-                self.logger.warning("Reconnected to Testbox")
+                self.logger.warning("Reconnected to Testbox.")
                 break
             except:
                 self.sleep(1)
@@ -57,13 +58,15 @@ class Tester(QThread):
             try:
                 if self.plutoGateway is not None:
                     self.plutoGateway.close()
+                    self.sleep(1)
 
                 self.plutoGateway = None
                 self.plutoGateway = PlutoGateway(self,self.plutoGateway_chs)
                 self.logger.warning("Reconnected to Pluto Gateway")
                 break
-            except:
+            except Exception as e:
                 self.sleep(1)
+                print(e)
 
 
     def run_all(self):
@@ -106,6 +109,8 @@ class Tester(QThread):
 
     def reconnect(self,timeout=15):
 
+        self.sleep(0.5)
+
         self.connectGateway()
 
         self.connectTestBox(timeout)
@@ -116,7 +121,6 @@ class Tester(QThread):
     def run(self):
 
         while 1:
-            self.reconnect()
 
             self.n_tests = len(self.running_tests)
 
@@ -136,6 +140,8 @@ class Tester(QThread):
 
 
             for n, test in enumerate(self.running_tests):
+
+                self.reconnect()
 
                 self.current_test_obj = test
 
@@ -256,7 +262,7 @@ class Test:
             self.logger.error("-----> "+str(step))
         else:
             self.logger.info("-----> "+str(step))
-        #print("-----> "+str(step))
+        print("-----> "+str(step)) #TODO apagar
 
     def set_run_button(self,button):
         self.run_button = button
@@ -309,6 +315,7 @@ class Test:
 
     def readAllChannels(self):
         self.log("Reading all channels")
+        #chs = []
         chs = self.tester.testBox.plc.channels + self.tester.plutoGateway.channels
         return self.readChannels(chs)
 
@@ -317,7 +324,7 @@ class Test:
 
         digitalBlink = []
         for chV in channelsValues:
-            if chV[1] is not  None:
+            if chV[1] is not None:
                 if chV[0].type == "DigitalBlink":
                     digitalBlink.append(chV)
                 else:
@@ -345,7 +352,7 @@ class Test:
                 string="Blinks do not match: "
                 for n in range(len(vals)):
                     if vals[n] != results[n]:
-                        string = string + ("%s is %d (should be %d);  "%(str(chs[n].ch),results[n],vals[n]))
+                        string = string + ("%s is %s (should be %s);  "%(str(chs[n].ch),str(results[n]),str(vals[n])))
                 self.log(string,True)
                 raise ValueError(string)
 
@@ -372,7 +379,7 @@ class Test:
 
 
 
-    def setDefault(self,gateway=True):
+    def setDefault(self,gateway=True,check=True):
         self.log("Setting normal operation values.")
 
         for a in range(3):
@@ -406,14 +413,18 @@ class Test:
             for ch in press_chs:
                 ch.write(0)
 
-            if self.checkDefault():
+            if check:
+                if self.checkDefault():
+                    self.log("Normal operation values set.")
+                    return True
+            else:
                 self.log("Normal operation values set.")
                 return True
 
 
 
     def checkDuring(self,channelsValues, timeout):
-        self.log("Wait for %d s with no changes.")
+        self.log("Wait for %s s with no changes."%str(timeout))
 
         start = time.time()
         while time.time() - start < timeout:
@@ -423,6 +434,8 @@ class Test:
                     error = "A channel not suposed to change changed its value. :: %s in %s, not %s."%(ch[0].ch,read, ch[1])
                     self.log(error,True)
                     raise ValueError(error)
+            self.sleep(1)
+            print(int(time.time() - start))
 
         return True
 
@@ -441,6 +454,7 @@ class Test:
             except ValueError as e:
                 pass
             self.sleep(0.1)
+
         if not change_ok:
             try:
                 self.checkChannels(channelsValues)
@@ -450,6 +464,7 @@ class Test:
                 raise ValueError(error)
 
         else:
+
             if compare is not None:
                 channels = ''
                 for chV in compare:

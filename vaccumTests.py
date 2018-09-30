@@ -3,7 +3,7 @@ from pydm import Display
 from pydm.PyQt.QtCore import *
 from pydm.PyQt.QtGui import *
 import tester
-import vac_tests
+import vac_tests2 as vac_tests
 from mapping_parser import import_mappings
 import logging
 
@@ -34,20 +34,20 @@ class VaccumTests(Display):
 
         self.vac_tester.tests.append(vac_tests.TestPlutoWriteReadback(self.vac_tester, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestAnalogScaling(self.vac_tester, -1))
+        #self.vac_tester.tests.append(vac_tests.TestAnalogScaling(self.vac_tester, -1))
 
-        self.vac_tester.tests.append(vac_tests.TestHvCvDifferences(self.vac_tester, -1))
+        #self.vac_tester.tests.append(vac_tests.TestHvCvDifferences(self.vac_tester, -1))
 
         self.vac_tester.tests.append(vac_tests.TestCvValves(self.vac_tester, -1))
         self.vac_tester.tests.append(vac_tests.TestValveMonitors(self.vac_tester, -1))
 
         self.vac_tester.tests.append(vac_tests.TestHvStat(self.vac_tester, -1))
-        self.vac_tester.tests.append(vac_tests.TestHvTurboOnOfflogic(self.vac_tester, -1))
+        #self.vac_tester.tests.append(vac_tests.TestHvTurboOnOfflogic(self.vac_tester, -1))
         self.vac_tester.tests.append(vac_tests.TestHvTurboPermitBlock(self.vac_tester, -1))
         self.vac_tester.tests.append(vac_tests.TestHvTurboPermitAuto(self.vac_tester, -1))
 
         self.vac_tester.tests.append(vac_tests.TestCvStat(self.vac_tester, -1))
-        self.vac_tester.tests.append(vac_tests.TestCvTurboOnOfflogic(self.vac_tester, -1))
+        #self.vac_tester.tests.append(vac_tests.TestCvTurboOnOfflogic(self.vac_tester, -1))
         self.vac_tester.tests.append(vac_tests.TestCvTurboPermitBlock(self.vac_tester, -1))
         self.vac_tester.tests.append(vac_tests.TestCvTurboPermitAuto(self.vac_tester, -1))
 

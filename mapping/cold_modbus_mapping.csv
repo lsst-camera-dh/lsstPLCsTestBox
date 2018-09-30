@@ -23,11 +23,11 @@ R,HR,36,,,,,,,
 R,HR,36,81,,WaitingSecs,Analog,,20,22
 R,HR,36,,,,,,,
 R,HR,36,,,,,,,
-R,HR,36,83,,DOnePhasePower.Lo,Analog,,20,22
-R,HR,36,84,,DOnePhasePower.Hi,Analog,,0,0
+R,HR,36,83,,DOnePhasePower_Lo,Analog,,20,22
+R,HR,36,84,,DOnePhasePower_Hi,Analog,,0,0
 R,HR,36,,,,,,,
-R,HR,36,85,,DPower.Lo,Analog,,20,22
-R,HR,36,86,,DPower.Hi,Analog,,0,0
+R,HR,36,85,,DPower_Lo,Analog,,20,22
+R,HR,36,86,,DPower_Hi,Analog,,0,0
 ,,,,,,,,,
 R,HR,36,88,0,DisTempValid,Digital,,1,1
 R,HR,36,88,1,SucTempValid,Digital,,1,1
@@ -78,26 +78,26 @@ R,HR,36,92,11,PowerOKLatch,Digital,,0,0
 R,HR,36,92,12,PowerOKLatchStatus,DigitalBlink,,0,1
 R,HR,36,92,13,PowerOKLatchNeedsReset,Digital,,0,1
 R,HR,36,92,14,PowerBadWarn,Digital,,0,0
-R,HR,36,92,15,,,,,
+R,HR,36,92,15,CompOn1minOn,Digital,,1,0
 R,HR,36,,,,,,,
-R,HR,36,94, 0,,,,,
-R,HR,36,94,1 ,ExtPermLatch,Digital,,1,0
-R,HR,36,94,2 ,ExtPermLatchStatus,DigitalBlink,,1,0
-R,HR,36,94,3 ,ExtPermLatchNeedsReset,Digital,,1,1
-R,HR,36,94,4 ,,,,,
-R,HR,36,94,5 ,,,,,
-R,HR,36,94,6 ,SmokeOKLatch,Digital,,0,0
-R,HR,36,94,7 ,SmokeOKLatchStatus,DigitalBlink,,1,1
+R,HR,36,94, ,,,,,
+R,HR,36,94,1,ExtPermLatch,Digital,,1,0
+R,HR,36,94,2,ExtPermLatchStatus,DigitalBlink,,1,0
+R,HR,36,94,3,ExtPermLatchNeedsReset,Digital,,1,1
+R,HR,36,94,4,,,,,
+R,HR,36,94,5,,,,,
+R,HR,36,94,6,SmokeOKLatch,Digital,,0,0
+R,HR,36,94,7,SmokeOKLatchStatus,DigitalBlink,,1,1
 R,HR,36,94,8,SmokeOKLatchNeedsReset,Digital,,0,0
 R,HR,36,94,9,,,,,
 R,HR,36,94,10,,,,,
-R,HR,36,94,11,,,,,
-R,HR,36,94,12,,,,,
-R,HR,36,94,13,,,,,
+R,HR,36,94,11,SensorsValidLatch,Digital,,0,0
+R,HR,36,94,12,SensorsValidLatchStatus,DigitalBlink,,1,1
+R,HR,36,94,13,SensorsValidLatchNeedsReset,Digital,,0,0
 R,HR,36,94,14,,,,,
 R,HR,36,94,15,,,,,
 R,HR,36,,,,,,,
-R,HR,36,96, 0,ResetGate,Digital,,1,0
+R,HR,36,96,0,ResetGate,Digital,,1,0
 R,HR,36,96,1,MasReset,Digital,,1,0
 R,HR,36,96,2,LightsOn,Digital,,,
 R,HR,36,96,3,KeyOnI,Digital,,0,1
@@ -106,7 +106,7 @@ R,HR,36,96,5,ResetI,Digital,,0,1
 R,HR,36,96,6,SmokeI,Digital,,0,1
 R,HR,36,96,7,Led1,Digital,,1,1
 R,HR,36,96,8,Led2,Digital,,0,1
-,,,,,,,,,
+R,HR,36,96,9,FlashLed1,Digital,,,
 ,,,,,,,,,
 ,,,,,,,,,
 ,,,,,,,,,

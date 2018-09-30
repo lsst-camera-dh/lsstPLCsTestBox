@@ -17,7 +17,7 @@ class PlutoGateway:
             testBox_port=configs["testBox_port"]
 
         print("plutoGateway:",plutoGateway_ip,plutoGateway_port)
-        print("testBox:",testBox_ip,testBox_port)
+        #print("testBox:",testBox_ip,testBox_port)
 
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect((plutoGateway_ip, plutoGateway_port))
@@ -72,6 +72,7 @@ class PlutoGateway:
 
     def write_ch(self,ch,val):
         dict = self.dict
+
         if dict[ch]["bit"] != None:
 
             while (self.read_bit(dict[ch]["unit_id"],dict[ch]["addr"],dict[ch]["bit"])!=val):
@@ -104,7 +105,7 @@ class PlutoGatewayChannel():
         self.type = type
         self.server = server
         self.default_value = self.server.dict[ch]["default_value"]
-        self.boot_value = self.server.dict[ch]["boot_value"]
+        #self.boot_value = self.server.dict[ch]["boot_value"]
         self.type = self.server.dict[ch]["type"]
 
     def read(self):
@@ -123,7 +124,7 @@ class PlutoGatewayChannel():
         if (val) is -1:
             return True
         if self.type == "Analog":
-            return abs(self.read()-int(val))<40
+            return abs(self.read()-int(val))<val*0.08
         elif self.type == "DigitalBlink":
             if checkBlink:
                 if val == 0:

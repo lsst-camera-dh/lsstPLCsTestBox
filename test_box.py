@@ -13,8 +13,8 @@ class TestBox:
             testBox_ip=configs["testBox_ip"]
             testBox_port=configs["testBox_port"]
 
-        print("plutoGateway:",plutoGateway_ip,plutoGateway_port)
-        print("testBox:",testBox_ip,testBox_port)
+        #print("plutoGateway:",plutoGateway_ip,plutoGateway_port)
+        #print("testBox:",testBox_ip,testBox_port)
 
         self.system = MAQ20(ip_address=testBox_ip, port=testBox_port)
         self.dict = None
@@ -31,7 +31,7 @@ class TestBox:
         self.tester=tester
 
         for ch in self.dict.keys():
-            print(ch)
+            #print(ch)
             try:
                 pass
                 exec("self.plc."+ch+" = TestBoxChannel(self,'plc','"+ch+"')")
@@ -78,11 +78,11 @@ class TestBox:
             module.write_channel_data(port["maq20ModuleAddr"], float(value))
 
             n = 0
-            while abs(module.read_channel_data(port["maq20ModuleAddr"])-value)>0.4 and value !=1 and module.read_output_channels()>0:
+            while abs(module.read_channel_data(port["maq20ModuleAddr"])-value)>0.6 and value !=1 and module.read_output_channels()>0:
                 module.write_channel_data(port["maq20ModuleAddr"], float(value))
-                time.sleep(0.01)
+                time.sleep(0.05)
                 n+=1
-                if n>500:
+                if n>50:
                     raise ValueError("Failed to write to channel")
 
 
@@ -117,7 +117,7 @@ class TestBoxChannel():
 
     def write(self,val,note=""):
         #print('>>>>>>>>>>>>>>',dir(self.server.tester))
-        #self.server.tester.log("Write %s to %s. %s" % (str(val),str(self.ch),  str(note)))
+        self.server.tester.log("Write %s to %s. %s" % (str(val),str(self.ch),  str(note)))
         return self.server.write_port(self.side, self.ch,val)
 
     def press(self,note=""):
