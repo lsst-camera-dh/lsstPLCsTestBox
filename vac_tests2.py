@@ -658,6 +658,7 @@ class TestCvTurboPermitAuto(Test):
             turboPressureUnder10PortValues = [0,1]
             turboPumpOffPortValues = [0,1]
 
+
             mksPortValues = [0,1]
 
             CV01PortValues = [0,1]
@@ -716,6 +717,7 @@ class TestCvTurboPermitAuto(Test):
                                                 ##################
 
                                                 compare = self.readAllChannels()
+                                                compare =None
 
 
                                                 CV01Port.write(CV01PortValue)
@@ -730,8 +732,6 @@ class TestCvTurboPermitAuto(Test):
 
                                                 #Try to opem
                                                 vccOpen_w.press()
-
-                                                print("AAA 1")
 
 
                                                 self.checkChange([(mksPort, mksPortValue),
@@ -771,17 +771,12 @@ class TestCvTurboPermitAuto(Test):
 
                                                                   ],                                                     1,compare)
 
-                                                print("AAA 2")
                                                 #can always close
                                                 vccClose_w.press()
-
-                                                print("AAA 3")
 
                                                 self.checkChange([(vcc, 0),
                                                                   (vccPort, 0),
                                                                   ], 1,checkBlinks=False)
-
-                                                print("AAA 4")
 
                                                 # Check if can open
                                                 if vccAllowedOpenLatchValue and vccNotForcedCloseLatchValue:
@@ -797,23 +792,13 @@ class TestCvTurboPermitAuto(Test):
                                                                   (vccPort,0),
                                                                       ], 1,checkBlinks=False)
 
-                                                print("AAA 5")
-                                                #input()
-
-
-                                                #self.writeChannels(compare)
                                                 self.setDefault(gateway=False,check=False)
                                                 self.sleep(.5)
-                                                print("AAA 6")
-
 
                                                 press = []
                                                 change1 = []
                                                 change2 = []
 
-
-                                               # input()
-                                                print("AAA 7")
                                                 if not bool(vccAllowedOpenLatchValue):
 
                                                     change1.append((vccAllowedOpenLatchStatus, 2))
@@ -850,9 +835,6 @@ class TestCvTurboPermitAuto(Test):
                                                     change2.append((turboPumpPermitLatchNeedsReset, 0))
 
 
-
-
-
                                                 self.checkChange(change1, 1)
 
                                                 self.pressChannels(press)
@@ -869,12 +851,7 @@ class TestCvTurboPermitAuto(Test):
                                                                   (vccPort, 1),
                                                                   ], 1,checkBlinks=False)
                                                 self.sleep(0.5)
-
-
-
-
-
-                self.step("TestCVTurboPermitAuto permit logic correct.")
+                self.step("TestCvTurboPermitAuto permit logic correct.")
                 return True
 
             except ValueError as e:
@@ -958,10 +935,10 @@ class TestHvTurboPermitAuto(Test):
                                                 if n<0:
                                                     continue
 
-                                                # Pump Permit (24V) =  (VCR-UTT-GCC-01 Relay 2 Closed)  AND  ( (Cryostat TurboPumpOff OFF AND Relay Output of MKS925 is Closed) OR Cryostat TurboPumpOff ON)
+                                                # Pump Permit (24V) =  (VHX-UTT-GCC-01 Relay 2 Closed)  AND  ( (Cryostat TurboPumpOff OFF AND Relay Output of MKS925 is Closed) OR Cryostat TurboPumpOFF ON)
                                                 turboPumpPermitValue = turboPressureUnder10PortValue and ( ( turboPumpOffPortValue==0 and mksPortValue==1) or turboPumpOffPortValue==1)
 
-                                                # Close VCR-UTT-VGC-00 (Set PLC output to 0v)  = Cryostat TurboPumpOff OFF  AND (Relay Output of MKS925 is Open)
+                                                # Close VHX-UTT-VGC-00 (Set PLC output to 0v)  = Cryostat TurboPumpOff OFF  AND (Relay Output of MKS925 is Open)
                                                 if (turboPumpOffPortValue == 0) and (mksPortValue == 0):
                                                     vccNotForcedCloseLatchValue = 0
                                                 else:
@@ -979,7 +956,7 @@ class TestHvTurboPermitAuto(Test):
                                                 turboPumpPermitLatchStatusValue = int(not bool(turboPumpPermitPortValue))
                                                 turboPumpPermitLatchNeedsResetValue= turboPumpPermitLatchStatusValue ==2
 
-                                                #VCR-UTT-VGC-00 allowed to open  = Cryostat TurboPumpOff ON OR (Cryostat TurboPumpOff OFF AND (VCR-UTT-GCC-00 Relay 1 AND VCR-UTT-GCC-01 Relay 1))
+                                                #VHX-UTT-VGC-00 allowed to open  = Cryostat TurboPumpOff ON OR (Cryostat TurboPumpOff OFF AND (VCR-UTT-GCC-00 Relay 1 AND VCR-UTT-GCC-01 Relay 1))
                                                 vccAllowedOpenLatchValue = (turboPumpOffPortValue==1 or (turboPumpOffPortValue==0 and CV01PortValue == 1)) and vccNotForcedCloseLatchValue
 
                                                 if vccAllowedOpenLatchValue ==0:
@@ -993,6 +970,7 @@ class TestHvTurboPermitAuto(Test):
                                                 ##################
 
                                                 compare = self.readAllChannels()
+                                                compare =None  #TODO
 
 
                                                 CV01Port.write(CV01PortValue)
@@ -1127,9 +1105,6 @@ class TestHvTurboPermitAuto(Test):
                                                     change2.append((turboPumpPermitLatchNeedsReset, 0))
 
 
-
-
-
                                                 self.checkChange(change1, 1)
 
                                                 self.pressChannels(press)
@@ -1146,6 +1121,10 @@ class TestHvTurboPermitAuto(Test):
                                                                   (vccPort, 1),
                                                                   ], 1,checkBlinks=False)
                                                 self.sleep(0.5)
+
+                                                print('AAA  8')
+
+
 
 
 

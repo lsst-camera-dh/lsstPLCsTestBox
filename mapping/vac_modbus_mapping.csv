@@ -57,7 +57,7 @@ R,HR,36,100,2,Cpower,Digital,IQ12,1,1
 R,HR,36,100,3,HVTurboUnder10,Digital,Q5,1,0
 R,HR,36,100,4,HVTurboPumpOFF,Digital,Q5,1,1
 R,HR,36,100,5,CVTurboUnder10,Digital,Q4,1,0
-R,HR,36,100,6,CVTurboPumpOFF,Digital,Q4,1,1
+R,HR,36,100,6,CVTurboPumpOFF,Digital,Q4,1,0
 R,HR,36,100,7,,Digital,,,
 R,HR,36,102,0,HVStatBlock,Digital,Q1,0,0
 R,HR,36,102,1,CVStatBlock,Digital,Q0,0,0
