@@ -30,57 +30,7 @@ class TestPlutoGatewayConfig(Test):
                                 519, 520, 0, 612, 769,
                                 770, 771, 772, 773, 774, 775, 776, 777, 868, 0, 0, 100, 0, 0, 0, 1]
 
-        '''
-        # Activate Data to Pluto Area 0, 1 and 2
-        gateway_config_write_read(1,0b0111)
-        
-        # Data to Pluto Timeout = 0
-        gateway_config_write_read(2,0)
-        
-        # Additional Data Areas for PLC 1
-        gateway_config_write_read(5,0x0101)
-        gateway_config_write_read(6,0x0102)
-        gateway_config_write_read(7,0x0103)
-        gateway_config_write_read(8,0x0104)
-        gateway_config_write_read(9,0x0000)
-        gateway_config_write_read(10,0x0000)
-        gateway_config_write_read(11,0x0000)
-        gateway_config_write_read(12,0x0000)
-        gateway_config_write_read(13,0x0000)
-        gateway_config_write_read(14,0x0164)
-        
-        # Additional Data Areas for PLC 2
-        gateway_config_write_read(15,0x0201)
-        gateway_config_write_read(16,0x0202)
-        gateway_config_write_read(17,0x0203)
-        gateway_config_write_read(18,0x0204)
-        gateway_config_write_read(19,0x0205)
-        gateway_config_write_read(20,0x0206)
-        gateway_config_write_read(21,0x0207)
-        gateway_config_write_read(22,0x0208)
-        gateway_config_write_read(23,0x0000)
-        gateway_config_write_read(24,0x0264)
-        
-        
-        # Additional Data Areas for PLC 3
-        gateway_config_write_read(25,0x0301)
-        gateway_config_write_read(26,0x0302)
-        gateway_config_write_read(27,0x0303)
-        gateway_config_write_read(28,0x0304)
-        gateway_config_write_read(29,0x0305)
-        gateway_config_write_read(30,0x0306)
-        gateway_config_write_read(31,0x0307)
-        gateway_config_write_read(32,0x0308)
-        gateway_config_write_read(33,0x0309)
-        gateway_config_write_read(34,0x0364)
-        
-        
-        # Data to Pluto Cycle time = 100 ms
-        gateway_config_write_read(37,100)
-        
-        # Gateway Node number = 0
-        gateway_config_write_read(41,0x001)
-        '''
+
 
         self.desc = "Check Pluto Gateway configuration registers. Expected:" + str(self.expected_config)
 
@@ -236,7 +186,7 @@ class TestPlutoWriteReadback(Test):
         self.step("All write adds are connected with the respective readback values addrs")
         return True
 
-
+'''
 class TestAnalogScaling(Test):
     def __init__(self, tester, id):
         Test.__init__(self, tester, id)
@@ -388,7 +338,7 @@ class TestAnalogScaling(Test):
 
         self.step("Analog input wiring, linearity and scaling factors and offsets OK")
         return True
-
+'''
 
 class TestTemperatureSetpoints(Test):
     def __init__(self, tester, id):

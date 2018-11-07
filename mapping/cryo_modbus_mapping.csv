@@ -26,9 +26,10 @@ R,HR,36,,,,,,,
 R,HR,36,83,,,,,,
 R,HR,36,84,,,,,,
 R,HR,36,,,,,,,
-R,HR,36,85,,DPower.Lo,Analog,,22,22
-R,HR,36,86,,DPower.Hi,Analog,,0,0
-R,HR,36,,,,,,,
+R,HR,36,85,,Dpower_Lo,Analog,,22,22
+R,HR,36,86,,Dpower_Hi,Analog,,0,0
+,,,,,,,,,
+R,HR,36,87,,SR_appCRC,Analog,,,
 R,HR,36,88,0,DisTempValid,Digital,,1,1
 R,HR,36,88,1,SucTempValid,Digital,,0,0
 R,HR,36,88,2,OilLevelValid,Digital,,0,0
@@ -39,14 +40,15 @@ R,HR,36,88,6,VoltageValid,Digital,,0,0
 R,HR,36,88,7,CompIntPerm,Digital,,0,2
 R,HR,36,88,8,CompEnable,Digital,,0,0
 R,HR,36,88,9,CompOnInterlocks,Digital,,,
-R,HR,36,88,10,CompPermit,Digital,,0,0
+R,HR,36,88,10,,,,,
 R,HR,36,88,11,CompOn2minDelay,Digital,,0,0
 R,HR,36,88,12,CompOnWaiting,Digital,,0,0
 R,HR,36,88,13,CompOn,Digital,,1,0
 R,HR,36,88,14,,,,,
 R,HR,36,88,15,,,,,
-R,HR,36,,,,,,,
-R,HR,36,90,0,DisTempBad30min,Digital,,1,0
+,,,,,,,,,
+R,HR,36,89,,SR_ErrorCode,Analog,,,
+R,HR,36,90,0,,,,,
 R,HR,36,90,1,DisTempOKLatch,Digital,,0,2
 R,HR,36,90,2,DisTempOKLatchStatus,DigitalBlink,,0,0
 R,HR,36,90,3,DisTempOKLatchNeedsReset,Digital,,1,0
@@ -69,26 +71,26 @@ R,HR,36,92,2,DisPressOKLatchStatus,DigitalBlink,,0,0
 R,HR,36,92,3,DisPressOKLatchNeedsReset,Digital,,0,0
 R,HR,36,92,4,DisPressWarn,Digital,,0,0
 R,HR,36,92,5,,,,,
-R,HR,36,92,6,SucPressOKLatch,Digital,,0,0
-R,HR,36,92,7,SucPressOKLatchStatus,DigitalBlink,,1,0
-R,HR,36,92,8,SucPressOKLatchNeedsReset,Digital,,0,1
-R,HR,36,92,9,,,,,
-R,HR,36,92,10,PowerBad5min,Digital,,0,1
+R,HR,36,92,6,SensorsValidLatch,Digital,,0,0
+R,HR,36,92,7,SensorsValidLatchStatus,DigitalBlink,,1,0
+R,HR,36,92,8,SensorsValidLatchNeedsReset,Digital,,0,1
+R,HR,36,92,9,CurrentSensorErrorLatch,Digital,,0,0
+R,HR,36,92,10,,,,,
 R,HR,36,92,11,PowerOKLatch,Digital,,0,1
 R,HR,36,92,12,PowerOKLatchStatus,DigitalBlink,,0,0
 R,HR,36,92,13,PowerOKLatchNeedsReset,Digital,,1,0
 R,HR,36,92,14,PowerBadWarn,Digital,,0,0
-R,HR,36,92,15,,,,,
+R,HR,36,92,15,CompOn30sOn,Digital,,,
 R,HR,36,,,,,,,
-R,HR,36,94, 0,,,,,
-R,HR,36,94,1 ,ExtPermLatch,Digital,,1,1
-R,HR,36,94,2 ,ExtPermLatchStatus,DigitalBlink,,1,1
-R,HR,36,94,3 ,ExtPermLatchNeedsReset,Digital,,1,1
-R,HR,36,94,4 ,,,,,
-R,HR,36,94,5 ,,,,,
-R,HR,36,94,6 ,SmokeOKLatch,Digital,,0,0
-R,HR,36,94,7 ,SmokeOKLatchStatus,DigitalBlink,,1,1
-R,HR,36,94,8,SmokeOKLatchNeedsReset,Digital,,,
+R,HR,36,94,0,,,,,
+R,HR,36,94,1,ExtPermLatch,Digital,,1,1
+R,HR,36,94,2,ExtPermLatchStatus,DigitalBlink,,1,1
+R,HR,36,94,3,ExtPermLatchNeedsReset,Digital,,1,1
+R,HR,36,94,4,,,,,
+R,HR,36,94,5,,,,,
+R,HR,36,94,6,SmokeOKLatch,Digital,,0,0
+R,HR,36,94,7,SmokeOKLatchStatus,DigitalBlink,,1,1
+R,HR,36,94,8,SmokeOKLatchNeedsReset,Digital,,1,0
 R,HR,36,94,9,,,,,
 R,HR,36,94,10,,,,,
 R,HR,36,94,11,AfterCoolerOKLatch,Digital,,0,0

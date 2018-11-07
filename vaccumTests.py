@@ -3,7 +3,7 @@ from pydm import Display
 from pydm.PyQt.QtCore import *
 from pydm.PyQt.QtGui import *
 import tester
-import vac_tests2 as vac_tests
+import vac_tests as vac_tests
 from mapping_parser import import_mappings
 import logging
 

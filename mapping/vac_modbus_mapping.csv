@@ -1,4 +1,5 @@
 permissions,mb_type,unit_id,addr,bit,name,type,related,default_value,boot_value
+R,HR,36,85,"(high byte, low byte)",SR_appCRC,Analog,,,
 R,HR,36,86,0,MainVhxVcc,Digital,Q3,0,0
 R,HR,36,86,1,CloseMainVhxVcc,Digital,Q3,0,0
 R,HR,36,86,2,OpenMainVhxVcc,Digital,Q3,0,0
@@ -7,7 +8,7 @@ R,HR,36,86,4,MainVhxVccNotForcedCloseLatchStatus,DigitalBlink,,0,2
 R,HR,36,86,5,MainVhxVccNotForcedCloseReset,Digital,,0,0
 R,HR,36,86,6,MainVhxVccAllowedOpenLatchStatus,DigitalBlink,,0,2
 R,HR,36,86,7,MainVhxVccAllowedOpenLatchReset,Digital,,0,0
-R,HR,36,,,,Digital,,,
+R,HR,36,87,"(high byte, low byte)",SR_ErrorCode,Analog,,,
 R,HR,36,88,0,MainVcrVcc,Digital,Q2,0,0
 R,HR,36,88,1,CloseMainVcrVcc,Digital,Q2,0,0
 R,HR,36,88,2,OpenMainVcrVcc,Digital,Q2,0,0

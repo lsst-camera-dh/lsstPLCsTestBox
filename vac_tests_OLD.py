@@ -22,7 +22,9 @@ class TestPlutoGatewayConfig(Test):
     def __init__(self,tester,id):
         Test.__init__(self,tester,id)
         self.name = "TestPlutoGatewayConfig"
-        self.expected_config = [0, 3, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.expected_config = [0, 3, 1000, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 0,
+                                    0, 0, 0, 0,
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         self.desc = "Check Pluto Gateway configuration registers. Expected:" + str(self.expected_config)
 
     def test(self):
@@ -67,11 +69,12 @@ class TestChannelsBootDefault(Test):
     def test(self):
         self.step(self.desc)
 
-        self.setDefault(gateway=False,check=False)
-
         self.step("Checking boot default values.")
         chs = []
         for ch in self.tester.testBox.plc.channels:
+            if ch.boot_value != "":
+                chs.append((ch, ch.boot_value))
+        for ch in self.tester.plutoGateway.channels:
             if ch.boot_value != "":
                 chs.append((ch, ch.boot_value))
 
@@ -161,6 +164,185 @@ class TestPlutoWriteReadback(Test):
 
 
         self.step("All write adds are connected with the respective readback values addrs")
+        return True
+
+
+class TestAnalogScaling(Test):
+    def __init__(self,tester,id):
+        Test.__init__(self,tester,id)
+        self.name = "TestAnalogScaling"
+        self.desc = "Check the analog input wiring, linearity and scaling factors and offsets"
+
+        #[IA0,IA1,IA2,IA3,IA4,IA6,IA7]
+        self.expected_factors=[2,2,2,2,2,1000,1000]
+        self.expected_offsets=[0,0,0,0,0,0,0]
+
+        self.n_points = 10
+
+    def test(self):
+        self.step(self.desc)
+        self.step("Scaning...")
+
+        test = dict()
+
+        for n, port in enumerate(["IA0","IA1","IA2","IA3","IA4","IA6","IA7"]):
+
+            test[port] = dict()
+            test[port]["step"] = random.uniform(0.6, 1.6)
+            test[port]["value"] = 0.05
+            test[port]["value_array"] = []
+            test[port]["finished"] = False
+
+            for md in self.tester.testBox.dict[port]["modbus"]:
+                if md.find("Voltage")>0:
+                    test[port]["channel_voltage"] = md
+                    test[port]["channel_voltage_array"] = []
+                elif md.find("Valid")>0:
+                    test[port]["channel_valid"] = md
+                    test[port]["channel_valid_array"] = []
+                else:
+                    test[port]["channel_scaled"] = md
+                    test[port]["channel_scaled_array"] = []
+
+        cont = True
+        while cont:
+            cont = False
+            for port in test.keys():
+                if test[port]["value"]<10:
+
+                    voltage = test[port]["value"] + test[port]["step"]
+                    if voltage>10.1:
+                        voltage =10.1
+                    self.tester.testBox.write_port("plc", port, voltage)
+                    test[port]["value"] = voltage
+                    test[port]["value_array"].append(voltage)
+                else:
+                    test[port]["finished"] = True
+
+
+            self.sleep(.7)
+
+            for port in test.keys():
+                if test[port]["finished"] is not True:
+                    test[port]["channel_voltage_array"].append(self.tester.plutoGateway.read_ch( test[port]["channel_voltage"]))
+                    test[port]["channel_scaled_array"].append(self.tester.plutoGateway.read_ch(test[port]["channel_scaled"]))
+                    test[port]["channel_valid_array"].append(self.tester.plutoGateway.read_ch(test[port]["channel_valid"]))
+
+
+
+
+                cont = cont | (test[port]["value"]<10.0)
+
+        from scipy import stats
+
+        self.step("Evaluating Valid")
+        for port in test.keys():
+            if sum(test[port]["channel_valid_array"]) != len(test[port]["channel_valid_array"]):
+                self.step("Channel %s read not valid"%port)
+                return False
+
+        self.step("Evaluating Correct wiring")
+        for port in test.keys():
+            y = test[port]["value_array"]
+            x = range(len(test[port]["channel_voltage_array"]))
+            values=stats.linregress(x,y)
+
+            y = test[port]["channel_voltage_array"]
+            x = range(len(test[port]["channel_voltage_array"]))
+            voltage=stats.linregress(x,y)
+
+
+
+            if values.rvalue < 0.99 or voltage.rvalue<0.99:
+                self.step("R-square too high on %s" % port)
+                return False
+
+            if abs(values.slope*1000-voltage.slope)>(values.slope*1000+voltage.slope)/2*0.005:
+                self.step("Slope (over time) discrepancy between input and read value on %s. Probably wrong wiring." % port)
+                return False
+
+            if abs(values.intercept*1000 -voltage.intercept )>10000*0.002:
+                self.step("Intercept  (over time) discrepancy between input and read value on %s. Probably wrong wiring." % port)
+                return False
+
+
+        self.step("Evaluating voltage linearity")
+        for port in test.keys():
+            y = test[port]["channel_voltage_array"]
+            x = test[port]["value_array"]
+            values=stats.linregress(x,y)
+
+            if values.rvalue < 0.99:
+                self.step("R-square too high on %s" % port)
+                return False
+
+            if abs(values.slope-1000)>1000*0.005:
+                self.step("Transfer function Slope not 10 000 +- 0.5%% on %s." % port)
+                return False
+
+            if abs(values.intercept)>10000*0.005:
+                self.step("Transfer function Intercept not 0 +- 0.5%% on %s." % port)
+                return False
+
+
+        self.step("Evaluating scaling coeficients")
+        for port in test.keys():
+            y = test[port]["channel_scaled_array"]
+            x = test[port]["channel_voltage_array"]
+            values = stats.linregress(x, y)
+
+            if values.rvalue < 0.99:
+                self.step("R-square too high on %s" % port)
+                return False
+
+            if abs(values.slope-1)>1*0.005:
+                self.step("Scaling function Slope not 1 +- 0.5%% on %s." % port)
+                return False
+
+            if abs(values.intercept)>10000*0.005:
+                self.step("Scaling function Intercept not 0 +- 0.5%% on %s." % port)
+                return False
+
+        self.step("Analog input wiring, linearity and scaling factors and offsets OK")
+        return True
+
+
+class TestHvCvDifferences(Test):
+    def __init__(self,tester,id):
+        Test.__init__(self,tester,id)
+        self.name = "TestHVDifferences"
+        self.desc = "Test HV Pressure absolute difference calculation in the PLC"
+
+    def test(self):
+        self.step("Initial message.")
+
+        for n in range(10):
+            self.step("Testing HV and CV Pressure Diffs %d/10."%n)
+            a = random.uniform(1,9)
+            b = random.uniform(1,9)
+            self.tester.testBox.plc.IA1.write(a)
+            self.tester.testBox.plc.IA0.write(b)
+
+            c = random.uniform(1,9)
+            d = random.uniform(1,9)
+            self.tester.testBox.plc.IA4.write(c)
+            self.tester.testBox.plc.IA3.write(d)
+
+            self.sleep(0.5)
+
+            read = self.tester.plutoGateway.HVPressureDiff.read()
+
+            if abs(read - abs(a-b)*1000) > 10000*0.005:
+                self.step("HV Differences do not match analog differences! |%f - %f !|*1000 != %d (=%d) diff = %d" %(a,b,read,abs(a-b)*1000,abs(read-abs(a-b)*1000)))
+                return False
+
+            read = self.tester.plutoGateway.CVPressureDiff.read()
+
+            if abs(read - abs(c-d)*1000) > 10000*0.005:
+                self.step("CV Differences do not match analog differences! |%f - %f !|*1000 != %d (=%d) diff = %d" %(c,b,read,abs(c-d)*1000,abs(read-abs(c-d)*1000)))
+                return False
+
+        self.step("HV and CV Differences correctly calculated")
         return True
 
 
@@ -362,14 +544,14 @@ class TestHvStat(Test):
                 self.step("Simulate a pressure under the 0.001 Torr limit.")
                 compare = self.readAllChannels()
                 self.tester.testBox.write_port("plc", "I40", 1)
-                self.checkChange([(self.tester.plutoGateway.HV001,1),(self.tester.plutoGateway.HVInterlockHigh,0),(self.tester.testBox.plc.I40,1),(self.tester.plutoGateway.HVInterlockHighLatchStatus, 2),(self.tester.plutoGateway.HVInterlockHighLatchNeedsReset, 1)], 1,compare)
+                self.checkChange([(self.tester.plutoGateway.HV001,1),(self.tester.plutoGateway.HVInterlockHigh,0),(self.tester.testBox.plc.I40,1),(self.tester.plutoGateway.HVInterlockHighLatchStatus, 2)], 1,compare)
 
                 self.sleep(1)
 
                 self.step("Try to reset the permit latch.")
                 compare = self.readAllChannels()
                 self.tester.plutoGateway.press_ch("HVStatLatchReset_w")
-                self.checkChange([(self.tester.testBox.plc.Q1,1),(self.tester.plutoGateway.HVStat,1),(self.tester.plutoGateway.HVInterlockHighLatchStatus,0),(self.tester.plutoGateway.HVInterlockHighLatchNeedsReset, 0)], 2,compare)
+                self.checkChange([(self.tester.testBox.plc.Q1,1),(self.tester.plutoGateway.HVStat,1),(self.tester.plutoGateway.HVInterlockHighLatchStatus,0)], 2,compare)
                 self.step("Permit reset ans lacth indicator off as expected.")
 
                 self.checkDefault()
@@ -387,14 +569,14 @@ class TestHvStat(Test):
                 self.step("Disable the permit block signal.")
                 compare = self.readAllChannels()
                 self.tester.plutoGateway.HVStatBlock_w.write(0)
-                self.checkChange([ (self.tester.plutoGateway.HVStatBlock,0),(self.tester.testBox.plc.Q1,0),(self.tester.plutoGateway.HVStat,0),(self.tester.plutoGateway.HVStatBlock_w,0),(self.tester.plutoGateway.HVInterlockHighLatchStatus, 2),(self.tester.plutoGateway.HVInterlockHighLatchNeedsReset, 1)], 1,compare)
+                self.checkChange([ (self.tester.plutoGateway.HVStatBlock,0),(self.tester.testBox.plc.Q1,0),(self.tester.plutoGateway.HVStat,0),(self.tester.plutoGateway.HVStatBlock_w,0),(self.tester.plutoGateway.HVInterlockHighLatchStatus, 2)], 1,compare)
 
                 self.sleep(1)
 
                 self.step("Reset the permit latch.")
                 compare = self.readAllChannels()
                 self.tester.plutoGateway.press_ch("HVStatLatchReset_w")
-                self.checkChange([(self.tester.testBox.plc.Q1,1),(self.tester.plutoGateway.HVStat,1),(self.tester.plutoGateway.HVInterlockHighLatchStatus,0),(self.tester.plutoGateway.HVInterlockHighLatchNeedsReset,0)], 2,compare)
+                self.checkChange([(self.tester.testBox.plc.Q1,1),(self.tester.plutoGateway.HVStat,1),(self.tester.plutoGateway.HVInterlockHighLatchStatus,0)], 2,compare)
 
                 self.checkDefault()
 
@@ -453,14 +635,14 @@ class TestCvStat(Test):
                 self.step("Simulate a pressure under the 0.001 Torr limit.")
                 compare = self.readAllChannels()
                 self.tester.testBox.write_port("plc", "I36", 1)
-                self.checkChange([(self.tester.plutoGateway.CV001,1),(self.tester.plutoGateway.CVInterlockHigh,0),(self.tester.testBox.plc.I36,1),(self.tester.plutoGateway.CVInterlockHighLatchStatus, 2),(self.tester.plutoGateway.CVInterlockHighLatchNeedsReset, 1)], 1,compare)
+                self.checkChange([(self.tester.plutoGateway.CV001,1),(self.tester.plutoGateway.CVInterlockHigh,0),(self.tester.testBox.plc.I36,1),(self.tester.plutoGateway.CVInterlockHighLatchStatus, 2)], 1,compare)
 
                 self.sleep(1)
 
                 self.step("Try to reset the permit latch.")
                 compare = self.readAllChannels()
                 self.tester.plutoGateway.press_ch("CVStatLatchReset_w")
-                self.checkChange([(self.tester.testBox.plc.Q0,1),(self.tester.plutoGateway.CVStat,1),(self.tester.plutoGateway.CVInterlockHighLatchStatus,0),(self.tester.plutoGateway.CVInterlockHighLatchNeedsReset,0)], 2,compare)
+                self.checkChange([(self.tester.testBox.plc.Q0,1),(self.tester.plutoGateway.CVStat,1),(self.tester.plutoGateway.CVInterlockHighLatchStatus,0)], 2,compare)
                 self.step("Permit reset ans lacth indicator off as expected.")
 
                 self.checkDefault()
@@ -478,14 +660,14 @@ class TestCvStat(Test):
                 self.step("Disable the permit block signal.")
                 compare = self.readAllChannels()
                 self.tester.plutoGateway.CVStatBlock_w.write(0)
-                self.checkChange([ (self.tester.plutoGateway.CVStatBlock,0),(self.tester.testBox.plc.Q0,0),(self.tester.plutoGateway.CVStat,0),(self.tester.plutoGateway.CVStatBlock_w,0),(self.tester.plutoGateway.CVInterlockHighLatchStatus, 2),(self.tester.plutoGateway.CVInterlockHighLatchNeedsReset,1)], 1,compare)
+                self.checkChange([ (self.tester.plutoGateway.CVStatBlock,0),(self.tester.testBox.plc.Q0,0),(self.tester.plutoGateway.CVStat,0),(self.tester.plutoGateway.CVStatBlock_w,0),(self.tester.plutoGateway.CVInterlockHighLatchStatus, 2)], 1,compare)
 
                 self.sleep(1)
 
                 self.step("Reset the permit latch.")
                 compare = self.readAllChannels()
                 self.tester.plutoGateway.press_ch("CVStatLatchReset_w")
-                self.checkChange([(self.tester.testBox.plc.Q0,1),(self.tester.plutoGateway.CVStat,1),(self.tester.plutoGateway.CVInterlockHighLatchStatus,0),(self.tester.plutoGateway.CVInterlockHighLatchNeedsReset,0)], 2,compare)
+                self.checkChange([(self.tester.testBox.plc.Q0,1),(self.tester.plutoGateway.CVStat,1),(self.tester.plutoGateway.CVInterlockHighLatchStatus,0)], 2,compare)
 
                 self.checkDefault()
 
@@ -494,6 +676,282 @@ class TestCvStat(Test):
 
             except Exception as e:
                 self.step("CvStat permit logic failed!"+str(e))
+                return False
+
+
+class TestCvTurboOnOfflogic(Test):
+    def __init__(self,tester,id):
+        Test.__init__(self,tester,id)
+        self.name = "TestCvTurboOnOfflogic"
+        self.desc = "Test TestCvTurboOnOfflogic permit logic"
+
+    def test(self):
+            self.step(self.desc)
+
+
+            turboPumpPort = self.tester.testBox.plc.IA7
+            turboPumpVoltage = self.tester.plutoGateway.CVTurboPumpVoltage
+            turboPumpSpeed = self.tester.plutoGateway.CVTurboPumpSpeed
+            turboPumpOn = self.tester.plutoGateway.CVTurboPumpON
+            turboPumpOff = self.tester.plutoGateway.CVTurboPumpOFF
+            turboPumpNotValidPort = self.tester.testBox.plc.IA7v
+            turboPumpValid = self.tester.plutoGateway.CVTurboSpeedValid
+
+            try:
+
+                self.setDefault()
+                self.checkDefault()
+
+                for val in [0.1, 0.9]:
+                    self.step(str(val))
+                    turboPumpPort.write(val)
+                    self.checkChange([
+                        (turboPumpPort, val),
+                        (turboPumpVoltage, val * 1000),
+                        (turboPumpSpeed, val * 1000),
+                        (turboPumpOn, int(val > 5)),
+                        (turboPumpOff, int(val < 1))
+                    ],
+                        1)
+
+                for val in [1.2, 4.8]:
+                    self.step(str(val))
+                    turboPumpPort.write(val)
+                    self.checkChange([
+                        (turboPumpPort, val),
+                        (turboPumpVoltage, val * 1000),
+                        (turboPumpSpeed, val * 1000),
+                        (turboPumpOn, int(val > 5)),
+                        (turboPumpOff, int(val < 1))
+                    ],
+                        1)
+
+                for val in [5.1, 8, 9]:
+                    self.step(str(val))
+
+                    turboPumpPort.write(val)
+                    self.checkChange([
+                        (turboPumpPort, val),
+                        (turboPumpVoltage, val * 1000),
+                        (turboPumpSpeed, val * 1000),
+                        (turboPumpOn, int(val > 5)),
+                        (turboPumpOff, int(val < 1))
+                    ],
+                        1)
+
+                for val in [4]:
+                    self.step(str(val))
+                    turboPumpPort.write(val)
+                    self.checkChange([
+                        (turboPumpPort, val),
+                        (turboPumpVoltage, val * 1000),
+                        (turboPumpSpeed, val * 1000),
+                        (turboPumpOn, int(val > 5)),
+                        (turboPumpOff, int(val < 1))
+                    ],
+                        1)
+
+                for val in [0]:
+                    self.step(str(val))
+                    turboPumpPort.write(val)
+                    self.checkChange([
+                        (turboPumpPort, val),
+                        (turboPumpVoltage, val * 1000),
+                        (turboPumpSpeed, val * 1000),
+                        (turboPumpOn, int(val > 5)),
+                        (turboPumpOff, int(val < 1)),
+                    ],
+                        1)
+
+                val = 0.5
+                turboPumpPort.write(val)
+                turboPumpNotValidPort.write(1)
+                self.checkChange([
+                    (turboPumpPort, val),
+                    (turboPumpVoltage, 0),
+                    (turboPumpSpeed, 0),
+                    (turboPumpOn, 0),
+                    (turboPumpOff, 0),
+                    (turboPumpNotValidPort, 1),
+                    (turboPumpValid, 0)
+                ],
+                    1)
+
+                val = 8
+                turboPumpPort.write(val)
+                turboPumpNotValidPort.write(1)
+                self.checkChange([
+                    (turboPumpPort, val),
+                    (turboPumpVoltage, 0),
+                    (turboPumpSpeed, 0),
+                    (turboPumpOn, 0),
+                    (turboPumpOff, 0),
+                    (turboPumpNotValidPort, 1),
+                    (turboPumpValid, 0)
+                ],
+                    1)
+
+                turboPumpPort.write(val)
+                turboPumpNotValidPort.write(0)
+                self.checkChange([
+                    (turboPumpPort, val),
+                    (turboPumpVoltage, val * 1000),
+                    (turboPumpSpeed, val * 1000),
+                    (turboPumpOn, 1),
+                    (turboPumpOff, 0),
+                    (turboPumpNotValidPort, 0),
+                    (turboPumpValid, 1)
+                ],
+                    1)
+
+
+
+
+                self.step("TestCvTurboOnOfflogic logic correct.")
+                return True
+
+            except Exception as e:
+                self.step("TestCvTurboOnOfflogic logic failed! Failed at %s. Error: %s "%(self.step_m,str(e)))
+                return False
+
+
+class TestHvTurboOnOfflogic(Test):
+    def __init__(self,tester,id):
+        Test.__init__(self,tester,id)
+        self.name = "TestHvTurboOnOfflogic"
+        self.desc = "Test TestHvTurboOnOfflogic permit logic"
+
+    def test(self):
+            self.step(self.desc)
+
+
+            turboPumpPort = self.tester.testBox.plc.IA6
+            turboPumpVoltage = self.tester.plutoGateway.HVTurboPumpVoltage
+            turboPumpSpeed = self.tester.plutoGateway.HVTurboPumpSpeed
+            turboPumpOn = self.tester.plutoGateway.HVTurboPumpON
+            turboPumpOff = self.tester.plutoGateway.HVTurboPumpOFF
+            turboPumpNotValidPort = self.tester.testBox.plc.IA6v
+            turboPumpValid = self.tester.plutoGateway.HVTurboSpeedValid
+
+
+
+            try:
+
+                self.setDefault()
+                self.checkDefault()
+
+                for val in [0.1,0.9]:
+                    self.step(str(val))
+                    turboPumpPort.write(val)
+                    self.checkChange([
+                                      (turboPumpPort, val),
+                                      (turboPumpVoltage, val * 1000),
+                                      (turboPumpSpeed, val * 1000),
+                                      (turboPumpOn, int(val>5)),
+                                      (turboPumpOff, int(val<1))
+                                      ],
+                                     1)
+
+                for val in [1.2,4.8]:
+                    self.step(str(val))
+                    turboPumpPort.write(val)
+                    self.checkChange([
+                                      (turboPumpPort, val),
+                                      (turboPumpVoltage, val * 1000),
+                                      (turboPumpSpeed, val * 1000),
+                                      (turboPumpOn, int(val>5)),
+                                      (turboPumpOff, int(val<1))
+                                      ],
+                                     1)
+
+
+                for val in [5.1,8,9]:
+                    self.step(str(val))
+
+                    turboPumpPort.write(val)
+                    self.checkChange([
+                                      (turboPumpPort, val),
+                                      (turboPumpVoltage, val * 1000),
+                                      (turboPumpSpeed, val * 1000),
+                                      (turboPumpOn, int(val>5)),
+                                      (turboPumpOff, int(val<1))
+                                      ],
+                                     1)
+
+                for val in [4]:
+                    self.step(str(val))
+                    turboPumpPort.write(val)
+                    self.checkChange([
+                                      (turboPumpPort, val),
+                                      (turboPumpVoltage, val * 1000),
+                                      (turboPumpSpeed, val * 1000),
+                                      (turboPumpOn, int(val>5)),
+                                      (turboPumpOff, int(val<1))
+                                      ],
+                                     1)
+
+                for val in [0]:
+                    self.step(str(val))
+                    turboPumpPort.write(val)
+                    self.checkChange([
+                                      (turboPumpPort, val),
+                                      (turboPumpVoltage, val * 1000),
+                                      (turboPumpSpeed, val * 1000),
+                                      (turboPumpOn, int(val>5)),
+                                      (turboPumpOff, int(val<1)),
+                                      ],
+                                     1)
+
+
+                val = 0.5
+                turboPumpPort.write(val)
+                turboPumpNotValidPort.write(1)
+                self.checkChange([
+                    (turboPumpPort, val),
+                    (turboPumpVoltage, 0),
+                    (turboPumpSpeed,0),
+                    (turboPumpOn, 0),
+                    (turboPumpOff, 0),
+                    (turboPumpNotValidPort,1),
+                    (turboPumpValid,0)
+                ],
+                    1)
+
+                val = 8
+                turboPumpPort.write(val)
+                turboPumpNotValidPort.write(1)
+                self.checkChange([
+                    (turboPumpPort, val),
+                    (turboPumpVoltage, 0),
+                    (turboPumpSpeed, 0),
+                    (turboPumpOn, 0),
+                    (turboPumpOff, 0),
+                    (turboPumpNotValidPort,1),
+                    (turboPumpValid,0)
+                ],
+                    1)
+
+                turboPumpPort.write(val)
+                turboPumpNotValidPort.write(0)
+                self.checkChange([
+                    (turboPumpPort, val),
+                    (turboPumpVoltage, val * 1000),
+                    (turboPumpSpeed, val * 1000),
+                    (turboPumpOn, 1),
+                    (turboPumpOff, 0),
+                    (turboPumpNotValidPort,0),
+                    (turboPumpValid,1)
+                ],
+                    1)
+
+
+
+
+                self.step("TestHvTurboOnOfflogic logic correct.")
+                return True
+
+            except Exception as e:
+                self.step("TestHvTurboOnOfflogic logic failed! Failed at %s. Error: %s "%(self.step_m,str(e)))
                 return False
 
 
@@ -510,7 +968,6 @@ class TestCvTurboPermitBlock(Test):
             turboPumpPermitPort = self.tester.testBox.plc.Q4
             turboPumpPermit = self.tester.plutoGateway.VcrPumpPerm
             turboPumpPermitLatchStatus = self.tester.plutoGateway.VcrPumpPermLatchStatus
-            turboPumpPermitLatchNeedsReset = self.tester.plutoGateway.VcrPumpPermLatchNeedsReset
             turboPumpPermitReset = self.tester.plutoGateway.VcrPumpPermReset_w
 
             permitBlock_w = self.tester.plutoGateway.VcrPumpPermBlock_w
@@ -533,11 +990,11 @@ class TestCvTurboPermitBlock(Test):
 
                 compare = self.readAllChannels()
                 permitBlock_w.write(0)
-                self.checkChange([(turboPumpPermitPort, 0),(turboPumpPermit, 0),(turboPumpPermitLatchStatus, 2),(turboPumpPermitLatchNeedsReset, 1),(permitBlock,0),(permitBlock_w,0)], 1, compare)
+                self.checkChange([(turboPumpPermitPort, 0),(turboPumpPermit, 0),(turboPumpPermitLatchStatus, 2),(permitBlock,0),(permitBlock_w,0)], 1, compare)
 
                 compare = self.readAllChannels()
                 turboPumpPermitReset.press()
-                self.checkChange([(turboPumpPermitPort, 1), (turboPumpPermit, 1), (turboPumpPermitLatchStatus, 0),(turboPumpPermitLatchNeedsReset, 0)], 1,compare)
+                self.checkChange([(turboPumpPermitPort, 1), (turboPumpPermit, 1), (turboPumpPermitLatchStatus, 0)], 1,compare)
 
 
 
@@ -562,7 +1019,6 @@ class TestHvTurboPermitBlock(Test):
             turboPumpPermitPort = self.tester.testBox.plc.Q5
             turboPumpPermit = self.tester.plutoGateway.VhxPumpPerm
             turboPumpPermitLatchStatus = self.tester.plutoGateway.VhxPumpPermLatchStatus
-            turboPumpPermitLatchNeedsReset = self.tester.plutoGateway.VhxPumpPermLatchNeedsReset
             turboPumpPermitReset = self.tester.plutoGateway.VhxPumpPermReset_w
 
             permitBlock_w = self.tester.plutoGateway.VhxPumpPermBlock_w
@@ -585,11 +1041,11 @@ class TestHvTurboPermitBlock(Test):
 
                 compare = self.readAllChannels()
                 permitBlock_w.write(0)
-                self.checkChange([(turboPumpPermitPort, 0),(turboPumpPermit, 0),(turboPumpPermitLatchStatus, 2),(turboPumpPermitLatchNeedsReset, 1),(permitBlock,0),(permitBlock_w,0)], 1, compare)
+                self.checkChange([(turboPumpPermitPort, 0),(turboPumpPermit, 0),(turboPumpPermitLatchStatus, 2),(permitBlock,0),(permitBlock_w,0)], 1, compare)
 
                 compare = self.readAllChannels()
                 turboPumpPermitReset.press()
-                self.checkChange([(turboPumpPermitPort, 1), (turboPumpPermit, 1), (turboPumpPermitLatchStatus, 0),(turboPumpPermitLatchNeedsReset, 0)], 1,compare)
+                self.checkChange([(turboPumpPermitPort, 1), (turboPumpPermit, 1), (turboPumpPermitLatchStatus, 0)], 1,compare)
 
 
 
@@ -610,14 +1066,28 @@ class TestCvTurboPermitAuto(Test):
     def test(self):
             self.step(self.desc)
 
+            interlockPressurePort = self.tester.testBox.plc.IA4
+            interlockPressureVoltage = self.tester.plutoGateway.CVInterlockVoltage
+            interlockPressurePressure = self.tester.plutoGateway.CVInterlockPressure
+            interlockPressureNotValidPort = self.tester.testBox.plc.IA4v
+            interlockPressureValid = self.tester.plutoGateway.CVInterlockValid
 
-            turboPressureUnder10Port = self.tester.testBox.plc.IA3
+            turboPressurePort = self.tester.testBox.plc.IA3
+            turboPressureVoltage = self.tester.plutoGateway.CVTurboVoltage
+            turboPressurePressure = self.tester.plutoGateway.CVTurboPressure
+            turboPressureNotValidPort = self.tester.testBox.plc.IA3v
+            turboPressureValid = self.tester.plutoGateway.CVTurboValid
 
-            turboPressureUnder10 = self.tester.plutoGateway.CVTurboUnder10
+            turboPressureDiff = self.tester.plutoGateway.CVPressureDiff
 
-
-            turboPumpOffPort = self.tester.testBox.plc.IA7
+            turboPumpPort = self.tester.testBox.plc.IA7
+            turboPumpVoltage = self.tester.plutoGateway.CVTurboPumpVoltage
+            turboPumpSpeed = self.tester.plutoGateway.CVTurboPumpSpeed
+            turboPumpValid = self.tester.plutoGateway.CVTurboSpeedValid
+            turboPumpNotValidPort = self.tester.testBox.plc.IA7v
+            turboPumpOn = self.tester.plutoGateway.CVTurboPumpON
             turboPumpOff = self.tester.plutoGateway.CVTurboPumpOFF
+
 
 
             turboPumpPermitPort = self.tester.testBox.plc.Q4
@@ -637,10 +1107,6 @@ class TestCvTurboPermitAuto(Test):
             vccNotForcedCloseLatchStatus = self.tester.plutoGateway.MainVcrVccNotForcedCloseLatchStatus
             vccNotForcedCloseLatchReset_w = self.tester.plutoGateway.MainVcrVccNotForcedCloseReset_w
 
-            turboPumpPermitLatchNeedsReset = self.tester.plutoGateway.VcrPumpPermLatchNeedsReset
-            vccNotForcedCloseLatchNeedsReset = self.tester.plutoGateway.MainVcrVccNotForcedCloseLatchNeedsReset
-            vccAllowedOpenLatchNeedsReset = self.tester.plutoGateway.MainVcrVccAllowedOpenLatchNeedsReset
-
             statPort = self.tester.testBox.plc.Q0
             stat = self.tester.plutoGateway.CVStat
             statInterlockHigh = self.tester.plutoGateway.CVInterlockHigh
@@ -655,14 +1121,22 @@ class TestCvTurboPermitAuto(Test):
             CV01Port = self.tester.testBox.plc.I35
             CV01 = self.tester.plutoGateway.CV01
 
-            turboPressureUnder10PortValues = [0,1]
-            turboPumpOffPortValues = [0,1]
 
+
+            interlockPressurePortValues = [0.18+.22]
+            interlockPressureNotValidPortValues = [0,1]
+
+            turboPressurePortValues = [0.18,.22]
+            turboPressureNotValidPortValues = [0,1]
+
+            turboPumpPortValues = [0.9,4,8]
+            turboPumpNotValidPortValues = [1]
 
             mksPortValues = [0,1]
 
             CV01PortValues = [0,1]
 
+            size = 1*2*2*2*3*1*2*2
 
             self.setDefault()
             vccOpen_w.press()
@@ -672,66 +1146,62 @@ class TestCvTurboPermitAuto(Test):
             n = 0
 
             try:
-                for turboPressureUnder10PortValue in turboPressureUnder10PortValues:
-                    for turboPumpOffPortValue in turboPumpOffPortValues:
+                for turboPressurePortValue in turboPressurePortValues:
+                    for turboPressureNotValidPortValue in turboPressureNotValidPortValues:
+                        for interlockPressurePortValue in interlockPressurePortValues:
+                            for interlockPressureNotValidPortValue in interlockPressureNotValidPortValues:
+                                for turboPumpPortValue in turboPumpPortValues:
+                                    for turboPumpNotValidPortValue in turboPumpNotValidPortValues:
                                         for mksPortValue in mksPortValues:
                                             for CV01PortValue in CV01PortValues:
                                                 n=n+1
                                                 print("--------------------------------------------------------------------------")
+                                                print(n,size)
 
                                                 if n<0:
                                                     continue
 
-                                                # Pump Permit (24V) =  (VCR-UTT-GCC-01 Relay 2 Closed)  AND  ( (Cryostat TurboPumpOff OFF AND Relay Output of MKS925 is Closed) OR Cryostat TurboPumpOff ON)
-                                                turboPumpPermitValue = turboPressureUnder10PortValue and ( ( turboPumpOffPortValue==0 and mksPortValue==1) or turboPumpOffPortValue==1)
+                                                turboPumpPermitValue = turboPressurePortValue<0.22 and not turboPressureNotValidPortValue and mksPortValue == 1
 
-                                                # Close VCR-UTT-VGC-00 (Set PLC output to 0v)  = Cryostat TurboPumpOff OFF  AND (Relay Output of MKS925 is Open)
-                                                if (turboPumpOffPortValue == 0) and (mksPortValue == 0):
+                                                if (turboPumpPortValue > 5 or turboPumpNotValidPortValue) and (mksPortValue == 0):
                                                     vccNotForcedCloseLatchValue = 0
                                                 else:
                                                     vccNotForcedCloseLatchValue = 1
 
-
-                                                if vccNotForcedCloseLatchValue == 0:
-                                                    vccNotForcedCloseLatchStatusValue =1
-                                                else:
-                                                    vccNotForcedCloseLatchStatusValue = 0
-                                                vccNotForcedCloseLatchNeedsResetValue = vccNotForcedCloseLatchStatusValue == 2
+                                                vccNotForcedCloseLatchStatusValue = int(not bool(vccNotForcedCloseLatchValue))
 
 
                                                 turboPumpPermitPortValue = turboPumpPermitValue
                                                 turboPumpPermitLatchStatusValue = int(not bool(turboPumpPermitPortValue))
-                                                turboPumpPermitLatchNeedsResetValue= turboPumpPermitLatchStatusValue ==2
 
-                                                #VCR-UTT-VGC-00 allowed to open  = Cryostat TurboPumpOff ON OR (Cryostat TurboPumpOff OFF AND (VCR-UTT-GCC-00 Relay 1 AND VCR-UTT-GCC-01 Relay 1))
-                                                vccAllowedOpenLatchValue = (turboPumpOffPortValue==1 or (turboPumpOffPortValue==0 and CV01PortValue == 1)) and vccNotForcedCloseLatchValue
 
-                                                if vccAllowedOpenLatchValue ==0:
-                                                    vccAllowedOpenLatchStatusValue = 2
-                                                    vccAllowedOpenLatchNeedsResetValue = 1
-                                                else:
-                                                    vccAllowedOpenLatchStatusValue = 0
-                                                    vccAllowedOpenLatchNeedsResetValue = 0
+                                                vccAllowedOpenLatchValue = (turboPumpPortValue > 5 and not turboPumpNotValidPortValue and CV01PortValue) or (turboPumpPortValue <1 and not turboPumpNotValidPortValue and not turboPressureNotValidPortValue and not interlockPressureNotValidPortValue and abs(turboPressurePortValue-interlockPressurePortValue)<0.22)
+                                                vccAllowedOpenLatchStatusValue = int(not bool(vccAllowedOpenLatchValue))
 
 
                                                 ##################
 
                                                 compare = self.readAllChannels()
-                                                compare =None
 
 
                                                 CV01Port.write(CV01PortValue)
                                                 mksPort.write(mksPortValue)
 
-                                                turboPressureUnder10Port.write(turboPressureUnder10PortValue)
-                                                turboPumpOffPort.write(turboPumpOffPortValue)
+                                                turboPumpPort.write(turboPumpPortValue)
+                                                turboPumpNotValidPort.write(turboPumpNotValidPortValue)
 
-                                                #self.sleep(.6)
+                                                turboPressurePort.write(turboPressurePortValue)
+                                                turboPressureNotValidPort.write(turboPressureNotValidPortValue)
+
+                                                interlockPressurePort.write(interlockPressurePortValue)
+                                                interlockPressureNotValidPort.write(interlockPressureNotValidPortValue)
+
+
+                                                self.sleep(.6)
+
 
                                                 self.pressChannels([turboPumpPermitReset_w,vccAllowedOpenLatchReset_w,vccNotForcedCloseLatchReset_w])
 
-                                                #Try to opem
-                                                vccOpen_w.press()
 
 
                                                 self.checkChange([(mksPort, mksPortValue),
@@ -740,25 +1210,40 @@ class TestCvTurboPermitAuto(Test):
                                                                   (CV01Port,CV01PortValue),
                                                                   (CV01,CV01PortValue),
 
-                                                                  (turboPressureUnder10Port, turboPressureUnder10PortValue),
-                                                                  (turboPressureUnder10,turboPressureUnder10PortValue),
 
-                                                                  (turboPumpOffPort, turboPumpOffPortValue),
-                                                                  (turboPumpOff, turboPumpOffPortValue),
 
+                                                                  (turboPressurePort, turboPressurePortValue),
+                                                                  (turboPressureVoltage, turboPressurePortValue * 1000 * int(not bool(turboPressureNotValidPortValue))),
+                                                                  (turboPressurePressure, turboPressurePortValue * 1000 * int(not bool(turboPressureNotValidPortValue))),
+                                                                  (turboPressureNotValidPort,turboPressureNotValidPortValue),
+                                                                  (turboPressureValid,not turboPressureNotValidPortValue),
+
+                                                                  (interlockPressurePort, interlockPressurePortValue),
+                                                                  (interlockPressureVoltage, interlockPressurePortValue * 1000 * int(not bool(interlockPressureNotValidPortValue))),
+                                                                  (interlockPressurePressure, interlockPressurePortValue * 1000 * int(not bool(interlockPressureNotValidPortValue))),
+                                                                  (interlockPressureNotValidPort, interlockPressureNotValidPortValue),
+                                                                  (interlockPressureValid, not interlockPressureNotValidPortValue),
+
+                                                                  (turboPressureDiff,abs(interlockPressurePortValue * 1000 * int(not bool(interlockPressureNotValidPortValue)) - turboPressurePortValue * 1000 * int(not bool(turboPressureNotValidPortValue)))),
+
+
+                                                                  (turboPumpPort, turboPumpPortValue),
+                                                                  (turboPumpVoltage, turboPumpPortValue * 1000 * int(not bool(turboPumpNotValidPortValue))),
+                                                                  (turboPumpSpeed, turboPumpPortValue * 1000 * int(not bool(turboPumpNotValidPortValue))),
+                                                                  (turboPumpOn, int(turboPumpPortValue > 5) and not bool(turboPumpNotValidPortValue) ),
+                                                                  (turboPumpOff, int(turboPumpPortValue < 1)  and not bool(turboPumpNotValidPortValue) ),
+                                                                  (turboPumpNotValidPort,turboPumpNotValidPortValue),
+                                                                  (turboPumpValid, not turboPumpNotValidPortValue),
 
                                                                   (turboPumpPermitPort, turboPumpPermitPortValue),
                                                                   (turboPumpPermit, turboPumpPermitValue),
                                                                   (turboPumpPermitLatchStatus, turboPumpPermitLatchStatusValue),
-                                                                  (turboPumpPermitLatchNeedsReset,turboPumpPermitLatchNeedsResetValue),
 
                                                                   (vccAllowedOpenLatch,vccAllowedOpenLatchValue),
                                                                   (vccAllowedOpenLatchStatus,vccAllowedOpenLatchStatusValue),
-                                                                  (vccAllowedOpenLatchNeedsReset,vccAllowedOpenLatchNeedsResetValue),
 
                                                                   (vccNotForcedCloseLatch,vccNotForcedCloseLatchValue),
                                                                   (vccNotForcedCloseLatchStatus,vccNotForcedCloseLatchStatusValue),
-                                                                  (vccNotForcedCloseLatchNeedsReset,vccNotForcedCloseLatchNeedsResetValue),
 
                                                                   (vcc,vccNotForcedCloseLatchValue),
                                                                   (vccPort,vccNotForcedCloseLatchValue),
@@ -771,15 +1256,19 @@ class TestCvTurboPermitAuto(Test):
 
                                                                   ],                                                     1,compare)
 
+
                                                 #can always close
                                                 vccClose_w.press()
-
                                                 self.checkChange([(vcc, 0),
                                                                   (vccPort, 0),
                                                                   ], 1,checkBlinks=False)
 
+
+
                                                 # Check if can open
                                                 if vccAllowedOpenLatchValue and vccNotForcedCloseLatchValue:
+
+
 
                                                     vccOpen_w.press()
                                                     self.checkChange([(vcc,1),
@@ -792,47 +1281,66 @@ class TestCvTurboPermitAuto(Test):
                                                                   (vccPort,0),
                                                                       ], 1,checkBlinks=False)
 
-                                                self.setDefault(gateway=False,check=False)
+
+
+
+                                                #input()
+
+                                                vccAllowedOpenLatchValueOld = vccAllowedOpenLatch.read()
+                                                vccNotForcedCloseLatchValueOld = vccNotForcedCloseLatch.read()
+                                                turboPumpPermitPortValueOld = turboPumpPermitPort.read()
+
+                                                self.writeChannels(compare)
                                                 self.sleep(.5)
+
+                                                if vccAllowedOpenLatchValueOld and not vccAllowedOpenLatch.read():
+                                                    vccAllowedOpenLatchReset_w.press()
+
+                                                if vccNotForcedCloseLatchValueOld and not vccNotForcedCloseLatch.read():
+                                                    vccNotForcedCloseLatchReset_w.press()
+
+                                                if turboPumpPermitPortValueOld and not turboPumpPermitPort.read():
+                                                    turboPumpPermitReset_w.press()
+
 
                                                 press = []
                                                 change1 = []
                                                 change2 = []
 
+
+                                               # input()
+
                                                 if not bool(vccAllowedOpenLatchValue):
 
                                                     change1.append((vccAllowedOpenLatchStatus, 2))
-                                                    change1.append((vccAllowedOpenLatchNeedsReset, 1))
+
 
                                                     press.append(vccAllowedOpenLatchReset_w)
 
                                                     change2.append((vccAllowedOpenLatch, 1))
                                                     change2.append((vccAllowedOpenLatchStatus, 0))
-                                                    change2.append((vccAllowedOpenLatchNeedsReset, 0))
 
 
                                                 if not bool(vccNotForcedCloseLatchValue):
                                                     change1.append((vccNotForcedCloseLatchStatus, 2))
-                                                    change1.append((vccNotForcedCloseLatchNeedsReset, 1))
 
                                                     press.append(vccNotForcedCloseLatchReset_w)
 
                                                     change2.append((vccNotForcedCloseLatch, 1))
                                                     change2.append((vccNotForcedCloseLatchStatus, 0))
-                                                    change2.append((vccNotForcedCloseLatchNeedsReset, 0))
 
 
                                                 if not bool(turboPumpPermitPortValue):
 
                                                     change1.append((turboPumpPermitLatchStatus, 2))
-                                                    change1.append((turboPumpPermitLatchNeedsReset, 1))
-
                                                     press.append(turboPumpPermitReset_w)
 
                                                     change2.append((turboPumpPermitPort, 1))
                                                     change2.append((turboPumpPermit, 1))
                                                     change2.append((turboPumpPermitLatchStatus, 0))
-                                                    change2.append((turboPumpPermitLatchNeedsReset, 0))
+
+
+
 
 
                                                 self.checkChange(change1, 1)
@@ -851,11 +1359,16 @@ class TestCvTurboPermitAuto(Test):
                                                                   (vccPort, 1),
                                                                   ], 1,checkBlinks=False)
                                                 self.sleep(0.5)
-                self.step("TestCvTurboPermitAuto permit logic correct.")
+
+
+
+
+
+                self.step("HvTurboPump permit logic correct.")
                 return True
 
             except ValueError as e:
-                self.step("CvTurboPump permit logic failed! Failed at %s. Error: %s "%(self.step_m,str(e)))
+                self.step("HvTurboPump permit logic failed! Failed at %s. Error: %s "%(self.step_m,str(e)))
                 return False
 
 
@@ -868,16 +1381,33 @@ class TestHvTurboPermitAuto(Test):
     def test(self):
             self.step(self.desc)
 
-            turboPressureUnder10Port = self.tester.testBox.plc.IA0
-            turboPressureUnder10 = self.tester.plutoGateway.HVTurboUnder10
-            turboPumpOffPort = self.tester.testBox.plc.IA6
+            interlockPressurePort = self.tester.testBox.plc.IA1
+            interlockPressureVoltage = self.tester.plutoGateway.HVInterlockVoltage
+            interlockPressurePressure = self.tester.plutoGateway.HVInterlockPressure
+            interlockPressureNotValidPort = self.tester.testBox.plc.IA1v
+            interlockPressureValid = self.tester.plutoGateway.HVInterlockValid
 
+            turboPressurePort = self.tester.testBox.plc.IA0
+            turboPressureVoltage = self.tester.plutoGateway.HVTurboVoltage
+            turboPressurePressure = self.tester.plutoGateway.HVTurboPressure
+            turboPressureNotValidPort = self.tester.testBox.plc.IA0v
+            turboPressureValid = self.tester.plutoGateway.HVTurboValid
+
+            turboPressureDiff = self.tester.plutoGateway.HVPressureDiff
+
+            turboPumpPort = self.tester.testBox.plc.IA6
+            turboPumpVoltage = self.tester.plutoGateway.HVTurboPumpVoltage
+            turboPumpSpeed = self.tester.plutoGateway.HVTurboPumpSpeed
+            turboPumpValid = self.tester.plutoGateway.HVTurboSpeedValid
+            turboPumpNotValidPort = self.tester.testBox.plc.IA6v
+            turboPumpOn = self.tester.plutoGateway.HVTurboPumpON
             turboPumpOff = self.tester.plutoGateway.HVTurboPumpOFF
+
+
 
             turboPumpPermitPort = self.tester.testBox.plc.Q5
             turboPumpPermit = self.tester.plutoGateway.VhxPumpPerm
             turboPumpPermitLatchStatus = self.tester.plutoGateway.VhxPumpPermLatchStatus
-            turboPumpPermitLatchNeedsReset = self.tester.plutoGateway.VhxPumpPermLatchNeedsReset
             turboPumpPermitReset_w = self.tester.plutoGateway.VhxPumpPermReset_w
 
             mksPort = self.tester.testBox.plc.I34
@@ -886,18 +1416,17 @@ class TestHvTurboPermitAuto(Test):
 
             vccAllowedOpenLatch = self.tester.plutoGateway.MainVhxVccAllowedOpenLatch
             vccAllowedOpenLatchStatus = self.tester.plutoGateway.MainVhxVccAllowedOpenLatchStatus
-            vccAllowedOpenLatchNeedsReset = self.tester.plutoGateway.MainVhxVccAllowedOpenLatchNeedsReset
             vccAllowedOpenLatchReset_w = self.tester.plutoGateway.MainVhxVccAllowedOpenLatchReset_w
 
             vccNotForcedCloseLatch = self.tester.plutoGateway.MainVhxVccNotForcedCloseLatch
             vccNotForcedCloseLatchStatus = self.tester.plutoGateway.MainVhxVccNotForcedCloseLatchStatus
-            vccNotForcedCloseLatchNeedsReset = self.tester.plutoGateway.MainVhxVccNotForcedCloseLatchNeedsReset
             vccNotForcedCloseLatchReset_w = self.tester.plutoGateway.MainVhxVccNotForcedCloseReset_w
 
             statPort = self.tester.testBox.plc.Q1
             stat = self.tester.plutoGateway.HVStat
             statInterlockHigh = self.tester.plutoGateway.HVInterlockHigh
             statInterlockHighLatchStatus = self.tester.plutoGateway.HVInterlockHighLatchStatus
+
 
             vccPort = self.tester.testBox.plc.Q3
             vcc = self.tester.plutoGateway.MainVhxVcc
@@ -909,84 +1438,92 @@ class TestHvTurboPermitAuto(Test):
 
 
 
-            turboPressureUnder10PortValues = [0,1]
-            turboPumpOffPortValues = [0,1]
+            interlockPressurePortValues = [0.18+.22]
+            interlockPressureNotValidPortValues = [0,1]
+
+            turboPressurePortValues = [0.18,.22]
+            turboPressureNotValidPortValues = [0,1]
+
+            turboPumpPortValues = [0.9,4,8]
+            turboPumpNotValidPortValues = [1]
+
             mksPortValues = [0,1]
 
             CV01PortValues = [0,1]
 
+            size = 1*2*2*2*3*1*2*2
 
             self.setDefault()
             vccOpen_w.press()
-
 
             self.sleep(1)
 
             n = 0
 
             try:
-                for turboPressureUnder10PortValue in turboPressureUnder10PortValues:
-                    for turboPumpOffPortValue in turboPumpOffPortValues:
+                for turboPressurePortValue in turboPressurePortValues:
+                    for turboPressureNotValidPortValue in turboPressureNotValidPortValues:
+                        for interlockPressurePortValue in interlockPressurePortValues:
+                            for interlockPressureNotValidPortValue in interlockPressureNotValidPortValues:
+                                for turboPumpPortValue in turboPumpPortValues:
+                                    for turboPumpNotValidPortValue in turboPumpNotValidPortValues:
                                         for mksPortValue in mksPortValues:
                                             for CV01PortValue in CV01PortValues:
                                                 n=n+1
                                                 print("--------------------------------------------------------------------------")
+                                                print(n,size)
 
                                                 if n<0:
                                                     continue
 
-                                                # Pump Permit (24V) =  (VHX-UTT-GCC-01 Relay 2 Closed)  AND  ( (Cryostat TurboPumpOff OFF AND Relay Output of MKS925 is Closed) OR Cryostat TurboPumpOFF ON)
-                                                turboPumpPermitValue = turboPressureUnder10PortValue and ( ( turboPumpOffPortValue==0 and mksPortValue==1) or turboPumpOffPortValue==1)
+                                                turboPumpPermitValue = turboPressurePortValue<0.22 and not turboPressureNotValidPortValue
 
-                                                # Close VHX-UTT-VGC-00 (Set PLC output to 0v)  = Cryostat TurboPumpOff OFF  AND (Relay Output of MKS925 is Open)
-                                                if (turboPumpOffPortValue == 0) and (mksPortValue == 0):
+                                                if (turboPumpPortValue > 5 or turboPumpNotValidPortValue) and (mksPortValue == 0):
+                                                    turboPumpPermitValue = 0
                                                     vccNotForcedCloseLatchValue = 0
+
                                                 else:
                                                     vccNotForcedCloseLatchValue = 1
 
+                                                vccNotForcedCloseLatchStatusValue = int(not bool(vccNotForcedCloseLatchValue))
 
-                                                if vccNotForcedCloseLatchValue == 0:
-                                                    vccNotForcedCloseLatchStatusValue =1
-                                                else:
-                                                    vccNotForcedCloseLatchStatusValue = 0
-                                                vccNotForcedCloseLatchNeedsResetValue = vccNotForcedCloseLatchStatusValue == 2
+
 
 
                                                 turboPumpPermitPortValue = turboPumpPermitValue
                                                 turboPumpPermitLatchStatusValue = int(not bool(turboPumpPermitPortValue))
-                                                turboPumpPermitLatchNeedsResetValue= turboPumpPermitLatchStatusValue ==2
 
-                                                #VHX-UTT-VGC-00 allowed to open  = Cryostat TurboPumpOff ON OR (Cryostat TurboPumpOff OFF AND (VCR-UTT-GCC-00 Relay 1 AND VCR-UTT-GCC-01 Relay 1))
-                                                vccAllowedOpenLatchValue = (turboPumpOffPortValue==1 or (turboPumpOffPortValue==0 and CV01PortValue == 1)) and vccNotForcedCloseLatchValue
 
-                                                if vccAllowedOpenLatchValue ==0:
-                                                    vccAllowedOpenLatchStatusValue = 2
-                                                    vccAllowedOpenLatchNeedsResetValue = 1
-                                                else:
-                                                    vccAllowedOpenLatchStatusValue = 0
-                                                    vccAllowedOpenLatchNeedsResetValue = 0
+                                                vccAllowedOpenLatchValue = (turboPumpPortValue > 5 and not turboPumpNotValidPortValue and CV01PortValue) or (turboPumpPortValue <1 and not turboPumpNotValidPortValue and not turboPressureNotValidPortValue and not interlockPressureNotValidPortValue and abs(turboPressurePortValue-interlockPressurePortValue)<0.22)
+                                                vccAllowedOpenLatchStatusValue = int(not bool(vccAllowedOpenLatchValue))
+
+
+
 
 
                                                 ##################
 
                                                 compare = self.readAllChannels()
-                                                compare =None  #TODO
 
 
                                                 CV01Port.write(CV01PortValue)
                                                 mksPort.write(mksPortValue)
 
-                                                turboPressureUnder10Port.write(turboPressureUnder10PortValue)
-                                                turboPumpOffPort.write(turboPumpOffPortValue)
+                                                turboPumpPort.write(turboPumpPortValue)
+                                                turboPumpNotValidPort.write(turboPumpNotValidPortValue)
 
-                                                #self.sleep(.6)
+                                                turboPressurePort.write(turboPressurePortValue)
+                                                turboPressureNotValidPort.write(turboPressureNotValidPortValue)
+
+                                                interlockPressurePort.write(interlockPressurePortValue)
+                                                interlockPressureNotValidPort.write(interlockPressureNotValidPortValue)
+
+
+                                                self.sleep(.6)
+
 
                                                 self.pressChannels([turboPumpPermitReset_w,vccAllowedOpenLatchReset_w,vccNotForcedCloseLatchReset_w])
 
-                                                #Try to opem
-                                                vccOpen_w.press()
-
-                                                print("AAA 1")
 
 
                                                 self.checkChange([(mksPort, mksPortValue),
@@ -995,25 +1532,40 @@ class TestHvTurboPermitAuto(Test):
                                                                   (CV01Port,CV01PortValue),
                                                                   (CV01,CV01PortValue),
 
-                                                                  (turboPressureUnder10Port, turboPressureUnder10PortValue),
-                                                                  (turboPressureUnder10,turboPressureUnder10PortValue),
 
-                                                                  (turboPumpOffPort, turboPumpOffPortValue),
-                                                                  (turboPumpOff, turboPumpOffPortValue),
 
+                                                                  (turboPressurePort, turboPressurePortValue),
+                                                                  (turboPressureVoltage, turboPressurePortValue * 1000 * int(not bool(turboPressureNotValidPortValue))),
+                                                                  (turboPressurePressure, turboPressurePortValue * 1000 * int(not bool(turboPressureNotValidPortValue))),
+                                                                  (turboPressureNotValidPort,turboPressureNotValidPortValue),
+                                                                  (turboPressureValid,not turboPressureNotValidPortValue),
+
+                                                                  (interlockPressurePort, interlockPressurePortValue),
+                                                                  (interlockPressureVoltage, interlockPressurePortValue * 1000 * int(not bool(interlockPressureNotValidPortValue))),
+                                                                  (interlockPressurePressure, interlockPressurePortValue * 1000 * int(not bool(interlockPressureNotValidPortValue))),
+                                                                  (interlockPressureNotValidPort, interlockPressureNotValidPortValue),
+                                                                  (interlockPressureValid, not interlockPressureNotValidPortValue),
+
+                                                                  (turboPressureDiff,abs(interlockPressurePortValue * 1000 * int(not bool(interlockPressureNotValidPortValue)) - turboPressurePortValue * 1000 * int(not bool(turboPressureNotValidPortValue)))),
+
+
+                                                                  (turboPumpPort, turboPumpPortValue),
+                                                                  (turboPumpVoltage, turboPumpPortValue * 1000 * int(not bool(turboPumpNotValidPortValue))),
+                                                                  (turboPumpSpeed, turboPumpPortValue * 1000 * int(not bool(turboPumpNotValidPortValue))),
+                                                                  (turboPumpOn, int(turboPumpPortValue > 5) and not bool(turboPumpNotValidPortValue) ),
+                                                                  (turboPumpOff, int(turboPumpPortValue < 1)  and not bool(turboPumpNotValidPortValue) ),
+                                                                  (turboPumpNotValidPort,turboPumpNotValidPortValue),
+                                                                  (turboPumpValid, not turboPumpNotValidPortValue),
 
                                                                   (turboPumpPermitPort, turboPumpPermitPortValue),
                                                                   (turboPumpPermit, turboPumpPermitValue),
                                                                   (turboPumpPermitLatchStatus, turboPumpPermitLatchStatusValue),
-                                                                  (turboPumpPermitLatchNeedsReset,turboPumpPermitLatchNeedsResetValue),
 
                                                                   (vccAllowedOpenLatch,vccAllowedOpenLatchValue),
                                                                   (vccAllowedOpenLatchStatus,vccAllowedOpenLatchStatusValue),
-                                                                  (vccAllowedOpenLatchNeedsReset,vccAllowedOpenLatchNeedsResetValue),
 
                                                                   (vccNotForcedCloseLatch,vccNotForcedCloseLatchValue),
                                                                   (vccNotForcedCloseLatchStatus,vccNotForcedCloseLatchStatusValue),
-                                                                  (vccNotForcedCloseLatchNeedsReset,vccNotForcedCloseLatchNeedsResetValue),
 
                                                                   (vcc,vccNotForcedCloseLatchValue),
                                                                   (vccPort,vccNotForcedCloseLatchValue),
@@ -1026,20 +1578,19 @@ class TestHvTurboPermitAuto(Test):
 
                                                                   ],                                                     1,compare)
 
-                                                print("AAA 2")
+
                                                 #can always close
                                                 vccClose_w.press()
-
-                                                print("AAA 3")
-
                                                 self.checkChange([(vcc, 0),
                                                                   (vccPort, 0),
                                                                   ], 1,checkBlinks=False)
 
-                                                print("AAA 4")
+
 
                                                 # Check if can open
                                                 if vccAllowedOpenLatchValue and vccNotForcedCloseLatchValue:
+
+
 
                                                     vccOpen_w.press()
                                                     self.checkChange([(vcc,1),
@@ -1052,14 +1603,26 @@ class TestHvTurboPermitAuto(Test):
                                                                   (vccPort,0),
                                                                       ], 1,checkBlinks=False)
 
-                                                print("AAA 5")
+
+
+
                                                 #input()
 
+                                                vccAllowedOpenLatchValueOld = vccAllowedOpenLatch.read()
+                                                vccNotForcedCloseLatchValueOld = vccNotForcedCloseLatch.read()
+                                                turboPumpPermitPortValueOld = turboPumpPermitPort.read()
 
-                                                #self.writeChannels(compare)
-                                                self.setDefault(gateway=False,check=False)
+                                                self.writeChannels(compare)
                                                 self.sleep(.5)
-                                                print("AAA 6")
+
+                                                if vccAllowedOpenLatchValueOld and not vccAllowedOpenLatch.read():
+                                                    vccAllowedOpenLatchReset_w.press()
+
+                                                if vccNotForcedCloseLatchValueOld and not vccNotForcedCloseLatch.read():
+                                                    vccNotForcedCloseLatchReset_w.press()
+
+                                                if turboPumpPermitPortValueOld and not turboPumpPermitPort.read():
+                                                    turboPumpPermitReset_w.press()
 
 
                                                 press = []
@@ -1068,41 +1631,38 @@ class TestHvTurboPermitAuto(Test):
 
 
                                                # input()
-                                                print("AAA 7")
+
                                                 if not bool(vccAllowedOpenLatchValue):
 
                                                     change1.append((vccAllowedOpenLatchStatus, 2))
-                                                    change1.append((vccAllowedOpenLatchNeedsReset, 1))
+
 
                                                     press.append(vccAllowedOpenLatchReset_w)
 
                                                     change2.append((vccAllowedOpenLatch, 1))
                                                     change2.append((vccAllowedOpenLatchStatus, 0))
-                                                    change2.append((vccAllowedOpenLatchNeedsReset, 0))
 
 
                                                 if not bool(vccNotForcedCloseLatchValue):
                                                     change1.append((vccNotForcedCloseLatchStatus, 2))
-                                                    change1.append((vccNotForcedCloseLatchNeedsReset, 1))
 
                                                     press.append(vccNotForcedCloseLatchReset_w)
 
                                                     change2.append((vccNotForcedCloseLatch, 1))
                                                     change2.append((vccNotForcedCloseLatchStatus, 0))
-                                                    change2.append((vccNotForcedCloseLatchNeedsReset, 0))
 
 
                                                 if not bool(turboPumpPermitPortValue):
 
                                                     change1.append((turboPumpPermitLatchStatus, 2))
-                                                    change1.append((turboPumpPermitLatchNeedsReset, 1))
-
                                                     press.append(turboPumpPermitReset_w)
 
                                                     change2.append((turboPumpPermitPort, 1))
                                                     change2.append((turboPumpPermit, 1))
                                                     change2.append((turboPumpPermitLatchStatus, 0))
-                                                    change2.append((turboPumpPermitLatchNeedsReset, 0))
+
+
+
 
 
                                                 self.checkChange(change1, 1)
@@ -1121,10 +1681,6 @@ class TestHvTurboPermitAuto(Test):
                                                                   (vccPort, 1),
                                                                   ], 1,checkBlinks=False)
                                                 self.sleep(0.5)
-
-                                                print('AAA  8')
-
-
 
 
 

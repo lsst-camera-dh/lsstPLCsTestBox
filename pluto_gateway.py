@@ -124,7 +124,10 @@ class PlutoGatewayChannel():
         if (val) is -1:
             return True
         if self.type == "Analog":
-            return abs(self.read()-int(val))<val*0.08
+            tol = val*0.8
+            if val==0:
+                tol=4
+            return abs(int(self.read())-int(val))<tol
         elif self.type == "DigitalBlink":
             if checkBlink:
                 if val == 0:

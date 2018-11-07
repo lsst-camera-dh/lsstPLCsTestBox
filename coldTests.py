@@ -30,16 +30,15 @@ class ColdTests(Display):
         self.cold_tester.tests.append(cold_tests.TestPlutoPLCsPresent(self.cold_tester, -1))
 
 
-        #self.cold_tester.tests.append(cold_tests.TestChannelsBootDefault(self.cold_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestChannelsBootDefault(self.cold_tester, -1))
 
         self.cold_tester.tests.append(cold_tests.TestPlutoWriteReadback(self.cold_tester, -1))
-        #self.cold_tester.tests.append(cold_tests.TestAnalogScaling(self.cold_tester, -1))
 
 
         self.cold_tester.tests.append(cold_tests.TestDigitalInputs(self.cold_tester, -1))
         self.cold_tester.tests.append(cold_tests.TestSensorsValid(self.cold_tester, -1))
         self.cold_tester.tests.append(cold_tests.TestImmediateTrips(self.cold_tester, -1))
-        #####self.cold_tester.tests.append(cold_tests.TestImmediatePowerTrips(self.cold_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestImmediatePowerTrips(self.cold_tester, -1))
 
         self.cold_tester.tests.append(cold_tests.TestDelay0(self.cold_tester, -1))
         self.cold_tester.tests.append(cold_tests.TestDelay1(self.cold_tester, -1))

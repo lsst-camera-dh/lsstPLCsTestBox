@@ -1,4 +1,5 @@
 permissions,mb_type,unit_id,addr,bit,name,type,default_value,related
+R,HR,36,67,"(high byte, low byte)",P1_SR_appCRC,Analog,,
 R,HR,36,68,0,P1_Tsw0,Digital,1,
 R,HR,36,68,1,P1_Tsw1,Digital,1,
 R,HR,36,68,2,P1_Tsw2,Digital,1,
@@ -9,6 +10,7 @@ R,HR,36,68,6,P1_TempOkLatch,Digital,1,
 R,HR,36,68,7,P1_TempOkLatchStatus,DigitalBlink,0,
 R,HR,36,68,8,P1_ResetTemp,Digital,0,
 R,HR,36,68,9,P1_TempOkLatchNeedsReset,Digital,0,
+R,HR,36,69,"(high byte, low byte)",P1_SR_ErrorCode,Analog,,
 R,HR,36,70,0,P1_NoLeak,Digital,1,
 R,HR,36,70,1,P1_Leak,Digital,0,
 R,HR,36,70,2,P1_NotLeakFault,Digital,1,
@@ -63,6 +65,7 @@ R,HR,36,93,"(high byte, low byte)",P2_ClpRtd3Current,Analog,,P2_IA3
 R,HR,36,94,"(high byte, low byte)",P2_ClpRtd3Temp,Analog,,P2_IA3
 R,HR,36,95,"(high byte, low byte)",P2_ClpHighLimit,Analog,,
 R,HR,36,96,"(high byte, low byte)",P2_ClpLowLimit,Analog,,
+R,HR,36,97,"(high byte, low byte)",P2_SR_appCRC,Analog,,
 R,HR,36,98,0,P2_ClpRtd0Valid,Digital,1,P2_IA0
 R,HR,36,98,1,P2_ClpRtd1Valid,Digital,1,P2_IA1
 R,HR,36,98,2,P2_ClpRtd2Valid,Digital,1,P2_IA2
@@ -75,6 +78,7 @@ R,HR,36,98,10,P2_ClpTemp0NotLow,Digital,1,
 R,HR,36,98,11,P2_ClpTemp1NotLow,Digital,1,
 R,HR,36,98,12,P2_ClpTemp2NotLow,Digital,1,
 R,HR,36,98,13,P2_ClpTemp3NotLow,Digital,1,
+R,HR,36,99,"(high byte, low byte)",P2_SR_ErrorCode,Analog,,
 R,HR,36,100,0,P2_ClpTempNotHigh,Digital,1,
 R,HR,36,100,1,P2_ClpTempHighFilter,Digital,0,
 R,HR,36,100,2,P2_ClpTempHighOkLatch,Digital,1,
@@ -113,6 +117,7 @@ R,HR,36,113,"(high byte, low byte)",P3_CryRtd3Current,Analog,,P3_IA3
 R,HR,36,114,"(high byte, low byte)",P3_CryRtd3Temp,Analog,,P3_IA3
 R,HR,36,115,"(high byte, low byte)",P3_CryHighLimit,Analog,,
 R,HR,36,116,"(high byte, low byte)",P3_CryLowLimit,Analog,,
+R,HR,36,117,"(high byte, low byte)",P3_SR_appCRC,Analog,,
 R,HR,36,118,0,P3_CryRtd0Valid,Digital,1,P3_IA0
 R,HR,36,118,1,P3_CryRtd1Valid,Digital,1,P3_IA1
 R,HR,36,118,2,P3_CryRtd2Valid,Digital,1,P3_IA2
@@ -125,6 +130,7 @@ R,HR,36,118,10,P3_CryTemp0NotLow,Digital,1,
 R,HR,36,118,11,P3_CryTemp1NotLow,Digital,1,
 R,HR,36,118,12,P3_CryTemp2NotLow,Digital,1,
 R,HR,36,118,13,P3_CryTemp3NotLow,Digital,1,
+R,HR,36,119,"(high byte, low byte)",P3_SR_ErrorCode,Analog,,
 R,HR,36,120,0,P3_CryTempNotHigh,Digital,1,
 R,HR,36,120,1,P3_CryTempHighFilter,Digital,0,
 R,HR,36,120,2,P3_CryTempHighOkLatch,Digital,1,
