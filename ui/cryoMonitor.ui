@@ -1179,7 +1179,7 @@
              </spacer>
             </item>
             <item row="4" column="1">
-             <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
+             <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
               <property name="horizontalSpacing">
                <number>6</number>
               </property>
@@ -4307,7 +4307,7 @@
                  <set>Qt::AlignCenter</set>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>plutoGateway://DPower.Lo</string>
+                 <string>plutoGateway://DPower_Lo</string>
                 </property>
                </widget>
               </item>
@@ -4665,7 +4665,7 @@
                  <set>Qt::AlignCenter</set>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>plutoGateway://DPower.Hi</string>
+                 <string>plutoGateway://DPower_Hi</string>
                 </property>
                </widget>
               </item>
@@ -10987,14 +10987,24 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PyDMByteIndicator</class>
-   <extends>QWidget</extends>
-   <header>pydm.widgets.byte</header>
+   <class>PyDMLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>pydm.widgets.line_edit</header>
   </customwidget>
   <customwidget>
    <class>PyDMLabel</class>
    <extends>QLabel</extends>
    <header>pydm.widgets.label</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMByteIndicator</class>
+   <extends>QWidget</extends>
+   <header>pydm.widgets.byte</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMDrawingImage</class>
+   <extends>QWidget</extends>
+   <header>pydm.widgets.drawing</header>
   </customwidget>
   <customwidget>
    <class>PyDMCheckbox</class>
@@ -11007,19 +11017,9 @@
    <header>pydm.widgets.shell_command</header>
   </customwidget>
   <customwidget>
-   <class>PyDMLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>pydm.widgets.line_edit</header>
-  </customwidget>
-  <customwidget>
    <class>PyDMSlider</class>
    <extends>QFrame</extends>
    <header>pydm.widgets.slider</header>
-  </customwidget>
-  <customwidget>
-   <class>PyDMDrawingImage</class>
-   <extends>QWidget</extends>
-   <header>pydm.widgets.drawing</header>
   </customwidget>
  </customwidgets>
  <resources>

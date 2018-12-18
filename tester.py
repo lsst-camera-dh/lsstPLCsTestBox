@@ -502,7 +502,7 @@ class Test:
 
 
 
-    def pressChannels(self, chs):
+    def pressChannels(self, chs,time=0.3):
 
         for ch in chs:
             ch.write(0)
@@ -511,7 +511,7 @@ class Test:
 
         for ch in chs:
             ch.write(1)
-        self.sleep(0.3)
+        self.sleep(time)
 
         for ch in chs:
             ch.write(0)

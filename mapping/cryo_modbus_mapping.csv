@@ -26,8 +26,8 @@ R,HR,36,,,,,,,
 R,HR,36,83,,,,,,
 R,HR,36,84,,,,,,
 R,HR,36,,,,,,,
-R,HR,36,85,,Dpower_Lo,Analog,,22,22
-R,HR,36,86,,Dpower_Hi,Analog,,0,0
+R,HR,36,85,,DPower_Lo,Analog,,22,22
+R,HR,36,86,,DPower_Hi,Analog,,0,0
 ,,,,,,,,,
 R,HR,36,87,,SR_appCRC,Analog,,,
 R,HR,36,88,0,DisTempValid,Digital,,1,1

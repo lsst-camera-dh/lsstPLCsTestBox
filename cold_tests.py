@@ -180,21 +180,6 @@ def P2c500(psi):
         mA = 21.5
     return mA
 
-P4mA750 = 0
-P20mA750 = 750  #psi
-Pm750 = (P20mA750 - P4mA750) / (20 - 4)
-Pb750 = P4mA750 - (4 * Pm750)
-def c2P750(mA):
-    psi = mA * Pm750 + Pb750
-    return psi
-def P2c750(psi):
-    mA = (psi - Pb750) / Pm750
-    mA = min(mA, 21.5)
-    if mA < 3.5:
-        mA = 21.5
-    return mA
-
-
 T2v = -50  #
 T10v = 150  #C
 Tm = (T10v - T2v) / (10 - 2)
@@ -247,7 +232,7 @@ def setDefautls(test,reset=True):
         self.tester.testBox.plc.cold_IA1.write(C2v(-25))
         self.tester.testBox.plc.cold_IA2.write(C2v(40))
 
-        self.tester.testBox.plc.cold_IA3.write(P2c750(430))
+        self.tester.testBox.plc.cold_IA3.write(P2c500(430))
         self.tester.testBox.plc.cold_IA4.write(P2c500(430))
 
         self.tester.testBox.plc.cold_IA7.write(Cur2v(2))
@@ -438,7 +423,7 @@ class TestSensorsValid(Test):
                                  3)
 
                 if resetMode:
-                    self.pressChannels([reset])
+                    self.pressChannels([reset], time=1)
                 else:
                     self.pressChannels([soft_reset])
                 resetMode = not resetMode
@@ -580,21 +565,21 @@ class TestImmediateTrips(Test):
             vals = np.arange(4, 20, 0.6)
 
             for val in vals:
-                if abs(c2P750(val) - 465) < 0.5 or abs(c2P750(val) - 440) < 0.5 or abs(c2P750(val)) < 100:
+                if abs(c2P500(val) - 465) < 0.5 or abs(c2P500(val) - 440) < 0.5 or abs(c2P500(val)) < 100:
                     continue
 
                 port.write(val)
 
-                print(c2P750(val) * 10)
+                print(c2P500(val) * 10)
 
-                pressVal = int(c2P750(val) * 10)
+                pressVal = int(c2P500(val) * 10)
                 if pressVal < 0:
                     pressVal = 65535 + pressVal
 
                 print(pressVal)
 
-                trip = val >= P2c750(465)
-                warning = val >= P2c750(440)
+                trip = val >= P2c500(465)
+                warning = val >= P2c500(440)
 
                 self.pressChannels([reset, soft_reset])
 
@@ -1077,18 +1062,18 @@ class TestDelay2(Test):
             latchStatusNeedsReset = self.tester.plutoGateway.DisPressOKLatchNeedsReset
             press = self.tester.plutoGateway.DisPress
 
-            val = P2c750(450)
+            val = P2c500(450)
 
             port.write(val)
 
-            print(c2P750(val) * 10)
+            print(c2P500(val) * 10)
 
-            pressVal = int(c2P750(val) * 10)
+            pressVal = int(c2P500(val) * 10)
 
             print(pressVal)
 
-            trip = val >= P2c750(465)
-            warning = val >= P2c750(440)
+            trip = val >= P2c500(465)
+            warning = val >= P2c500(440)
 
 
 

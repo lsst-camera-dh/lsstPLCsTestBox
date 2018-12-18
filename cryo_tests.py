@@ -440,7 +440,7 @@ class TestDigitalInputsHeater(Test):
                     self.sleep(2)
 
                     if resetMode:
-                        self.pressChannels([reset])
+                        self.pressChannels([reset], time=1)
                     else:
                         self.pressChannels([soft_reset])
 
