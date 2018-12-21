@@ -1,9 +1,12 @@
 from pydm import Display
 from os import path
+import os
 import json
 
 class VaccumMonitor(Display):
     def __init__(self, parent=None, args=None, macros=None):
+        dir_path = os.path.dirname(os.path.realpath(__file__)).replace('\\','\\\\')
+        macros=dict(launcher=args[0],path=dir_path)
         super(VaccumMonitor, self).__init__(parent=parent, macros=macros)
 
         self.configs=dict()
