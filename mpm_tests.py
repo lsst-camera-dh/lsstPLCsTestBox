@@ -3,6 +3,12 @@ import random
 
 # ligar a test box e por defaults
 
+clpLowLimit = 221  # k
+clpHighLimit = 318  # k
+
+cryLowLimit = 123  # k
+cryHighLimit = 318  # k
+
 mA4 = 110
 mA20 = 320
 m = (mA20 - mA4) / (20 - 4)
@@ -373,11 +379,14 @@ class TestTemperatureSetpoints(Test):
                        self.tester.plutoGateway.P3_CryTemp0NotHigh, self.tester.plutoGateway.P3_CryTemp1NotHigh,
                        self.tester.plutoGateway.P3_CryTemp2NotHigh, self.tester.plutoGateway.P3_CryTemp3NotHigh]
 
-        coldhighLimitCurr = KtoC(295)
-        coldlowLimitCurr = KtoC(228)
+        coldhighLimitCurr = KtoC(clpHighLimit)
+        coldlowLimitCurr = KtoC(clpLowLimit)
 
-        cryhighLimitCurr = KtoC(270)
-        crydlowLimitCurr = KtoC(130)
+        cryhighLimitCurr = KtoC(cryHighLimit)
+        crydlowLimitCurr = KtoC(cryLowLimit)
+
+
+
 
         highLimitCurrs = [coldhighLimitCurr, coldhighLimitCurr, coldhighLimitCurr, coldhighLimitCurr, cryhighLimitCurr,
                           cryhighLimitCurr, cryhighLimitCurr, cryhighLimitCurr]
@@ -928,8 +937,8 @@ class TestColdCryoPermits(Test):
         tmp2PortValues = [noTempCurr, lowTempCurr, normalTempCurr, highTempCurr]
         tmp3PortValues = [noTempCurr, lowTempCurr, normalTempCurr, highTempCurr]
 
-        lowLimitCurr = KtoC(228)
-        highLimitCurr = KtoC(295)
+        lowLimitCurr = KtoC(clpLowLimit)
+        highLimitCurr = KtoC(clpHighLimit)
         zeroLimitCurr = 3
 
         # Cryo
@@ -1000,8 +1009,8 @@ class TestColdCryoPermits(Test):
         CRYtmp2PortValues = [CRYnoTempCurr, CRYlowTempCurr, CRYnormalTempCurr, CRYhighTempCurr]
         CRYtmp3PortValues = [CRYnoTempCurr, CRYlowTempCurr, CRYnormalTempCurr, CRYhighTempCurr]
 
-        CRYlowLimitCurr = KtoC(130)
-        CRYhighLimitCurr = KtoC(270)
+        CRYlowLimitCurr = KtoC(cryLowLimit)
+        CRYhighLimitCurr = KtoC(cryHighLimit)
         CRYzeroLimitCurr = 3
 
         ## Both
@@ -1656,8 +1665,8 @@ class TestCryoPermits(Test):
             self.setDefault(check=False)
 
 
-            lowLimitCurr = KtoC(228)
-            highLimitCurr = KtoC(295)
+            lowLimitCurr = KtoC(clpLowLimit)
+            highLimitCurr = KtoC(clpHighLimit)
             zeroLimitCurr = 3
 
             n =0
