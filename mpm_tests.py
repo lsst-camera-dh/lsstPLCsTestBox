@@ -3,10 +3,10 @@ import random
 
 # ligar a test box e por defaults
 
-clpLowLimit = 221  # k
+clpLowLimit = 228  # k
 clpHighLimit = 318  # k
 
-cryLowLimit = 123  # k
+cryLowLimit = 138  # k
 cryHighLimit = 318  # k
 
 mA4 = 110
@@ -1076,7 +1076,7 @@ class TestColdCryoPermits(Test):
                             tmp3NotHighValue = int(tmp3PortValue < highLimitCurr and tmp3PortValue > zeroLimitCurr)
 
                             tempNotHighValue = int((int(tmp0NotHighValue) + int(tmp1NotHighValue) + int(
-                                tmp2NotHighValue) + int(tmp3NotHighValue)) >= 3)
+                                tmp2NotHighValue) + int(tmp3NotHighValue)) == 4)
                             tempHighFilterValue = not tempNotHighValue
 
                             tempHighOkLatchValue = tempNotHighValue
@@ -1127,7 +1127,7 @@ class TestColdCryoPermits(Test):
                                 CRYtmp3PortValue < CRYhighLimitCurr and CRYtmp3PortValue > CRYzeroLimitCurr)
 
                             CRYtempNotHighValue = int((int(CRYtmp0NotHighValue) + int(CRYtmp1NotHighValue) + int(
-                                CRYtmp2NotHighValue) + int(CRYtmp3NotHighValue)) >= 3)
+                                CRYtmp2NotHighValue) + int(CRYtmp3NotHighValue)) == 4)
                             CRYtempHighFilterValue = not CRYtempNotHighValue
 
                             CRYtempHighOkLatchValue = CRYtempNotHighValue
@@ -1222,24 +1222,7 @@ class TestColdCryoPermits(Test):
 
                             ], 2, compare)
 
-                            print("IMEDIATO")
-
-                            # Permits should not change during 9 seconds
-
-                            self.checkDuring([(refPermitPort, 1),
-                                              (refPermit, 1,),
-                                              (heatPermitPort, 1),
-                                              (heatPermit, 1),
-
-                                              # CRY
-
-                                              (CRYrefPermitPort, 1),
-                                              (CRYrefPermit, 1,),
-                                              (CRYheatPermitPort, 1),
-                                              (CRYheatPermit, 1),
-                                              ], 7)
-
-                            print("6s")
+                            self.sleep(2)
 
                             self.pressChannels([resetTempHigh_w, resetTempLow_w, CRYresetTempHigh_w, CRYresetTempLow_w])
 
