@@ -1220,11 +1220,103 @@ class TestColdCryoPermits(Test):
 
                                 (CRYtempNotLow, CRYtempNotLowValue),
 
-                            ], 2, compare)
+                            ], 1.5, compare)
 
                             self.sleep(2)
 
                             self.pressChannels([resetTempHigh_w, resetTempLow_w, CRYresetTempHigh_w, CRYresetTempLow_w])
+
+                            # Should change after 2 s immediately
+                            self.checkChange([
+                                (tmp0Port, tmp0PortValue),
+                                (tmp1Port, tmp1PortValue),
+                                (tmp2Port, tmp2PortValue),
+                                (tmp3Port, tmp3PortValue),
+
+                                (tmp0Current, tmp0PortValue * 1000),
+                                (tmp1Current, tmp1PortValue * 1000),
+                                (tmp2Current, tmp2PortValue * 1000),
+                                (tmp3Current, tmp3PortValue * 1000),
+
+                                (tmp0Temp, CtoK(tmp0PortValue)),
+                                (tmp1Temp, CtoK(tmp1PortValue)),
+                                (tmp2Temp, CtoK(tmp2PortValue)),
+                                (tmp3Temp, CtoK(tmp3PortValue)),
+
+                                (tmp0NotLow, tmp0NotLowValue),
+                                (tmp1NotLow, tmp1NotLowValue),
+                                (tmp2NotLow, tmp2NotLowValue),
+                                (tmp3NotLow, tmp3NotLowValue),
+
+                                (tmp0NotHigh, tmp0NotHighValue),
+                                (tmp1NotHigh, tmp1NotHighValue),
+                                (tmp2NotHigh, tmp2NotHighValue),
+                                (tmp3NotHigh, tmp3NotHighValue),
+
+                                (tempNotHigh, tempNotHighValue),
+                                (tempHighFilter, tempHighFilterValue),
+
+                                (tempHighOkLatch, tempHighOkLatchValue),
+                                (tempHighOkLatchStatus, tempHighOkLatchStatusValue),
+                                (tempHighOkLatchNeedsReset, tempHighOkLatchNeedsResetValue),
+                                (hotLight, hotLightValue),
+                                (hotLightPort, hotLightPortValue),
+                                (heatPermit, heatPermitValue),
+                                (heatPermitPort, heatPermitPortValue),
+                                (heatPermitLockLight, heatPermitLockLightValue),
+                                (heatPermitLockLightPort, heatPermitLockLightPortValue),
+
+                                (tempNotLow, tempNotLowValue),
+
+                                # CRY
+
+                                (CRYtmp0Port, CRYtmp0PortValue),
+                                (CRYtmp1Port, CRYtmp1PortValue),
+                                (CRYtmp2Port, CRYtmp2PortValue),
+                                (CRYtmp3Port, CRYtmp3PortValue),
+
+                                (CRYtmp0Current, CRYtmp0PortValue * 1000),
+                                (CRYtmp1Current, CRYtmp1PortValue * 1000),
+                                (CRYtmp2Current, CRYtmp2PortValue * 1000),
+                                (CRYtmp3Current, CRYtmp3PortValue * 1000),
+
+                                (CRYtmp0Temp, CtoK(CRYtmp0PortValue)),
+                                (CRYtmp1Temp, CtoK(CRYtmp1PortValue)),
+                                (CRYtmp2Temp, CtoK(CRYtmp2PortValue)),
+                                (CRYtmp3Temp, CtoK(CRYtmp3PortValue)),
+
+                                (CRYtmp0NotLow, CRYtmp0NotLowValue),
+                                (CRYtmp1NotLow, CRYtmp1NotLowValue),
+                                (CRYtmp2NotLow, CRYtmp2NotLowValue),
+                                (CRYtmp3NotLow, CRYtmp3NotLowValue),
+
+                                (CRYtmp0NotHigh, CRYtmp0NotHighValue),
+                                (CRYtmp1NotHigh, CRYtmp1NotHighValue),
+                                (CRYtmp2NotHigh, CRYtmp2NotHighValue),
+                                (CRYtmp3NotHigh, CRYtmp3NotHighValue),
+
+                                (CRYtempNotHigh, CRYtempNotHighValue),
+                                (CRYtempHighFilter, CRYtempHighFilterValue),
+
+                                (CRYtempHighOkLatch, CRYtempHighOkLatchValue),
+                                (CRYtempHighOkLatchStatus, CRYtempHighOkLatchStatusValue),
+                                (CRYtempHighOkLatchNeedsReset, CRYtempHighOkLatchNeedsResetValue),
+                                (CRYhotLight, CRYhotLightValue),
+                                (CRYhotLightPort, CRYhotLightPortValue),
+                                (CRYheatPermit, CRYheatPermitValue),
+                                (CRYheatPermitPort, CRYheatPermitPortValue),
+                                (CRYheatPermitLockLight, CRYheatPermitLockLightValue),
+                                (CRYheatPermitLockLightPort, CRYheatPermitLockLightPortValue),
+
+                                (CRYtempNotLow, CRYtempNotLowValue),
+
+                            ], 1.5, compare)
+
+
+                            self.sleep(5)
+
+                            self.pressChannels([resetTempHigh_w, resetTempLow_w, CRYresetTempHigh_w, CRYresetTempLow_w])
+
 
                             self.checkChange([
                                 (tmp0Port, tmp0PortValue),
