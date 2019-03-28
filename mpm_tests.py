@@ -1,7 +1,6 @@
 from tester import Test
 import random
 
-# ligar a test box e por defaults
 
 clpLowLimit = 228  # k
 clpHighLimit = 318  # k
@@ -547,7 +546,8 @@ class TestAcPermitCoolantValve(Test):
                                             if n < 0:
                                                 continue
 
-                                            compare = self.readAllChannels()
+                                            compare = []
+                                             
 
                                             noLeakPort.write(noLeakPortValue)
                                             noLeakFaultPort.write(noLeakFaultPortValue)
@@ -694,7 +694,8 @@ class TestAcPermitCoolantValve(Test):
                                             resets = []
 
                                             if not noLeakPortValue:
-                                                compare = self.readAllChannels()
+                                                compare = []
+                                                 
                                                 noLeakPort.write(1)
 
                                                 leakIndicatorVal = 2
@@ -723,7 +724,8 @@ class TestAcPermitCoolantValve(Test):
                                             print("NICE3")
 
                                             if not noLeakFaultPortValue:
-                                                compare = self.readAllChannels()
+                                                compare = []
+                                                 
                                                 noLeakFaultPort.write(1)
                                                 self.checkChange([(noLeakFaultPort, 1),
                                                                   (noLeakFault, 1),
@@ -747,7 +749,8 @@ class TestAcPermitCoolantValve(Test):
                                             print("NICE4")
 
                                             if not noSmokePortValue:
-                                                compare = self.readAllChannels()
+                                                compare = []
+                                                 
                                                 noSmokePort.write(1)
 
                                                 smokeIndicatorVal = 2
@@ -774,7 +777,8 @@ class TestAcPermitCoolantValve(Test):
                                             print("NICE4.2")
 
                                             if not noSmokeFaultPortValue:
-                                                compare = self.readAllChannels()
+                                                compare = []
+                                                 
                                                 noSmokeFaultPort.write(1)
                                                 self.checkChange([(noSmokeFaultPort, 1),
                                                                   (noSmokeFault, 1),
@@ -928,9 +932,9 @@ class TestColdCryoPermits(Test):
         refPermitPort = self.tester.testBox.plc.P2_Q1
 
         noTempCurr = 2.5  # mA
-        lowTempCurr = KtoC(200)
-        normalTempCurr = KtoC(250)
-        highTempCurr = KtoC(300)
+        lowTempCurr = KtoC(clpLowLimit-5)
+        normalTempCurr = KtoC((clpLowLimit+clpHighLimit)/2)
+        highTempCurr = KtoC(clpHighLimit+5)
 
         tmp0PortValues = [noTempCurr, lowTempCurr, normalTempCurr, highTempCurr]
         tmp1PortValues = [noTempCurr, lowTempCurr, normalTempCurr, highTempCurr]
@@ -1000,9 +1004,9 @@ class TestColdCryoPermits(Test):
         CRYrefPermitPort = self.tester.testBox.plc.P3_Q1
 
         CRYnoTempCurr = 2.5  # mA
-        CRYlowTempCurr = KtoC(120)
-        CRYnormalTempCurr = KtoC(200)
-        CRYhighTempCurr = KtoC(275)
+        CRYlowTempCurr = KtoC(cryLowLimit-5)
+        CRYnormalTempCurr = KtoC((cryLowLimit+cryHighLimit)/2)
+        CRYhighTempCurr = KtoC(cryHighLimit+5)
 
         CRYtmp0PortValues = [CRYnoTempCurr, CRYlowTempCurr, CRYnormalTempCurr, CRYhighTempCurr]
         CRYtmp1PortValues = [CRYnoTempCurr, CRYlowTempCurr, CRYnormalTempCurr, CRYhighTempCurr]
@@ -1058,7 +1062,8 @@ class TestColdCryoPermits(Test):
                                            [noTempCurr, lowTempCurr, highTempCurr], 2):
                                 continue
 
-                            compare = self.readAllChannels()
+                            compare = []
+                             
 
                             tmp0Port.write(tmp0PortValue)
                             tmp1Port.write(tmp1PortValue)
@@ -1430,7 +1435,8 @@ class TestColdCryoPermits(Test):
                             resets = []
 
                             if not tempNotHighValue:
-                                compare = self.readAllChannels()
+                                compare = []
+                                 
                                 changeTemps = []
 
                                 if not tmp0NotHighValue:
@@ -1475,7 +1481,8 @@ class TestColdCryoPermits(Test):
                             print("RESETS3")
 
                             if not tempNotLowValue:
-                                compare = self.readAllChannels()
+                                compare = []
+                                 
                                 changeTemps = []
                                 if not tmp0NotLowValue:
                                     tmp0Port.write(normalTempCurr)
@@ -1521,7 +1528,8 @@ class TestColdCryoPermits(Test):
                             # CRY
 
                             if not CRYtempNotHighValue:
-                                compare = self.readAllChannels()
+                                compare = []
+                                 
                                 changeTemps = []
 
                                 if not CRYtmp0NotHighValue:
@@ -1566,7 +1574,8 @@ class TestColdCryoPermits(Test):
                             print("RESETS3.2 CRY")
 
                             if not CRYtempNotLowValue:
-                                compare = self.readAllChannels()
+                                compare = []
+                                 
                                 changeTemps = []
                                 if not CRYtmp0NotLowValue:
                                     CRYtmp0Port.write(CRYnormalTempCurr)
@@ -1775,7 +1784,7 @@ class TestCryoPermits(Test):
                                             #print(a,a*15/60/60)
                                             #continue
 
-                                            compare = self.readAllChannels()
+                                             compare = []
 
                                             tmp0Port.write(tmp0PortValue)
                                             tmp1Port.write(tmp1PortValue)
@@ -1938,7 +1947,7 @@ class TestCryoPermits(Test):
 
 
                                             if not tempNotHighValue:
-                                                compare = self.readAllChannels()
+                                                 compare = []
                                                 changeTemps = []
 
                                                 if not tmp0NotHighValue:
@@ -1983,7 +1992,7 @@ class TestCryoPermits(Test):
                                             print("RESETS3")
 
                                             if not tempNotLowValue:
-                                                compare = self.readAllChannels()
+                                                 compare = []
                                                 changeTemps = []
                                                 if not tmp0NotLowValue:
                                                     tmp0Port.write(normalTempCurr)
@@ -2116,7 +2125,8 @@ class TestVacuumToRefPermits(Test):
                     n = n + 1
                     print("--------------------------------------------------------------------------", n)
 
-                    compare = self.readAllChannels()
+                    compare = []
+                     
 
                     hexVacOkPort.write(hexVacOkPortValue)
                     cryVacOkPort.write(cryVacOkPortValue)
@@ -2170,7 +2180,7 @@ class TestVacuumToRefPermits(Test):
                     resets = []
 
                     if not hexVacOkPortValue:
-                        compare = self.readAllChannels()
+                        compare = []
                         hexVacOkPort.write(1)
 
                         self.checkChange([(hexVacOkPort, 1),
@@ -2185,7 +2195,7 @@ class TestVacuumToRefPermits(Test):
                         resets.append(hexVacReset_w)
 
                     if not cryVacOkPortValue:
-                        compare = self.readAllChannels()
+                        compare=[]
                         cryVacOkPort.write(1)
 
                         self.checkChange([(cryVacOkPort, 1),
@@ -2212,7 +2222,7 @@ class TestVacuumToRefPermits(Test):
 
                     self.checkDefault()
 
-            self.step("Vacuum to refrigeration permits logiccorrect.")
+            self.step("Vacuum to refrigeration permits logic correct.")
 
             return True
 
@@ -2237,6 +2247,7 @@ class TestPermitsBlock(Test):
                    self.tester.plutoGateway.P1_UtPowerPermBlockReset_w,
                    self.tester.plutoGateway.P1_UtPowerPermBlock,
                    self.tester.plutoGateway.P1_UtPowerPerm,
+                   self.tester.plutoGateway.P1_UtPowerLight,
                    self.tester.testBox.plc.P1_IQ16,
                    self.tester.testBox.plc.P1_Q0],
 
@@ -2246,6 +2257,7 @@ class TestPermitsBlock(Test):
                    self.tester.plutoGateway.P1_RebPowerPermBlockReset_w,
                    self.tester.plutoGateway.P1_RebPowerPermBlock,
                    self.tester.plutoGateway.P1_RebPowerPerm,
+                   self.tester.plutoGateway.P1_RebPowerLight,
                    self.tester.testBox.plc.P1_IQ17,
                    self.tester.testBox.plc.P1_Q1],
 
@@ -2255,6 +2267,7 @@ class TestPermitsBlock(Test):
                    self.tester.plutoGateway.P1_CoolantValveBlockReset_w,
                    self.tester.plutoGateway.P1_CoolantValveBlock,
                    self.tester.plutoGateway.P1_CoolantValve,
+                   self.tester.plutoGateway.P1_CoolantValve,
                    self.tester.testBox.plc.P1_Q2,
                    self.tester.testBox.plc.P1_Q2]]
 
@@ -2262,17 +2275,23 @@ class TestPermitsBlock(Test):
 
             self.setDefault()
 
+
             for block in blocks:
                 set_w = block[1]
                 reset_w = block[3]
                 blockStatus = block[4]
                 perm = block[5]
-                permLight = block[6]
-                permPort = block[6]
+                permLightGateway = block[6]
+                permLight = block[7]
+                permPort = block[8]
 
-                compare = self.readAllChannels()
+                compare = []
+                 
+
                 set_w.press()
-                self.checkChange([(blockStatus, 1), (perm, 0), (permLight, 0), (permPort, 0)], 1, compare)
+
+                self.checkChange([(blockStatus, 1), (perm, 0), (permLight, 0), (permPort, 0),(permLightGateway,0)], 3, compare)
+
 
                 reset_w.press()
 
@@ -2338,9 +2357,10 @@ class TestPermitsBlock(Test):
                 lockLightPort = block[7]
                 permPort = block[8]
 
-                compare = self.readAllChannels()
+                compare = []
+
                 set_w.press()
-                self.checkChange([(blockStatus, 1), (lockLight, 1), (perm, 0), (lockLightPort, 1), (permPort, 0)], 1,
+                self.checkChange([(blockStatus, 1), (lockLight, 1), (perm, 0), (lockLightPort, 1), (permPort, 0)], 3,
                                  compare)
 
                 reset_w.press()

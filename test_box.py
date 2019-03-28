@@ -106,13 +106,22 @@ class TestBoxChannel():
 
 
     def read(self):
+
+        #print (self.ch)
+
         read = self.server.read_port(self.side,self.ch)
+        #print(read,type(read))
+
         if self.type=="Digital" :
+            #print(self.ch,"DIGI")
             if (read >1 or read<-1):
                 return read>4 or read<-4
             else:
                 return read>0.5
+        elif self.type=="NONE":
+            return None
         else:
+            #print(self.ch, "ANA", read, type(read))
             return read
 
     def write(self,val,note=""):

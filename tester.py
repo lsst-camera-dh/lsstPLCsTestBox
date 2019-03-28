@@ -280,6 +280,8 @@ class Test:
         for ch in chs:
             if ch.type == "DigitalBlink":
                 digitalBlink.append(ch)
+            elif ch.type == "NONE":
+                pass
             else:
                 results.append((ch, ch.read()))
 
@@ -316,7 +318,9 @@ class Test:
     def readAllChannels(self):
         self.log("Reading all channels")
         #chs = []
-        chs = self.tester.testBox.plc.channels + self.tester.plutoGateway.channels
+
+        chs =  self.tester.plutoGateway.channels
+        chs =  chs +self.tester.testBox.plc.channels
         return self.readChannels(chs)
 
 
