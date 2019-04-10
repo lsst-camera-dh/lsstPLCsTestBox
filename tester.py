@@ -291,7 +291,7 @@ class Test:
 
         return results
 
-    def readDigitalBlinks(self,chs,timeout=1):
+    def readDigitalBlinks(self,chs,timeout=2):
             zero = [0] * len(chs)
             one = [0] * len(chs)
             results= [None] * len(chs)
