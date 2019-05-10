@@ -278,16 +278,65 @@ class TestDigitalInputs(Test):
         permit = self.tester.testBox.plc.cold_Q0
         resetModes = [True,False]
 
-        ports = [self.tester.testBox.plc.cold_I31,self.tester.testBox.plc.cold_I34]
-        lacthOK =[self.tester.plutoGateway.ExtPermLatch,self.tester.plutoGateway.SmokeOKLatch]
-        lacthStatus = [self.tester.plutoGateway.ExtPermLatchStatus,self.tester.plutoGateway.SmokeOKLatchStatus]
-        latchStatusNeedsReset =[self.tester.plutoGateway.ExtPermLatchNeedsReset,self.tester.plutoGateway.SmokeOKLatchNeedsReset]
-
         self.tester.testBox.plc.cold_IA0v.write(0)
         self.tester.testBox.plc.cold_IA1v.write(0)
         self.tester.testBox.plc.cold_IA2v.write(0)
         self.tester.testBox.plc.cold_IA6v.write(0)
         self.tester.testBox.plc.cold_IA7v.write(0)
+
+
+        try:
+
+            # Test oil sensor input
+
+            for resetMode in resetModes:
+                    port = self.tester.testBox.plc.cold_I35
+                    lacthOK =  self.tester.plutoGateway.OilOKLatch
+                    lacthStatus = self.tester.plutoGateway.OilOKLatchStatus
+                    latchStatusNeedsReset =self.tester.plutoGateway.OilOKLatchNeedsReset
+
+                    port.write(1)
+
+                    self.sleep(0.5)
+
+                    self.pressChannels([reset])
+
+                    self.checkChange([(port, 1),
+                                      (permit, 0),
+                                      (lacthOK,0),
+                                      (lacthStatus,1),
+                                      (latchStatusNeedsReset,0)
+                                      ],
+                                     3)
+
+                    self.sleep(10)
+
+
+                    port.write(0)
+
+                    self.checkChange([(port, 0),
+                                      (permit, 0),
+                                      (lacthOK,0),
+                                      (lacthStatus,2),
+                                      (latchStatusNeedsReset,1)
+                                      ],
+                                     3)
+
+                    if resetMode:
+                        self.pressChannels([reset])
+                    else:
+                        self.pressChannels([soft_reset])
+
+                    checkDefautls(self)
+
+        except Exception as e:
+            self.step("Oil sensor interlock failed." + str(e))
+            return False
+
+        ports = [self.tester.testBox.plc.cold_I31,self.tester.testBox.plc.cold_I34]
+        lacthOK =[self.tester.plutoGateway.ExtPermLatch,self.tester.plutoGateway.SmokeOKLatch]
+        lacthStatus = [self.tester.plutoGateway.ExtPermLatchStatus,self.tester.plutoGateway.SmokeOKLatchStatus]
+        latchStatusNeedsReset =[self.tester.plutoGateway.ExtPermLatchNeedsReset,self.tester.plutoGateway.SmokeOKLatchNeedsReset]
 
 
         try:
@@ -824,6 +873,89 @@ class TestImmediatePowerTrips(Test):
         return True
 
 
+class TestOilFailureWhileRunning(Test):
+    def __init__(self, tester, id):
+        Test.__init__(self, tester, id)
+        self.name = "TestOilFailureWhileRunning"
+        self.desc = "TestOilFailureWhileRunning"
+
+    def test(self):
+        self.step(self.desc)
+
+        setDefautls(self)
+
+        reset = self.tester.testBox.plc.cold_I33
+        soft_reset = self.tester.plutoGateway.ResetGate_w
+        permit = self.tester.testBox.plc.cold_Q0
+        resetMode = True
+
+        sensorValidLatch = self.tester.plutoGateway.SensorsValidLatch
+        sensorValidLatchStatus = self.tester.plutoGateway.SensorsValidLatchStatus
+        sensorValidLatchNeedsReset = self.tester.plutoGateway.SensorsValidLatchNeedsReset
+
+        oilPort = self.tester.testBox.plc.cold_I35
+        oilLacthOK = self.tester.plutoGateway.OilOKLatch
+        oilLacthStatus = self.tester.plutoGateway.OilOKLatchStatus
+        oilLatchStatusNeedsReset = self.tester.plutoGateway.OilOKLatchNeedsReset
+
+
+        try:
+
+            setDefautls(self)
+            self.sleep(1)
+
+
+            self.checkDuring([(permit, 1),(sensorValidLatch,1)], 133 + 25)
+            print("passou o tempo")
+
+
+            self.checkChange([(permit, 1),
+                              (sensorValidLatch,1),
+                              (sensorValidLatchStatus,0),
+                              (sensorValidLatchNeedsReset, 0),
+                              (self.tester.plutoGateway.PowerOKLatch,1),
+                              (self.tester.plutoGateway.PowerOKLatchStatus, 0),
+                              (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
+                              ],
+                             30)
+
+
+            self.tester.testBox.plc.cold_IA7.write(0)
+            oilPort.write(1)
+
+            self.checkChange([(oilPort, 1),
+                              (permit, 0),
+                              (oilLacthOK, 0),
+                              (oilLacthStatus, 1),
+                              (oilLatchStatusNeedsReset, 0),
+                              (sensorValidLatch, 1),
+                              (sensorValidLatchStatus, 0),
+                              (sensorValidLatchNeedsReset, 0),
+                              (self.tester.plutoGateway.PowerOKLatch, 1),
+                              (self.tester.plutoGateway.PowerOKLatchStatus, 0),
+                              (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
+                              ],
+                             3)
+
+            oilPort.write(0)
+            reset.write(1)
+            self.sleep(1)
+            reset.write(0)
+
+
+
+            checkDefautls(self)
+
+
+
+
+        except Exception as e:
+            self.step("TestDigitalInputs failed." + str(e))
+            return False
+
+        return True
+
+
 class TestDelay0(Test):
     def __init__(self, tester, id):
         Test.__init__(self, tester, id)
@@ -847,11 +979,57 @@ class TestDelay0(Test):
         try:
 
             setDefautls(self)
+
+            self.checkDuring([(permit, 1)], 133+30+10+10)
+
+            print("passou o tempo")
+
+            checkDefautls(self)
+
+
+
+            self.tester.testBox.plc.cold_IA7.write(0)
+
+            #self.checkDuring([(permit, 1)], 8)
+
+            self.sleep(8)
+
+            print("10s almost passed")
+
+            self.checkChange([(permit, 0),
+                              (sensorValidLatch, 0),
+                              (sensorValidLatchStatus, 1),
+                              (sensorValidLatchNeedsReset, 0),
+                              (self.tester.plutoGateway.PowerOKLatch, 0),
+                              (self.tester.plutoGateway.PowerOKLatchStatus, 1),
+                              (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
+                              ],
+                             20)
+
+
+            setDefautls(self, reset=False)
+
+            self.checkChange([(permit, 0),
+                              (sensorValidLatch, 0),
+                              (sensorValidLatchStatus, 1),
+                              (sensorValidLatchNeedsReset, 0),
+                              (self.tester.plutoGateway.PowerOKLatch, 0),
+                              (self.tester.plutoGateway.PowerOKLatchStatus, 1),
+                              (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
+                              ],
+                             5)
+
+
+            checkDefautls(self)
+
+
+
+            setDefautls(self)
             self.sleep(1)
 
             self.tester.testBox.plc.cold_IA7.write(0)
 
-            self.checkDuring([(permit, 1),(sensorValidLatch,1)], 133 + 15)
+            self.checkDuring([(permit, 1),(sensorValidLatch,1)], 133 + 25)
             print("passou o tempo")
 
 
@@ -869,13 +1047,13 @@ class TestDelay0(Test):
 
             self.checkChange([(permit, 0),
                               (sensorValidLatch,0),
-                              (sensorValidLatchStatus,2),
-                              (sensorValidLatchNeedsReset, 1),
+                              (sensorValidLatchStatus,1),
+                              (sensorValidLatchNeedsReset, 0),
                               (self.tester.plutoGateway.PowerOKLatch,0),
-                              (self.tester.plutoGateway.PowerOKLatchStatus, 2),
-                              (self.tester.plutoGateway.PowerOKLatchNeedsReset, 1),
+                              (self.tester.plutoGateway.PowerOKLatchStatus, 1),
+                              (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
                               ],
-                             3)
+                             20)
 
             if resetMode:
                 self.pressChannels([reset])
@@ -885,26 +1063,7 @@ class TestDelay0(Test):
 
             checkDefautls(self)
 
-            #no problem
 
-            setDefautls(self)
-
-            self.checkDuring([(permit, 1)], 133+20)
-
-            print("passou o tempo")
-
-            '''self.checkChange([(self.tester.plutoGateway.CurrentValid,1),
-                              (permit, 1),
-                              (sensorValidLatch,1),
-                              (sensorValidLatchStatus,0),
-                              (sensorValidLatchNeedsReset, 0),
-                              (self.tester.plutoGateway.PowerOKLatch,1),
-                              (self.tester.plutoGateway.PowerOKLatchStatus, 0),
-                              (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
-                              ],
-                             20)'''
-
-            checkDefautls(self)
 
 
 

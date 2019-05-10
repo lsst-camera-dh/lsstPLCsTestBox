@@ -40,6 +40,9 @@ class ColdTests(Display):
         self.cold_tester.tests.append(cold_tests.TestImmediateTrips(self.cold_tester, -1))
         self.cold_tester.tests.append(cold_tests.TestImmediatePowerTrips(self.cold_tester, -1))
 
+        self.cold_tester.tests.append(cold_tests.TestOilFailureWhileRunning(self.cold_tester, -1))
+
+
         self.cold_tester.tests.append(cold_tests.TestDelay0(self.cold_tester, -1))
         self.cold_tester.tests.append(cold_tests.TestDelay1(self.cold_tester, -1))
         self.cold_tester.tests.append(cold_tests.TestDelay2(self.cold_tester, -1))
