@@ -956,10 +956,10 @@ class TestOilFailureWhileRunning(Test):
         return True
 
 
-class TestDelay0(Test):
+class TestCurrentValid(Test):
     def __init__(self, tester, id):
         Test.__init__(self, tester, id)
-        self.name = "TestDelay0"
+        self.name = "TestCurrentValid"
         self.desc = "Test current valid"
 
     def test(self):
@@ -997,12 +997,12 @@ class TestDelay0(Test):
             print("10s almost passed")
 
             self.checkChange([(permit, 0),
-                              (sensorValidLatch, 0),
-                              (sensorValidLatchStatus, 1),
-                              (sensorValidLatchNeedsReset, 0),
-                              (self.tester.plutoGateway.PowerOKLatch, 0),
-                              (self.tester.plutoGateway.PowerOKLatchStatus, 1),
-                              (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
+                             # (sensorValidLatch, 0),
+                             # (sensorValidLatchStatus, 1),
+                             # (sensorValidLatchNeedsReset, 0),
+                             # (self.tester.plutoGateway.PowerOKLatch, 0),
+                             # (self.tester.plutoGateway.PowerOKLatchStatus, 1),
+                             # (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
                               ],
                              20)
 
@@ -1010,12 +1010,12 @@ class TestDelay0(Test):
             setDefautls(self, reset=False)
 
             self.checkChange([(permit, 0),
-                              (sensorValidLatch, 0),
-                              (sensorValidLatchStatus, 1),
-                              (sensorValidLatchNeedsReset, 0),
-                              (self.tester.plutoGateway.PowerOKLatch, 0),
-                              (self.tester.plutoGateway.PowerOKLatchStatus, 1),
-                              (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
+                             # (sensorValidLatch, 0),
+                             # (sensorValidLatchStatus, 1),
+                             # (sensorValidLatchNeedsReset, 0),
+                             # (self.tester.plutoGateway.PowerOKLatch, 0),
+                             # (self.tester.plutoGateway.PowerOKLatchStatus, 1),
+                             # (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
                               ],
                              5)
 
@@ -1034,24 +1034,24 @@ class TestDelay0(Test):
 
 
             self.checkChange([(permit, 0),
-                              (sensorValidLatch,0),
-                              (sensorValidLatchStatus,1),
-                              (sensorValidLatchNeedsReset, 0),
-                              (self.tester.plutoGateway.PowerOKLatch,0),
-                              (self.tester.plutoGateway.PowerOKLatchStatus, 1),
-                              (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
+                             # (sensorValidLatch,0),
+                             # (sensorValidLatchStatus,1),
+                             # (sensorValidLatchNeedsReset, 0),
+                             # (self.tester.plutoGateway.PowerOKLatch,0),
+                             # (self.tester.plutoGateway.PowerOKLatchStatus, 1),
+                             # (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
                               ],
                              30)
 
             setDefautls(self,reset=False)
 
             self.checkChange([(permit, 0),
-                              (sensorValidLatch,0),
-                              (sensorValidLatchStatus,1),
-                              (sensorValidLatchNeedsReset, 0),
-                              (self.tester.plutoGateway.PowerOKLatch,0),
-                              (self.tester.plutoGateway.PowerOKLatchStatus, 1),
-                              (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
+                             # (sensorValidLatch,0),
+                             # (sensorValidLatchStatus,1),
+                             # (sensorValidLatchNeedsReset, 0),
+                             # (self.tester.plutoGateway.PowerOKLatch,0),
+                             # (self.tester.plutoGateway.PowerOKLatchStatus, 1),
+                             # (self.tester.plutoGateway.PowerOKLatchNeedsReset, 0),
                               ],
                              20)
 
@@ -1069,17 +1069,17 @@ class TestDelay0(Test):
 
 
         except Exception as e:
-            self.step("TestDigitalInputs failed." + str(e))
+            self.step("TestCurrentValid failed." + str(e))
             return False
 
         return True
 
 
-class TestDelay1(Test):
+class TestDelayPowerTrip(Test):
     def __init__(self, tester, id):
         Test.__init__(self, tester, id)
-        self.name = "TestDelay1"
-        self.desc = "TestDelay1"
+        self.name = "TestDelayPowerTrip"
+        self.desc = "TestDelayPowerTrip"
 
     def test(self):
         self.step(self.desc)
@@ -1191,11 +1191,11 @@ class TestDelay1(Test):
         return True
 
 
-class TestDelay2(Test):
+class TestDelayDisPressTrip(Test):
     def __init__(self, tester, id):
         Test.__init__(self, tester, id)
-        self.name = "TestDelay2"
-        self.desc = "TestDelay2"
+        self.name = "TestDelayDisPressTrip"
+        self.desc = "TestDelayDisPressTrip"
 
     def test(self):
         self.step(self.desc)
@@ -1281,11 +1281,11 @@ class TestDelay2(Test):
         return True
 
 
-class TestDelay3(Test):
+class TestDelayDisTempTrip(Test):
     def __init__(self, tester, id):
         Test.__init__(self, tester, id)
-        self.name = "TestDelay3"
-        self.desc = "TestDelay3"
+        self.name = "TestDelayDisTempTrip"
+        self.desc = "TestDelayDisTempTrip"
 
     def test(self):
         self.step(self.desc)

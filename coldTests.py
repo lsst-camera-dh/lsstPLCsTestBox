@@ -43,10 +43,10 @@ class ColdTests(Display):
         self.cold_tester.tests.append(cold_tests.TestOilFailureWhileRunning(self.cold_tester, -1))
 
 
-        self.cold_tester.tests.append(cold_tests.TestDelay0(self.cold_tester, -1))
-        self.cold_tester.tests.append(cold_tests.TestDelay1(self.cold_tester, -1))
-        self.cold_tester.tests.append(cold_tests.TestDelay2(self.cold_tester, -1))
-        self.cold_tester.tests.append(cold_tests.TestDelay3(self.cold_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestCurrentValid(self.cold_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestDelayPowerTrip(self.cold_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestDelayDisPressTrip(self.cold_tester, -1))
+        self.cold_tester.tests.append(cold_tests.TestDelayDisTempTrip(self.cold_tester, -1))
 
         for i, test in enumerate( self.cold_tester.tests):
             test.id=i

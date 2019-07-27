@@ -115,6 +115,55 @@
     </widget>
    </item>
    <item>
+    <widget class="PyDMShellCommand" name="PyDMShellCommand_9">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="whatsThis">
+      <string>
+    A QPushButton capable of execute shell commands.
+    </string>
+     </property>
+     <property name="text">
+      <string>ComCam MPM Monitor </string>
+     </property>
+     <property name="allowMultipleExecutions" stdset="0">
+      <bool>true</bool>
+     </property>
+     <property name="command" stdset="0">
+      <string>python ${launcher} ${path}\\comMpmMonitor.py</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="PyDMShellCommand" name="PyDMShellCommand_10">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="whatsThis">
+      <string>
+    A QPushButton capable of execute shell commands.
+    </string>
+     </property>
+     <property name="text">
+      <string>ComCam MPM Tests </string>
+     </property>
+     <property name="allowMultipleExecutions" stdset="0">
+      <bool>true</bool>
+     </property>
+     <property name="command" stdset="0">
+      <string>python ${launcher} ${path}\\comMpmTests.py</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_5">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="PyDMShellCommand" name="PyDMShellCommand_3">
      <property name="toolTip">
       <string/>
@@ -158,6 +207,55 @@
    </item>
    <item>
     <widget class="Line" name="line_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="PyDMShellCommand" name="PyDMShellCommand_11">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="whatsThis">
+      <string>
+    A QPushButton capable of execute shell commands.
+    </string>
+     </property>
+     <property name="text">
+      <string>ComCam Vaccum Monitor </string>
+     </property>
+     <property name="allowMultipleExecutions" stdset="0">
+      <bool>true</bool>
+     </property>
+     <property name="command" stdset="0">
+      <string>python ${launcher} ${path}\\comVaccumMonitor.py</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="PyDMShellCommand" name="PyDMShellCommand_12">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="whatsThis">
+      <string>
+    A QPushButton capable of execute shell commands.
+    </string>
+     </property>
+     <property name="text">
+      <string>ComCam Vaccum Tests </string>
+     </property>
+     <property name="allowMultipleExecutions" stdset="0">
+      <bool>true</bool>
+     </property>
+     <property name="command" stdset="0">
+      <string>python ${launcher} ${path}\\comVaccumTests.py</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_6">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>

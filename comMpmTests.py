@@ -3,51 +3,46 @@ from pydm import Display
 from pydm.PyQt.QtCore import *
 from pydm.PyQt.QtGui import *
 import tester
-import cryo_tests
+import com_mpm_tests
 from mapping_parser import import_mappings
 import logging
 import time
 
-class CryoTests(Display):
+class ComMpmTests(Display):
     def __init__(self, parent=None, args=None, macros=None):
-        super(CryoTests, self).__init__(parent=parent, macros=macros)
+        super(ComMpmTests, self).__init__(parent=parent, macros=macros)
 
-        logging.basicConfig(filename='vaccumTests%s.log', level=logging.DEBUG)
+        logging.basicConfig(filename='comMpmTests%s.log', level=logging.DEBUG)
 
-        plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "cryo_modbus_mapping.csv")
+        plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "com_mpm_modbus_mapping.csv")
         testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "PLC_Certification_Chassis.xlsx")
 
-        testBox, plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'ColdCryo Cables')
+        testBox, plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'MPM Cables')
 
-
-        self.cryo_tester = tester.Tester(testBox , plutoGateway)
-        self.cryo_tester.connectTestBox()
-        self.cryo_tester.connectGateway(timeout=30)
+        print('ola')
 
 
 
-        self.cryo_tester.tests.append(cryo_tests.TestPlutoGatewayConfig(self.cryo_tester, -1))
-        self.cryo_tester.tests.append(cryo_tests.TestPlutoPLCsPresent(self.cryo_tester, -1))
-        self.cryo_tester.tests.append(cryo_tests.TestCRC(self.cryo_tester, -1))
+        self.mpm_tester = tester.Tester(testBox , plutoGateway)
+        #self.mpm_tester.connectTestBox()
+        #self.mpm_tester.connectGateway(timeout=30)
 
 
-        self.cryo_tester.tests.append(cryo_tests.TestChannelsBootDefault(self.cryo_tester, -1))
+        self.mpm_tester.tests.append(com_mpm_tests.TestPlutoGatewayConfig(self.mpm_tester, -1))
+        self.mpm_tester.tests.append(com_mpm_tests.TestPlutoPLCsPresent(self.mpm_tester, -1))
 
-        self.cryo_tester.tests.append(cryo_tests.TestPlutoWriteReadback(self.cryo_tester, -1))
 
+        self.mpm_tester.tests.append(com_mpm_tests.TestChannelsBootDefault(self.mpm_tester, -1))
 
-        self.cryo_tester.tests.append(cryo_tests.TestDigitalInputs(self.cryo_tester, -1))
-        self.cryo_tester.tests.append(cryo_tests.TestDigitalInputsHeater(self.cryo_tester, -1))
-        self.cryo_tester.tests.append(cryo_tests.TestSensorsValid(self.cryo_tester, -1))
-        self.cryo_tester.tests.append(cryo_tests.TestImmediateTrips(self.cryo_tester, -1))
-        self.cryo_tester.tests.append(cryo_tests.TestImmediateTripsHeater(self.cryo_tester, -1))
-        self.cryo_tester.tests.append(cryo_tests.TestImmediatePowerTrips(self.cryo_tester, -1))
+        self.mpm_tester.tests.append(com_mpm_tests.TestPlutoWriteReadback(self.mpm_tester, -1))
 
-        self.cryo_tester.tests.append(cryo_tests.TestCurrentValid(self.cryo_tester, -1))
-        self.cryo_tester.tests.append(cryo_tests.TestDelayPowerTrip(self.cryo_tester, -1))
-        self.cryo_tester.tests.append(cryo_tests.TestDelayDisTempTrip(self.cryo_tester, -1))
+        self.mpm_tester.tests.append(com_mpm_tests.TestPermitsBlock(self.mpm_tester, -1))
+        self.mpm_tester.tests.append(com_mpm_tests.TestAcPermitCoolantValve(self.mpm_tester, -1))
 
-        for i, test in enumerate( self.cryo_tester.tests):
+        self.mpm_tester.tests.append(com_mpm_tests.TestVacuumToRefPermits(self.mpm_tester, -1))
+        self.mpm_tester.tests.append(com_mpm_tests.TestColdCryoPermits(self.mpm_tester, -1))
+
+        for i, test in enumerate( self.mpm_tester.tests):
             test.id=i
 
 
@@ -55,13 +50,13 @@ class CryoTests(Display):
 
         headers= ["Test","Description","","Step","Details"]
 
-        self.table.setRowCount(len(self.cryo_tester.tests))
+        self.table.setRowCount(len(self.mpm_tester.tests))
         self.table.setColumnCount(len(headers))
 
         self.table.setHorizontalHeaderLabels(headers)
-        self.table.setVerticalHeaderLabels([str(e)  for e in list(range(1,len(self.cryo_tester.tests)+1))])
+        self.table.setVerticalHeaderLabels([str(e)  for e in list(range(1,len(self.mpm_tester.tests)+1))])
 
-        for i, test in enumerate(self.cryo_tester.tests):
+        for i, test in enumerate(self.mpm_tester.tests):
             self.update_table_line(i)
         self.table.setCurrentCell(0, 0 ,QItemSelectionModel.Rows)
 
@@ -72,19 +67,19 @@ class CryoTests(Display):
         self.table.setColumnWidth(2, 50)
         self.table.setColumnWidth(3, 250)
 
-        self.cryo_tester.test_line_update.connect(self.update_table_line)
-        self.cryo_tester.monitor_update.connect(self.update_monitor_menu)
+        self.mpm_tester.test_line_update.connect(self.update_table_line)
+        self.mpm_tester.monitor_update.connect(self.update_monitor_menu)
 
-        self.ui.runAllButton.clicked.connect(self.cryo_tester.run_all)
-        self.ui.abortButton.clicked.connect(self.cryo_tester.abort)
+        self.ui.runAllButton.clicked.connect(self.mpm_tester.run_all)
+        self.ui.abortButton.clicked.connect(self.mpm_tester.abort)
 
     def item_changed(self,item):
         id = self.table.row(item)
-        self.cryo_tester.tests[id].selected = item.checkState()
+        self.mpm_tester.tests[id].selected = item.checkState()
 
     def update_table_line(self,i):
 
-        test = self.cryo_tester.tests[i]
+        test = self.mpm_tester.tests[i]
         name = QTableWidgetItem(test.name)
 
 

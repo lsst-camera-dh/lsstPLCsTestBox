@@ -21,7 +21,7 @@ R,HR,36,79,,VoltageVolt,Analog,,20,22
 R,HR,36,80,,Voltage,Analog,,20,22
 R,HR,36,,,,,,,
 R,HR,36,81,,WaitingSecs,Analog,,20,22
-R,HR,36,82,,,Analog,,20,22
+R,HR,36,82,,SecondsTo6Hours,Analog,,20,22
 R,HR,36,,,,,,,
 R,HR,36,83,,,,,,
 R,HR,36,84,,,,,,

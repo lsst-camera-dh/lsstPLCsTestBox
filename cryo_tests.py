@@ -2,7 +2,8 @@ from tester import Test
 import random
 import numpy as np
 
-
+#R1.2
+firmware_CCR = 39749
 
 class TestPlutoGatewayConfig(Test):
     def __init__(self, tester, id):
@@ -45,6 +46,22 @@ class TestPlutoPLCsPresent(Test):
 
         self.step(("Pluto Gateway sees Pluto D45 as node 0."))
         return True
+
+class TestCRC(Test):
+    def __init__(self, tester, id):
+        Test.__init__(self, tester, id)
+        self.name = "TestCRC"
+        self.desc = "Check Pluto PLC firmware CRC."
+
+    def test(self):
+        if self.tester.plutoGateway.SR_appCRC.read()==firmware_CCR:
+            self.step("Pluto PLC has the right CRC")
+            return True
+        else:
+            self.step("Pluto PLC has the wrong CRC")
+            return False
+
+
 
 
 class TestChannelsBootDefault(Test):
@@ -1039,6 +1056,8 @@ class TestImmediateTripsHeater(Test):
 
         return True
 
+voltage_correction = 1.008
+voltage_correction = 1.012
 
 class TestImmediatePowerTrips(Test):
     def __init__(self, tester, id):
@@ -1077,6 +1096,10 @@ class TestImmediatePowerTrips(Test):
 
             curent = self.tester.plutoGateway.Current
 
+
+            currentVoltage = self.tester.plutoGateway.CurrentVolt
+            voltageVoltage = self.tester.plutoGateway.VoltageVolt
+
             vals2 = np.arange(1, 10, 0.7)
 
 
@@ -1085,17 +1108,20 @@ class TestImmediatePowerTrips(Test):
             for val in vals:
                 for val2 in vals2:
 
-                    print(v2Volt(val), 'V')
-                    print(v2Cur(val2), 'A')
-
-                    print(v2Volt(val) * v2Cur(val2))
-
-                    if abs(v2Volt(val) * v2Cur(val2) - 2500) < 50 or abs(v2Volt(val) * v2Cur(val2) - 1800) < 50:
+                    if abs(v2Volt(val) * v2Cur(val2) - 2500) < 100 or abs(v2Volt(val) * v2Cur(val2) - 1800) < 100:
                         continue
 
 
-                    port.write(val)
-                    port2.write(val2)
+                    port.write(val*voltage_correction)
+                    port2.write(val2*voltage_correction)
+                    
+                    self.sleep(.5)
+
+                    print('-------------')
+                    print(v2Volt(val),voltage.read()/10, '--', val , voltageVoltage.read())
+                    print(v2Cur(val2), curent.read()/100, '--', val2, currentVoltage.read())
+                    print(v2Volt(val) * v2Cur(val2),voltage.read()/10 *curent.read()/100 )
+                    print('-------------')
 
                     trip = v2Volt(val) * v2Cur(val2) > 2500
                     warning = v2Volt(val) * v2Cur(val2) > 1800
@@ -1145,10 +1171,10 @@ class TestImmediatePowerTrips(Test):
         return True
 
 
-class TestDelay0(Test):
+class TestCurrentValid(Test):
     def __init__(self, tester, id):
         Test.__init__(self, tester, id)
-        self.name = "TestDelay0"
+        self.name = "TestCurrentValid"
         self.desc = "Test current valid"
 
     def test(self):
@@ -1237,11 +1263,11 @@ class TestDelay0(Test):
         return True
 
 
-class TestDelayPower(Test):
+class TestDelayPowerTrip(Test):
     def __init__(self, tester, id):
         Test.__init__(self, tester, id)
-        self.name = "TestDelayPower"
-        self.desc = "TestDelayPower"
+        self.name = "TestDelayPowerTrip"
+        self.desc = "TestDelayPowerTrip"
 
     def test(self):
         self.step(self.desc)
@@ -1352,11 +1378,11 @@ class TestDelayPower(Test):
 
         return True
 
-class TestDelayDisTemp(Test):
+class TestDelayDisTempTrip(Test):
     def __init__(self, tester, id):
         Test.__init__(self, tester, id)
-        self.name = "TestDelayDisTemp"
-        self.desc = "TestDelayDisTemp"
+        self.name = "TestDelayDisTempTrip"
+        self.desc = "TestDelayDisTempTrip"
 
     def test(self):
         self.step(self.desc)
