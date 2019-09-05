@@ -1,0 +1,108 @@
+permissions,mb_type,unit_id,addr,bit,name,type,related,default_value,boot_value
+R,HR,36,85,"(high byte, low byte)",SR_appCRC,Analog,,,
+R,HR,36,86,0,MainVhxVcc,Digital,Q3,0,0
+R,HR,36,86,1,CloseMainVhxVcc,Digital,Q3,0,0
+R,HR,36,86,2,OpenMainVhxVcc,Digital,Q3,0,0
+R,HR,36,86,3,,,,,
+R,HR,36,86,4,,,,,
+R,HR,36,86,5,,,,,
+R,HR,36,86,6,MainVhxVccAllowedOpenLatchStatus,DigitalBlink,,0,2
+R,HR,36,86,7,MainVhxVccAllowedOpenLatchReset,Digital,,0,0
+R,HR,36,87,"(high byte, low byte)",SR_ErrorCode,Analog,,,
+R,HR,36,88,0,MainVcrVcc,Digital,Q2,0,0
+R,HR,36,88,1,CloseMainVcrVcc,Digital,Q2,0,0
+R,HR,36,88,2,OpenMainVcrVcc,Digital,Q2,0,0
+R,HR,36,88,3,,,,,
+R,HR,36,88,4,,,,,
+R,HR,36,88,5,,,,,
+R,HR,36,88,6,MainVcrVccAllowedOpenLatchStatus,DigitalBlink,,0,2
+R,HR,36,88,7,MainVcrVccAllowedOpenLatchReset,Digital,,0,0
+R,HR,36,90, 0,VhxPumpPerm,Digital,Q5,1,0
+R,HR,36,90,1 ,VhxPumpPermLatchStatus,DigitalBlink,Q5,0,2
+R,HR,36,90,2 ,VhxPumpPermReset,Digital,Q5,0,0
+R,HR,36,90,3 ,VcrPumpPerm,Digital,Q4,1,0
+R,HR,36,90,4 ,VcrPumpPermLatchStatus,DigitalBlink,Q4,0,2
+R,HR,36,90,5 ,VcrPumpPermReset,Digital,Q4,0,0
+R,HR,36,90,6 ,,,,,
+R,HR,36,90,7 ,,,,,
+R,HR,36,,,,,,,
+R,HR,36,92, 0,,,,,
+R,HR,36,92,1,,,,,
+R,HR,36,92,2,,,,,
+R,HR,36,92,3,,,,,
+R,HR,36,92,4,,,,,
+R,HR,36,92,5,,,,,
+R,HR,36,94,0,,,,,
+R,HR,36,94,1,,,,,
+R,HR,36,94,2,,,,,
+R,HR,36,94,3,,,,,
+R,HR,36,94,4,,,,,
+R,HR,36,94,5,,,,,
+R,HR,36,96, 0,HVStat,Digital,Q1,1,0
+R,HR,36,96,1,HVInterlockHighLatchStatus,DigitalBlink,Q1,0,1
+R,HR,36,96,2,HVStatLatchReset,Digital,Q1,0,0
+R,HR,36,96,3,CVStat,Digital,Q0,1,0
+R,HR,36,96,4,CVInterlockHighLatchStatus,DigitalBlink,Q0,0,1
+R,HR,36,96,5,CVStatLatchReset,Digital,Q0,0,0
+R,HR,36,96,6,HVInterlockHigh,Digital,Q1,0,1
+R,HR,36,96,7,CVInterlockHigh,Digital,Q0,0,1
+R,HR,36,98, 0,,,,,
+R,HR,36,98,1,,,,,
+R,HR,36,98,2,MainVhxVgcOpen,Digital,Q3,0,0
+R,HR,36,98,3,MainVhxVgcClose,Digital,Q3,1,0
+R,HR,36,98,4,MainVcrVccAllowedOpenLatch,Digital,,1,0
+R,HR,36,98,5,MainVhxVccAllowedOpenLatch,Digital,,1,0
+R,HR,36,100,0,,,,,
+R,HR,36,100,1,BPower,Digital,IQ11,1,1
+R,HR,36,100,2,,,,,
+R,HR,36,100,3,HVTurboUnder10,Digital,Q5,1,0
+R,HR,36,100,4,HVTurboPumpOFF,Digital,Q5,1,1
+R,HR,36,100,5,CVTurboUnder10,Digital,Q4,1,0
+R,HR,36,100,6,CVTurboPumpOFF,Digital,Q4,1,0
+R,HR,36,100,7,,Digital,,,
+R,HR,36,102,0,HVStatBlock,Digital,Q1,0,0
+R,HR,36,102,1,CVStatBlock,Digital,Q0,0,0
+R,HR,36,102,2,VhxPumpPermBlock,Digital,Q5,0,0
+R,HR,36,102,3,VcrPumpPermBlock,Digital,Q4,0,0
+R,HR,36,102,4,CV01,Digital,I35,1,0
+R,HR,36,102,5,CV001,Digital,I36,1,0
+R,HR,36,102,6,HV01,Digital,I37,1,0
+R,HR,36,102,7,HV001,Digital,I40,1,0
+,,,,,,,,,
+R,HR,36,104,0,CVInterlockHighLatchNeedsReset,Digital,,0,1
+R,HR,36,104,1,MainVcrVccNotForcedCloseLatchNeedsReset,Digital,,0,1
+R,HR,36,104,2,MainVcrVccAllowedOpenLatchNeedsReset,Digital,,0,1
+R,HR,36,104,3,VcrPumpPermLatchNeedsReset,Digital,,0,1
+R,HR,36,104,4,HVInterlockHighLatchNeedsReset,Digital,,0,1
+R,HR,36,104,5,MainVhxVccNotForcedCloseLatchNeedsReset,Digital,,0,1
+R,HR,36,104,6,MainVhxVccAllowedOpenLatchNeedsReset,Digital,,0,1
+R,HR,36,104,7,VhxPumpPermLatchNeedsReset,Digital,,0,1
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+RW,HR,1,2,0,HVStatLatchReset_w,Digital,Q1,P,0
+RW,HR,1,2,1,CVStatLatchReset_w,Digital,Q0,P,0
+RW,HR,1,2,2,CloseMainVhxVcc_w,Digital,Q3,P,0
+RW,HR,1,2,3,OpenMainVhxVcc_w,Digital,Q3,0,0
+RW,HR,1,2,4,,,,,
+RW,HR,1,2,5,MainVhxVccAllowedOpenLatchReset_w,Digital,,P,0
+RW,HR,1,2,6,CloseMainVcrVcc_w,Digital,Q2,P,0
+RW,HR,1,2,7,OpenMainVcrVcc_w,Digital,Q2,0,0
+RW,HR,1,2,8,,,,,
+RW,HR,1,2,9,MainVcrVccAllowedOpenLatchReset_w,Digital,,P,0
+RW,HR,1,2,10,VhxPumpPermReset_w,Digital,Q5,P,0
+RW,HR,1,2,11,VcrPumpPermReset_w,Digital,Q4,P,0
+RW,HR,1,2,12,,,,,
+RW,HR,1,2,13,,,,,
+RW,HR,1,2,14,,,,,
+RW,HR,1,2,15,,,,,
+RW,HR,1,5,0,,,,,
+RW,HR,1,5,1,,,,,
+RW,HR,1,5,2,,,,,
+RW,HR,1,5,3,,,,,
+RW,HR,1,5,4,HVStatBlock_w,Digital,Q1,0,0
+RW,HR,1,5,5,CVStatBlock_w,Digital,Q0,0,0
+RW,HR,1,5,6,VhxPumpPermBlock_w,Digital,Q5,0,0
+RW,HR,1,5,7,VcrPumpPermBlock_w,Digital,Q4,0,0

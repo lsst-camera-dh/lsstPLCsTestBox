@@ -31,7 +31,7 @@ class TestPlutoPLCsPresent(Test):
     def __init__(self, tester, id):
         Test.__init__(self, tester, id)
         self.name = "TestPlutoPLCsPresent"
-        self.desc = "Check Pluto Gateway sees Pluto D20 as node 1,2 and 3."
+        self.desc = "Check Pluto Gateway sees Pluto D20 as node 1 and 3."
 
     def test(self):
         good = True
@@ -45,8 +45,9 @@ class TestPlutoPLCsPresent(Test):
         if not good:
             return False
 
-        self.step(("Pluto Gateway sees all 3 D20 PLCs as nodes 1,2,3."))
+        self.step(("Pluto Gateway sees all 3 D20 PLCs as nodes 1,3."))
         return True
+
 
 class TestChannelsBootDefault(Test):
     def __init__(self, tester, id):
@@ -190,7 +191,6 @@ class TestAcPermitCoolantValve(Test):
         leakFaultOkLatchStatus = self.tester.plutoGateway.P1_LeakFaultOkLatchStatus
         leakFaultOkLatchNeedsReset = self.tester.plutoGateway.P1_LeakFaultOkLatchNeedsReset
 
-        leakIndicator = self.tester.testBox.plc.P1_IQ13
 
         resetLeak_w = self.tester.plutoGateway.P1_ResetLeak_w
 
@@ -210,18 +210,16 @@ class TestAcPermitCoolantValve(Test):
         tempOkLatchStatus = self.tester.plutoGateway.P1_TempOkLatchStatus
         tempOkLatchNeedsReset = self.tester.plutoGateway.P1_TempOkLatchNeedsReset
 
-        tempIndicator = self.tester.testBox.plc.P1_IQ14
-
         resetTemp_w = self.tester.plutoGateway.P1_ResetTemp_w
 
-        masterResetPort = self.tester.testBox.plc.P3_I7
+        #TODO test hard reset mode masterResetPort = self.tester.testBox.plc.P3_I7
+        masterResetPort = self.tester.testBox.plc.P3_IA0
         masterReset = self.tester.plutoGateway.P3_MasterResetButton
 
         valvePort = self.tester.testBox.plc.P1_Q2
         valve = self.tester.plutoGateway.P1_CoolantValve
 
         utPermitPort = self.tester.testBox.plc.P1_Q0
-        utPermitIndicator = self.tester.testBox.plc.P1_IQ16
         utPermit = self.tester.plutoGateway.P1_UtPowerPerm
 
         noLeakPortValues = [0, 1]
@@ -232,9 +230,15 @@ class TestAcPermitCoolantValve(Test):
         tmp2PortValues = [0, 1]
         tmp3PortValues = [0, 1]
 
-        resetMode = True  # ["soft", "hard"]
+        resetMode = False  # ["soft", "hard"]
 
         self.setDefault(check=False)
+
+        hexVacReset_w = self.tester.plutoGateway.P3_ResetHexVac_w
+        cryVacReset_w = self.tester.plutoGateway.P3_ResetCryVac_w
+
+        hexVacReset_w.press()
+        cryVacReset_w.press()
 
         n = 0
 
@@ -272,7 +276,6 @@ class TestAcPermitCoolantValve(Test):
                                             self.checkDuring([(valvePort, 1),
                                                               (valve, 1,),
                                                               (utPermitPort, 1),
-                                                              (utPermitIndicator, 1),
                                                               (utPermit, 1)
                                                               ], 7)
 
@@ -306,7 +309,6 @@ class TestAcPermitCoolantValve(Test):
                                             valveValue = valvePortValue
 
                                             utPermitPortValue = tempOkLatchValue and leakFaultOkLatchValue and leakOkLatchValue
-                                            utPermitIndicatorValue = utPermitPortValue
                                             utPermitValue = utPermitPortValue
 
                                             # Try to reset but this must have no effect
@@ -332,7 +334,6 @@ class TestAcPermitCoolantValve(Test):
                                                 (leakFaultOkLatchStatus, leakFaultOkLatchStatusValue),
                                                 (leakFaultOkLatchNeedsReset, leakFaultOkLatchNeedsResetValue),
 
-                                                (leakIndicator, leakIndicatorValue),
 
                                                 # Temperature
 
@@ -352,14 +353,11 @@ class TestAcPermitCoolantValve(Test):
                                                 (tempOkLatchStatus, tempOkLatcStatusValue),
                                                 (tempOkLatchNeedsReset, tempOkLatchNeedsResetValue),
 
-                                                (tempIndicator, tempIndicatorValue),
-
                                                 # Outputs
 
                                                 (valvePort, valvePortValue),
                                                 (valve, valveValue),
                                                 (utPermitPort, utPermitPortValue),
-                                                (utPermitIndicator, utPermitIndicatorValue),
                                                 (utPermit, utPermitValue),
 
                                             ], 5, compare)
@@ -384,12 +382,9 @@ class TestAcPermitCoolantValve(Test):
                                                                   (leakOkLatchStatus, 2),
                                                                   (leakOkLatchNeedsReset, 1),
 
-                                                                  (leakIndicator, leakIndicatorVal),
-
                                                                   (valvePort, 0),
                                                                   (valve, 0),
                                                                   (utPermitPort, 0),
-                                                                  (utPermitIndicator, 0),
                                                                   (utPermit, 0),
 
                                                                   ], 1, compare)
@@ -409,12 +404,9 @@ class TestAcPermitCoolantValve(Test):
                                                                   (leakFaultOkLatchStatus, 2),
                                                                   (leakFaultOkLatchNeedsReset, 1),
 
-                                                                  (leakIndicator, 2),
-
                                                                   (valvePort, 0),
                                                                   (valve, 0),
                                                                   (utPermitPort, 0),
-                                                                  (utPermitIndicator, 0),
                                                                   (utPermit, 0),
 
                                                                   ], 1, compare)
@@ -444,10 +436,7 @@ class TestAcPermitCoolantValve(Test):
                                                                   (tempOkLatchStatus, 2),
                                                                   (tempOkLatchNeedsReset, 1),
 
-                                                                  (tempIndicator, 2),
-
                                                                   (utPermitPort, 0),
-                                                                  (utPermitIndicator, 0),
                                                                   (utPermit, 0),
 
                                                                   ], 1, compare)
@@ -470,7 +459,7 @@ class TestAcPermitCoolantValve(Test):
                                                     self.pressChannels(resets)
                                                     print('>>>>>>>>>>>>>>>>>>>>soft')
 
-                                                resetMode = not resetMode
+                                                #TODO test hard reset mode resetMode = not resetMode
 
                                             tmp0Port.write(1)
                                             tmp1Port.write(1)
@@ -521,14 +510,18 @@ class TestVacuumToRefPermits(Test):
         cryVacLatchNeedsReset = self.tester.plutoGateway.P3_CryVacOkLatchNeedsReset
         cryVacReset_w = self.tester.plutoGateway.P3_ResetCryVac_w
 
-        masterResetPort = self.tester.testBox.plc.P3_I7
+        #TODO test hard reset mode masterResetPort = self.tester.testBox.plc.P3_I7
+        masterResetPort = self.tester.testBox.plc.P3_IA0
+        masterReset = self.tester.plutoGateway.P3_MasterResetButton
 
         hexVacOkPortValues = [0, 1]
         cryVacOkPortValues = [0, 1]
 
-        resetMode = True  # ["soft", "hard"]
+        resetMode = False  # ["soft", "hard"]
 
         self.setDefault(check=False)
+        hexVacReset_w.press()
+        cryVacReset_w.press()
 
         n = 0
 
@@ -622,10 +615,10 @@ class TestVacuumToRefPermits(Test):
                                           ], 1, compare)
                         resets.append(cryVacReset_w)
 
-                    resetMode = not resetMode
+                    #TODO test hard reset mode resetMode = not resetMode
 
                     if len(resets) > 0:
-                        if resetMode == "hard":
+                        if resetMode:
                             masterResetPort.write(1)
                             self.sleep(1)
                             masterResetPort.write(0)
@@ -661,7 +654,7 @@ class TestPermitsBlock(Test):
                    self.tester.plutoGateway.P1_UtPowerPermBlock,
                    self.tester.plutoGateway.P1_UtPowerPerm,
                    self.tester.plutoGateway.P1_UtPowerLight,
-                   self.tester.testBox.plc.P1_IQ16,
+                   self.tester.testBox.plc.P1_Q0,
                    self.tester.testBox.plc.P1_Q0],
 
                   [self.tester.plutoGateway.P1_RebPowerPermBlockSet,
@@ -722,7 +715,7 @@ class TestPermitsBlock(Test):
                    self.tester.plutoGateway.P3_ClpRefPermBlockReset,
                    self.tester.plutoGateway.P3_ClpRefPermBlockReset_w,
                    self.tester.plutoGateway.P3_ClpRefPermBlock,
-                   self.tester.plutoGateway.P3_ClpFrigLockLight,
+                   None,
                    self.tester.plutoGateway.P3_ClpRefPerm,
                    None,
                    self.tester.testBox.plc.P3_Q0],
@@ -732,7 +725,7 @@ class TestPermitsBlock(Test):
                    self.tester.plutoGateway.P3_CryRefPermBlockReset,
                    self.tester.plutoGateway.P3_CryRefPermBlockReset_w,
                    self.tester.plutoGateway.P3_CryRefPermBlock,
-                   self.tester.plutoGateway.P3_CryFrigLockLight,
+                   None,
                    self.tester.plutoGateway.P3_CryRefPerm,
                    None,
                    self.tester.testBox.plc.P3_Q1]
@@ -746,14 +739,13 @@ class TestPermitsBlock(Test):
                 set_w = block[1]
                 reset_w = block[3]
                 blockStatus = block[4]
-                lockLight = block[5]
                 perm = block[6]
                 permPort = block[8]
 
                 compare = []
 
                 set_w.press()
-                self.checkChange([(blockStatus, 1), (lockLight, 1), (perm, 0), (permPort, 0)], 3,
+                self.checkChange([(blockStatus, 1), (perm, 0), (permPort, 0)], 3,
                                  compare)
 
                 reset_w.press()

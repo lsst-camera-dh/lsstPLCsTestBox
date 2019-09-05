@@ -3,60 +3,71 @@ from pydm import Display
 from pydm.PyQt.QtCore import *
 from pydm.PyQt.QtGui import *
 import tester
-import com_mpm_tests
+import com_vac_tests as com_vac_tests
 from mapping_parser import import_mappings
 import logging
-import time
 
-class ComMpmTests(Display):
+class VaccumTests(Display):
     def __init__(self, parent=None, args=None, macros=None):
-        super(ComMpmTests, self).__init__(parent=parent, macros=macros)
+        super(VaccumTests, self).__init__(parent=parent, macros=macros)
 
-        logging.basicConfig(filename='comMpmTests%s.log', level=logging.DEBUG)
+        #logging.basicConfig(filename=path.join(path.dirname(path.realpath(__file__)), "logs",'comVacuumTests.log'), level=logging.DEBUG)
+        logging.basicConfig(filename='C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\logs\\comVacuumTests2.log',
+                            level=logging.DEBUG)
+        logging.debug('This message should go to the log file')
+        logging.info('So should this')
+        logging.warning('And this, too')
+        print(path.join(path.dirname(path.realpath(__file__)), "logs",'comVacuumTests.log'))
 
-        plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "com_mpm_modbus_mapping.csv")
+        plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "com_vac_modbus_mapping.csv")
         testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "PLC_Certification_Chassis.xlsx")
 
-        testBox, plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'COM MPM Cables')
+        testbox , plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'COM Vacuum cables')
 
-        print('ola')
-
-
-
-        self.mpm_tester = tester.Tester(testBox , plutoGateway)
-        #self.mpm_tester.connectTestBox()
-        #self.mpm_tester.connectGateway(timeout=30)
+        self.vac_tester = tester.Tester(testbox , plutoGateway)
 
 
-        self.mpm_tester.tests.append(com_mpm_tests.TestPlutoGatewayConfig(self.mpm_tester, -1))
-        self.mpm_tester.tests.append(com_mpm_tests.TestPlutoPLCsPresent(self.mpm_tester, -1))
+        self.vac_tester.tests.append(com_vac_tests.TestPlutoGatewayConfig(self.vac_tester, -1))
+        self.vac_tester.tests.append(com_vac_tests.TestPlutoPLCsPresent(self.vac_tester, -1))
+
+        self.vac_tester.tests.append(com_vac_tests.TestChannelsBootDefault(self.vac_tester, -1))
+
+        self.vac_tester.tests.append(com_vac_tests.TestPlutoWriteReadback(self.vac_tester, -1))
+
+        #self.vac_tester.tests.append(com_vac_tests.TestAnalogScaling(self.vac_tester, -1))
+
+        #self.vac_tester.tests.append(com_vac_tests.TestHvCvDifferences(self.vac_tester, -1))
+
+        self.vac_tester.tests.append(com_vac_tests.TestCvValves(self.vac_tester, -1))
+        self.vac_tester.tests.append(com_vac_tests.TestValveMonitors(self.vac_tester, -1))
+
+        self.vac_tester.tests.append(com_vac_tests.TestHvStat(self.vac_tester, -1))
+        #self.vac_tester.tests.append(com_vac_tests.TestHvTurboOnOfflogic(self.vac_tester, -1))
+        self.vac_tester.tests.append(com_vac_tests.TestHvTurboPermitBlock(self.vac_tester, -1))
+        self.vac_tester.tests.append(com_vac_tests.TestHvTurboPermitAuto(self.vac_tester, -1))
+
+        self.vac_tester.tests.append(com_vac_tests.TestCvStat(self.vac_tester, -1))
+        #self.vac_tester.tests.append(com_vac_tests.TestCvTurboOnOfflogic(self.vac_tester, -1))
+        self.vac_tester.tests.append(com_vac_tests.TestCvTurboPermitBlock(self.vac_tester, -1))
+        self.vac_tester.tests.append(com_vac_tests.TestCvTurboPermitAuto(self.vac_tester, -1))
 
 
-        self.mpm_tester.tests.append(com_mpm_tests.TestChannelsBootDefault(self.mpm_tester, -1))
-
-        self.mpm_tester.tests.append(com_mpm_tests.TestPlutoWriteReadback(self.mpm_tester, -1))
-
-        self.mpm_tester.tests.append(com_mpm_tests.TestPermitsBlock(self.mpm_tester, -1))
-        self.mpm_tester.tests.append(com_mpm_tests.TestAcPermitCoolantValve(self.mpm_tester, -1))
-
-        self.mpm_tester.tests.append(com_mpm_tests.TestVacuumToRefPermits(self.mpm_tester, -1))
-        #self.mpm_tester.tests.append(com_mpm_tests.TestColdCryoPermits(self.mpm_tester, -1))
-
-        for i, test in enumerate( self.mpm_tester.tests):
+        for i, test in enumerate( self.vac_tester.tests):
             test.id=i
+
 
 
         self.table = self.ui.tableWidget
 
         headers= ["Test","Description","","Step","Details"]
 
-        self.table.setRowCount(len(self.mpm_tester.tests))
+        self.table.setRowCount(len(self.vac_tester.tests))
         self.table.setColumnCount(len(headers))
 
         self.table.setHorizontalHeaderLabels(headers)
-        self.table.setVerticalHeaderLabels([str(e)  for e in list(range(1,len(self.mpm_tester.tests)+1))])
+        self.table.setVerticalHeaderLabels([str(e)  for e in list(range(1,len(self.vac_tester.tests)+1))])
 
-        for i, test in enumerate(self.mpm_tester.tests):
+        for i, test in enumerate(self.vac_tester.tests):
             self.update_table_line(i)
         self.table.setCurrentCell(0, 0 ,QItemSelectionModel.Rows)
 
@@ -67,21 +78,24 @@ class ComMpmTests(Display):
         self.table.setColumnWidth(2, 50)
         self.table.setColumnWidth(3, 250)
 
-        self.mpm_tester.test_line_update.connect(self.update_table_line)
-        self.mpm_tester.monitor_update.connect(self.update_monitor_menu)
+        self.vac_tester.test_line_update.connect(self.update_table_line)
+        self.vac_tester.monitor_update.connect(self.update_monitor_menu)
 
-        self.ui.runAllButton.clicked.connect(self.mpm_tester.run_all)
-        self.ui.abortButton.clicked.connect(self.mpm_tester.abort)
+        self.ui.runAllButton.clicked.connect(self.vac_tester.run_all)
+        self.ui.abortButton.clicked.connect(self.vac_tester.abort)
+
 
     def item_changed(self,item):
         id = self.table.row(item)
-        self.mpm_tester.tests[id].selected = item.checkState()
+        self.vac_tester.tests[id].selected = item.checkState()
+
 
     def update_table_line(self,i):
 
-        test = self.mpm_tester.tests[i]
-        name = QTableWidgetItem(test.name)
 
+        test = self.vac_tester.tests[i]
+
+        name = QTableWidgetItem(test.name)
 
         self.table.setItem(i, 0, name)
 
@@ -89,6 +103,7 @@ class ComMpmTests(Display):
 
         run = QPushButton("RUN")
         test.set_run_button(run)
+
 
 
         color = " rgb(230, 230, 230)"
@@ -151,6 +166,13 @@ class ComMpmTests(Display):
 
         else:
             self.ui.resultMessage.setStyleSheet("background-color:rgb(230, 230, 230);")
+
+
+
+
+
+
+
 
     def ui_filename(self):
         return 'testMenu.ui'

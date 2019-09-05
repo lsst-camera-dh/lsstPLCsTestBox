@@ -178,7 +178,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Vaccum PLC Test software</string>
+           <string>PLC Test software</string>
           </property>
          </widget>
         </item>

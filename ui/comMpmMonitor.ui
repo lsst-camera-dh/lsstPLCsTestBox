@@ -90,7 +90,7 @@
            <bool>true</bool>
           </property>
           <property name="command" stdset="0">
-           <string>python C:/Users\\joaoprod\\AppData\\Local\\Continuum\\anaconda3\\envs\\lsstProtection\\Lib\\site-packages\\pydm_launcher\\main.py C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\mpmTests.py</string>
+           <string>python C:/Users\\joaoprod\\AppData\\Local\\Continuum\\anaconda3\\envs\\lsstProtection\\Lib\\site-packages\\pydm_launcher\\main.py C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\comMpmTests.py</string>
           </property>
          </widget>
         </item>
@@ -4476,57 +4476,6 @@
                 </property>
                </widget>
               </item>
-              <item row="18" column="4">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_169">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>plutoGateway://SM_Pluto2_Present</string>
-                </property>
-                <property name="onColor" stdset="0">
-                 <color>
-                  <red>85</red>
-                  <green>255</green>
-                  <blue>0</blue>
-                 </color>
-                </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
               <item row="16" column="4">
                <widget class="PyDMByteIndicator" name="PyDMByteIndicator_186">
                 <property name="sizePolicy">
@@ -4645,19 +4594,6 @@
                 </property>
                 <property name="text">
                  <string>P1_TempOk</string>
-                </property>
-               </widget>
-              </item>
-              <item row="18" column="5">
-               <widget class="QLabel" name="label_135">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>SM_Pluto2_Present</string>
                 </property>
                </widget>
               </item>
@@ -6012,51 +5948,7 @@
               <property name="verticalSpacing">
                <number>0</number>
               </property>
-              <item row="28" column="4">
-               <widget class="PyDMDrawingImage" name="PyDMDrawingImage_41">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>30</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>30</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Renders an image given by the ```filename``` property.
-    This class inherits from PyDMDrawing.
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="filename" stdset="0">
-                 <string>C:\Users\joaoprod\Documents\GitHub\lsstPLCsTestBox\ui\left.png</string>
-                </property>
-                <property name="aspectRatioMode" stdset="0">
-                 <enum>Qt::KeepAspectRatio</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="38" column="3">
+              <item row="36" column="3">
                <widget class="QLabel" name="label_195">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -6075,70 +5967,7 @@
                 </property>
                </widget>
               </item>
-              <item row="37" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_162">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P3_IQ12</string>
-                </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="28" column="3">
-               <widget class="QLabel" name="label_207">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P3_I5</string>
-                </property>
-               </widget>
-              </item>
-              <item row="38" column="2">
+              <item row="36" column="2">
                <widget class="PyDMByteIndicator" name="PyDMByteIndicator_163">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -6182,8 +6011,52 @@
                 </property>
                </widget>
               </item>
-              <item row="28" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_176">
+              <item row="26" column="4">
+               <widget class="PyDMDrawingImage" name="PyDMDrawingImage_41">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>30</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>30</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Renders an image given by the ```filename``` property.
+    This class inherits from PyDMDrawing.
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="filename" stdset="0">
+                 <string>C:\Users\joaoprod\Documents\GitHub\lsstPLCsTestBox\ui\left.png</string>
+                </property>
+                <property name="aspectRatioMode" stdset="0">
+                 <enum>Qt::KeepAspectRatio</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="35" column="2">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_162">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -6192,13 +6065,13 @@
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>0</width>
+                  <width>50</width>
                   <height>31</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>16777215</width>
+                  <width>50</width>
                   <height>31</height>
                  </size>
                 </property>
@@ -6219,55 +6092,33 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P3_I5</string>
+                 <string>testBox://plc:P3_IQ12</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
                 </property>
                </widget>
               </item>
-              <item row="28" column="1">
-               <widget class="PyDMCheckbox" name="PyDMCheckbox_67">
+              <item row="26" column="3">
+               <widget class="QLabel" name="label_207">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
+                  <verstretch>31</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>15</width>
-                  <height>15</height>
+                  <width>0</width>
+                  <height>31</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    A QCheckbox with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P3_I5</string>
+                <property name="text">
+                 <string>P3_I5</string>
                 </property>
                </widget>
               </item>
-              <item row="29" column="3">
+              <item row="27" column="3">
                <widget class="QLabel" name="label_210">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -6283,57 +6134,6 @@
                 </property>
                 <property name="text">
                  <string>P3_I6</string>
-                </property>
-               </widget>
-              </item>
-              <item row="17" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_70">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_IQ15</string>
-                </property>
-                <property name="onColor" stdset="0">
-                 <color>
-                  <red>255</red>
-                  <green>0</green>
-                  <blue>0</blue>
-                 </color>
-                </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -6381,8 +6181,93 @@
                 </property>
                </widget>
               </item>
-              <item row="10" column="0">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_57">
+              <item row="26" column="2">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_176">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Widget for graphical representation of bits from an integer number
+    with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P3_I5</string>
+                </property>
+                <property name="showLabels" stdset="0">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="26" column="1">
+               <widget class="PyDMCheckbox" name="PyDMCheckbox_67">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    A QCheckbox with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P3_I5</string>
+                </property>
+               </widget>
+              </item>
+              <item row="34" column="2">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_161">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -6418,118 +6303,10 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_IQ17</string>
-                </property>
-                <property name="onColor" stdset="0">
-                 <color>
-                  <red>0</red>
-                  <green>255</green>
-                  <blue>0</blue>
-                 </color>
+                 <string>testBox://plc:P3_IQ11</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="17" column="3">
-               <widget class="QLabel" name="label_147">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P1_IQ15</string>
-                </property>
-               </widget>
-              </item>
-              <item row="8" column="4">
-               <widget class="PyDMDrawingImage" name="PyDMDrawingImage_9">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>30</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>30</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Renders an image given by the ```filename``` property.
-    This class inherits from PyDMDrawing.
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="filename" stdset="0">
-                 <string>C:\Users\joaoprod\Documents\GitHub\lsstPLCsTestBox\ui\left.png</string>
-                </property>
-                <property name="aspectRatioMode" stdset="0">
-                 <enum>Qt::KeepAspectRatio</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="36" column="3">
-               <widget class="QLabel" name="label_212">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P3_IQ11</string>
-                </property>
-               </widget>
-              </item>
-              <item row="30" column="3">
-               <widget class="QLabel" name="label_213">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P3_I7</string>
                 </property>
                </widget>
               </item>
@@ -6577,8 +6354,46 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="4">
-               <widget class="PyDMDrawingImage" name="PyDMDrawingImage_3">
+              <item row="31" column="3">
+               <widget class="QLabel" name="label_81">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>P3_Q1</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="3">
+               <widget class="QLabel" name="label_42">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>P1_IA2</string>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="4">
+               <widget class="PyDMDrawingImage" name="PyDMDrawingImage_9">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -6621,146 +6436,7 @@
                 </property>
                </widget>
               </item>
-              <item row="32" column="3">
-               <widget class="QLabel" name="label_208">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P3_Q0</string>
-                </property>
-               </widget>
-              </item>
-              <item row="37" column="3">
-               <widget class="QLabel" name="label_206">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P3_IQ12</string>
-                </property>
-               </widget>
-              </item>
-              <item row="36" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_161">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P3_IQ11</string>
-                </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="33" column="3">
-               <widget class="QLabel" name="label_81">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P3_Q1</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="3">
-               <widget class="QLabel" name="label_42">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P1_IA2</string>
-                </property>
-               </widget>
-              </item>
-              <item row="15" column="4">
-               <widget class="QLabel" name="label_155">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="34" column="2">
+              <item row="32" column="2">
                <widget class="PyDMByteIndicator" name="PyDMByteIndicator_160">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -6804,7 +6480,89 @@
                 </property>
                </widget>
               </item>
+              <item row="31" column="2">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_63">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>50</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Widget for graphical representation of bits from an integer number
+    with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P3_Q1</string>
+                </property>
+                <property name="showLabels" stdset="0">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
               <item row="34" column="3">
+               <widget class="QLabel" name="label_212">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>P3_IQ11</string>
+                </property>
+               </widget>
+              </item>
+              <item row="15" column="4">
+               <widget class="QLabel" name="label_155">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="32" column="3">
                <widget class="QLabel" name="label_200">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -6864,24 +6622,43 @@
                 </property>
                </widget>
               </item>
-              <item row="33" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_63">
+              <item row="28" column="3">
+               <widget class="QLabel" name="label_213">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>P3_I7</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="4">
+               <widget class="PyDMDrawingImage" name="PyDMDrawingImage_3">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>50</width>
-                  <height>31</height>
+                  <width>30</width>
+                  <height>15</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>50</width>
-                  <height>31</height>
+                  <width>30</width>
+                  <height>15</height>
                  </size>
                 </property>
                 <property name="toolTip">
@@ -6889,8 +6666,8 @@
                 </property>
                 <property name="whatsThis">
                  <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
+    Renders an image given by the ```filename``` property.
+    This class inherits from PyDMDrawing.
 
     Parameters
     ----------
@@ -6900,15 +6677,94 @@
         The channel to be used by the widget.
     </string>
                 </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P3_Q1</string>
+                <property name="filename" stdset="0">
+                 <string>C:\Users\joaoprod\Documents\GitHub\lsstPLCsTestBox\ui\left.png</string>
                 </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
+                <property name="aspectRatioMode" stdset="0">
+                 <enum>Qt::KeepAspectRatio</enum>
                 </property>
                </widget>
               </item>
-              <item row="29" column="2">
+              <item row="30" column="3">
+               <widget class="QLabel" name="label_208">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>P3_Q0</string>
+                </property>
+               </widget>
+              </item>
+              <item row="35" column="3">
+               <widget class="QLabel" name="label_206">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>P3_IQ12</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="PyDMCheckbox" name="PyDMCheckbox_48">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    A QCheckbox with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P1_I4</string>
+                </property>
+               </widget>
+              </item>
+              <item row="27" column="2">
                <widget class="PyDMByteIndicator" name="PyDMByteIndicator_157">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -6952,149 +6808,7 @@
                 </property>
                </widget>
               </item>
-              <item row="13" column="3">
-               <widget class="QLabel" name="label_143">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P1_IQ11</string>
-                </property>
-               </widget>
-              </item>
-              <item row="10" column="1">
-               <widget class="QLabel" name="label_168">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P1_IQ17</string>
-                </property>
-               </widget>
-              </item>
-              <item row="29" column="1">
-               <widget class="PyDMCheckbox" name="PyDMCheckbox_60">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    A QCheckbox with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P3_I6</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="4">
-               <widget class="PyDMDrawingImage" name="PyDMDrawingImage">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>30</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>30</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Renders an image given by the ```filename``` property.
-    This class inherits from PyDMDrawing.
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="filename" stdset="0">
-                 <string>C:\Users\joaoprod\Documents\GitHub\lsstPLCsTestBox\ui\left.png</string>
-                </property>
-                <property name="aspectRatioMode" stdset="0">
-                 <enum>Qt::KeepAspectRatio</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="10" column="3">
-               <widget class="QLabel" name="label_78">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P1_Q1</string>
-                </property>
-               </widget>
-              </item>
-              <item row="32" column="2">
+              <item row="30" column="2">
                <widget class="PyDMByteIndicator" name="PyDMByteIndicator_159">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -7182,31 +6896,6 @@
                 </property>
                </widget>
               </item>
-              <item row="11" column="0">
-               <widget class="QLabel" name="label_219">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
               <item row="10" column="2">
                <widget class="PyDMByteIndicator" name="PyDMByteIndicator_56">
                 <property name="sizePolicy">
@@ -7248,110 +6937,6 @@
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="4">
-               <widget class="PyDMDrawingImage" name="PyDMDrawingImage_7">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>30</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>30</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Renders an image given by the ```filename``` property.
-    This class inherits from PyDMDrawing.
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="filename" stdset="0">
-                 <string>C:\Users\joaoprod\Documents\GitHub\lsstPLCsTestBox\ui\left.png</string>
-                </property>
-                <property name="aspectRatioMode" stdset="0">
-                 <enum>Qt::KeepAspectRatio</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="3">
-               <widget class="QLabel" name="label_4">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P1_IA1</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="1">
-               <widget class="PyDMCheckbox" name="PyDMCheckbox_48">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    A QCheckbox with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_I4</string>
                 </property>
                </widget>
               </item>
@@ -7462,24 +7047,24 @@
                 </property>
                </widget>
               </item>
-              <item row="6" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_131">
+              <item row="6" column="4">
+               <widget class="PyDMDrawingImage" name="PyDMDrawingImage">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>0</width>
-                  <height>31</height>
+                  <width>30</width>
+                  <height>15</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>16777215</width>
-                  <height>31</height>
+                  <width>30</width>
+                  <height>15</height>
                  </size>
                 </property>
                 <property name="toolTip">
@@ -7487,8 +7072,8 @@
                 </property>
                 <property name="whatsThis">
                  <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
+    Renders an image given by the ```filename``` property.
+    This class inherits from PyDMDrawing.
 
     Parameters
     ----------
@@ -7498,16 +7083,16 @@
         The channel to be used by the widget.
     </string>
                 </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_I4</string>
+                <property name="filename" stdset="0">
+                 <string>C:\Users\joaoprod\Documents\GitHub\lsstPLCsTestBox\ui\left.png</string>
                 </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
+                <property name="aspectRatioMode" stdset="0">
+                 <enum>Qt::KeepAspectRatio</enum>
                 </property>
                </widget>
               </item>
-              <item row="13" column="0">
-               <widget class="QLabel" name="label_218">
+              <item row="11" column="0">
+               <widget class="QLabel" name="label_219">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -7531,52 +7116,27 @@
                 </property>
                </widget>
               </item>
-              <item row="14" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_134">
+              <item row="3" column="3">
+               <widget class="QLabel" name="label_4">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
+                  <verstretch>31</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>50</width>
+                  <width>0</width>
                   <height>31</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_IQ12</string>
-                </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
+                <property name="text">
+                 <string>P1_IA1</string>
                 </property>
                </widget>
               </item>
-              <item row="4" column="1">
-               <widget class="PyDMCheckbox" name="PyDMCheckbox_54">
+              <item row="27" column="1">
+               <widget class="PyDMCheckbox" name="PyDMCheckbox_60">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -7612,7 +7172,89 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_IA2</string>
+                 <string>testBox://plc:P3_I6</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="4">
+               <widget class="PyDMDrawingImage" name="PyDMDrawingImage_7">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>30</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>30</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Renders an image given by the ```filename``` property.
+    This class inherits from PyDMDrawing.
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="filename" stdset="0">
+                 <string>C:\Users\joaoprod\Documents\GitHub\lsstPLCsTestBox\ui\left.png</string>
+                </property>
+                <property name="aspectRatioMode" stdset="0">
+                 <enum>Qt::KeepAspectRatio</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="13" column="3">
+               <widget class="QLabel" name="label_143">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>P1_IQ11</string>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="3">
+               <widget class="QLabel" name="label_78">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>P1_Q1</string>
                 </property>
                </widget>
               </item>
@@ -7660,12 +7302,12 @@
                 </property>
                </widget>
               </item>
-              <item row="12" column="3">
-               <widget class="QLabel" name="label_142">
+              <item row="2" column="2">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_142">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
+                  <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="minimumSize">
@@ -7674,12 +7316,210 @@
                   <height>31</height>
                  </size>
                 </property>
-                <property name="text">
-                 <string>P1_IQ10</string>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Widget for graphical representation of bits from an integer number
+    with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P1_IA0</string>
+                </property>
+                <property name="showLabels" stdset="0">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
-              <item row="30" column="1">
+              <item row="6" column="2">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_131">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Widget for graphical representation of bits from an integer number
+    with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P1_I4</string>
+                </property>
+                <property name="showLabels" stdset="0">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="14" column="2">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_134">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>50</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Widget for graphical representation of bits from an integer number
+    with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P1_IQ12</string>
+                </property>
+                <property name="showLabels" stdset="0">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="2">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_143">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Widget for graphical representation of bits from an integer number
+    with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P1_IA1</string>
+                </property>
+                <property name="showLabels" stdset="0">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="PyDMCheckbox" name="PyDMCheckbox_53">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    A QCheckbox with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P1_IA1</string>
+                </property>
+               </widget>
+              </item>
+              <item row="28" column="1">
                <widget class="PyDMCheckbox" name="PyDMCheckbox_61">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -7717,6 +7557,66 @@
                 </property>
                 <property name="channel" stdset="0">
                  <string>testBox://plc:P3_I7</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="PyDMCheckbox" name="PyDMCheckbox_54">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    A QCheckbox with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P1_IA2</string>
+                </property>
+               </widget>
+              </item>
+              <item row="12" column="3">
+               <widget class="QLabel" name="label_142">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>P1_IQ10</string>
                 </property>
                </widget>
               </item>
@@ -7808,8 +7708,77 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_143">
+              <item row="13" column="0">
+               <widget class="QLabel" name="label_218">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="27" column="4">
+               <widget class="PyDMDrawingImage" name="PyDMDrawingImage_35">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>30</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>30</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    Renders an image given by the ```filename``` property.
+    This class inherits from PyDMDrawing.
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    </string>
+                </property>
+                <property name="filename" stdset="0">
+                 <string>C:\Users\joaoprod\Documents\GitHub\lsstPLCsTestBox\ui\left.png</string>
+                </property>
+                <property name="aspectRatioMode" stdset="0">
+                 <enum>Qt::KeepAspectRatio</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="3">
+               <widget class="QLabel" name="label_34">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -7828,32 +7797,13 @@
                   <height>31</height>
                  </size>
                 </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_IA1</string>
-                </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
+                <property name="text">
+                 <string>P1_IA3</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_142">
+              <item row="26" column="0">
+               <widget class="QLabel" name="label_246">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -7872,113 +7822,8 @@
                   <height>31</height>
                  </size>
                 </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_IA0</string>
-                </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="PyDMCheckbox" name="PyDMCheckbox_53">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    A QCheckbox with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_IA1</string>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="1">
-               <widget class="QLabel" name="label_167">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
                 <property name="text">
-                 <string>P1_IQ16</string>
-                </property>
-               </widget>
-              </item>
-              <item row="20" column="0" colspan="5">
-               <widget class="Line" name="line_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="3">
-               <widget class="QLabel" name="label_126">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P1_Q0</string>
+                 <string/>
                 </property>
                </widget>
               </item>
@@ -8026,8 +7871,8 @@
                 </property>
                </widget>
               </item>
-              <item row="15" column="3">
-               <widget class="QLabel" name="label_145">
+              <item row="7" column="3">
+               <widget class="QLabel" name="label_191">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -8041,60 +7886,16 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1_IQ13</string>
+                 <string>P1_I5</string>
                 </property>
                </widget>
               </item>
-              <item row="30" column="4">
-               <widget class="PyDMDrawingImage" name="PyDMDrawingImage_36">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>30</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>30</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Renders an image given by the ```filename``` property.
-    This class inherits from PyDMDrawing.
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="filename" stdset="0">
-                 <string>C:\Users\joaoprod\Documents\GitHub\lsstPLCsTestBox\ui\left.png</string>
-                </property>
-                <property name="aspectRatioMode" stdset="0">
-                 <enum>Qt::KeepAspectRatio</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="28" column="0">
-               <widget class="QLabel" name="label_246">
+              <item row="14" column="3">
+               <widget class="QLabel" name="label_144">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
+                  <verstretch>31</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="minimumSize">
@@ -8103,35 +7904,43 @@
                   <height>31</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>31</height>
-                 </size>
-                </property>
                 <property name="text">
-                 <string/>
+                 <string>P1_IQ12</string>
                 </property>
                </widget>
               </item>
-              <item row="15" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_133">
+              <item row="25" column="0" colspan="5">
+               <widget class="Line" name="line_8">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="18" column="0" colspan="5">
+               <widget class="Line" name="line_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="PyDMCheckbox" name="PyDMCheckbox_52">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>50</width>
-                  <height>31</height>
+                  <width>15</width>
+                  <height>15</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>50</width>
-                  <height>31</height>
+                  <width>15</width>
+                  <height>15</height>
                  </size>
                 </property>
                 <property name="toolTip">
@@ -8139,8 +7948,7 @@
                 </property>
                 <property name="whatsThis">
                  <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
+    A QCheckbox with support for Channels and more from PyDM
 
     Parameters
     ----------
@@ -8148,25 +7956,16 @@
         The parent widget for the Label
     init_channel : str, optional
         The channel to be used by the widget.
+
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_IQ13</string>
-                </property>
-                <property name="onColor" stdset="0">
-                 <color>
-                  <red>255</red>
-                  <green>0</green>
-                  <blue>0</blue>
-                 </color>
-                </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
+                 <string>testBox://plc:P1_IA0</string>
                 </property>
                </widget>
               </item>
-              <item row="11" column="3">
-               <widget class="QLabel" name="label_140">
+              <item row="9" column="3">
+               <widget class="QLabel" name="label_126">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -8180,12 +7979,12 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1_Q2</string>
+                 <string>P1_Q0</string>
                 </property>
                </widget>
               </item>
-              <item row="29" column="4">
-               <widget class="PyDMDrawingImage" name="PyDMDrawingImage_35">
+              <item row="28" column="4">
+               <widget class="PyDMDrawingImage" name="PyDMDrawingImage_36">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -8247,8 +8046,8 @@
                 </property>
                </widget>
               </item>
-              <item row="7" column="3">
-               <widget class="QLabel" name="label_191">
+              <item row="11" column="3">
+               <widget class="QLabel" name="label_140">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -8262,264 +8061,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>P1_I5</string>
-                </property>
-               </widget>
-              </item>
-              <item row="14" column="3">
-               <widget class="QLabel" name="label_144">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P1_IQ12</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="PyDMCheckbox" name="PyDMCheckbox_52">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>15</width>
-                  <height>15</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    A QCheckbox with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_IA0</string>
-                </property>
-               </widget>
-              </item>
-              <item row="27" column="0" colspan="5">
-               <widget class="Line" name="line_8">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="16" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_73">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_IQ14</string>
-                </property>
-                <property name="onColor" stdset="0">
-                 <color>
-                  <red>255</red>
-                  <green>0</green>
-                  <blue>0</blue>
-                 </color>
-                </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="0">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_59">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>50</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_IQ16</string>
-                </property>
-                <property name="onColor" stdset="0">
-                 <color>
-                  <red>0</red>
-                  <green>255</green>
-                  <blue>0</blue>
-                 </color>
-                </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="3">
-               <widget class="QLabel" name="label_34">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P1_IA3</string>
-                </property>
-               </widget>
-              </item>
-              <item row="16" column="3">
-               <widget class="QLabel" name="label_146">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>P1_IQ14</string>
-                </property>
-               </widget>
-              </item>
-              <item row="30" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_158">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string>
-    Widget for graphical representation of bits from an integer number
-    with support for Channels and more from PyDM
-
-    Parameters
-    ----------
-    parent : QWidget
-        The parent widget for the Label
-    init_channel : str, optional
-        The channel to be used by the widget.
-    </string>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P3_I7</string>
-                </property>
-                <property name="showLabels" stdset="0">
-                 <bool>false</bool>
+                 <string>P1_Q2</string>
                 </property>
                </widget>
               </item>
@@ -8564,8 +8106,49 @@
                 </property>
                </widget>
               </item>
-              <item row="8" column="2">
-               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_141">
+              <item row="8" column="1">
+               <widget class="PyDMCheckbox" name="PyDMCheckbox_51">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>15</width>
+                  <height>15</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>
+    A QCheckbox with support for Channels and more from PyDM
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+
+    </string>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P1_I7</string>
+                </property>
+               </widget>
+              </item>
+              <item row="28" column="2">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_158">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -8601,29 +8184,44 @@
     </string>
                 </property>
                 <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_I7</string>
+                 <string>testBox://plc:P3_I7</string>
                 </property>
                 <property name="showLabels" stdset="0">
                  <bool>false</bool>
                 </property>
                </widget>
               </item>
-              <item row="8" column="3">
-               <widget class="QLabel" name="label_193">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>31</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
+              <item row="13" column="1">
+               <widget class="PyDMLineEdit" name="PyDMLineEdit_35">
+                <property name="maximumSize">
                  <size>
-                  <width>0</width>
-                  <height>31</height>
+                  <width>54</width>
+                  <height>16777215</height>
                  </size>
                 </property>
-                <property name="text">
-                 <string>P1_I7</string>
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="precisionFromPV" stdset="0">
+                 <bool>false</bool>
+                </property>
+                <property name="precision" stdset="0">
+                 <number>2</number>
+                </property>
+                <property name="channel" stdset="0">
+                 <string>testBox://plc:P1_IQ11</string>
                 </property>
                </widget>
               </item>
@@ -8671,24 +8269,43 @@
                 </property>
                </widget>
               </item>
-              <item row="8" column="1">
-               <widget class="PyDMCheckbox" name="PyDMCheckbox_51">
+              <item row="8" column="3">
+               <widget class="QLabel" name="label_193">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>31</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>P1_I7</string>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="2">
+               <widget class="PyDMByteIndicator" name="PyDMByteIndicator_141">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>15</width>
-                  <height>15</height>
+                  <width>0</width>
+                  <height>31</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>15</width>
-                  <height>15</height>
+                  <width>16777215</width>
+                  <height>31</height>
                  </size>
                 </property>
                 <property name="toolTip">
@@ -8696,7 +8313,8 @@
                 </property>
                 <property name="whatsThis">
                  <string>
-    A QCheckbox with support for Channels and more from PyDM
+    Widget for graphical representation of bits from an integer number
+    with support for Channels and more from PyDM
 
     Parameters
     ----------
@@ -8704,45 +8322,13 @@
         The parent widget for the Label
     init_channel : str, optional
         The channel to be used by the widget.
-
     </string>
                 </property>
                 <property name="channel" stdset="0">
                  <string>testBox://plc:P1_I7</string>
                 </property>
-               </widget>
-              </item>
-              <item row="13" column="1">
-               <widget class="PyDMLineEdit" name="PyDMLineEdit_35">
-                <property name="maximumSize">
-                 <size>
-                  <width>54</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <weight>50</weight>
-                  <bold>false</bold>
-                 </font>
-                </property>
-                <property name="toolTip">
-                 <string/>
-                </property>
-                <property name="whatsThis">
-                 <string/>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-                <property name="precisionFromPV" stdset="0">
+                <property name="showLabels" stdset="0">
                  <bool>false</bool>
-                </property>
-                <property name="precision" stdset="0">
-                 <number>2</number>
-                </property>
-                <property name="channel" stdset="0">
-                 <string>testBox://plc:P1_IQ11</string>
                 </property>
                </widget>
               </item>
@@ -14325,6 +13911,16 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>PyDMDrawingImage</class>
+   <extends>QWidget</extends>
+   <header>pydm.widgets.drawing</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMLabel</class>
+   <extends>QLabel</extends>
+   <header>pydm.widgets.label</header>
+  </customwidget>
+  <customwidget>
    <class>PyDMByteIndicator</class>
    <extends>QWidget</extends>
    <header>pydm.widgets.byte</header>
@@ -14335,11 +13931,6 @@
    <header>pydm.widgets.checkbox</header>
   </customwidget>
   <customwidget>
-   <class>PyDMLabel</class>
-   <extends>QLabel</extends>
-   <header>pydm.widgets.label</header>
-  </customwidget>
-  <customwidget>
    <class>PyDMLineEdit</class>
    <extends>QLineEdit</extends>
    <header>pydm.widgets.line_edit</header>
@@ -14348,11 +13939,6 @@
    <class>PyDMShellCommand</class>
    <extends>QPushButton</extends>
    <header>pydm.widgets.shell_command</header>
-  </customwidget>
-  <customwidget>
-   <class>PyDMDrawingImage</class>
-   <extends>QWidget</extends>
-   <header>pydm.widgets.drawing</header>
   </customwidget>
  </customwidgets>
  <resources>

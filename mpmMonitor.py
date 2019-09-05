@@ -4,7 +4,7 @@ from mapping_parser import *
 import json
 
 
-class VaccumMonitor(Display):
+class MpmMonitor(Display):
     def __init__(self, parent=None, args=None, macros=None):
 
 
@@ -17,7 +17,7 @@ class VaccumMonitor(Display):
 
         macros = {'IP':plutoGateway_ip,"PORT":plutoGateway_port}
 
-        super(VaccumMonitor, self).__init__(parent=parent, macros=macros)
+        super(MpmMonitor, self).__init__(parent=parent, macros=macros)
 
         print("plutoGateway:",plutoGateway_ip,plutoGateway_port)
         print("testBox:",testBox_ip,testBox_port)
