@@ -180,7 +180,7 @@
       <bool>true</bool>
      </property>
      <property name="command" stdset="0">
-      <string>python ${launcher} ${path}\\vaccumMonitor.py</string>
+      <string>python ${launcher} ${path}\\vacuumMonitor.py</string>
      </property>
     </widget>
    </item>
@@ -201,7 +201,7 @@
       <bool>true</bool>
      </property>
      <property name="command" stdset="0">
-      <string>python ${launcher} ${path}\\vaccumTests.py</string>
+      <string>python ${launcher} ${path}\\vacuumTests.py</string>
      </property>
     </widget>
    </item>

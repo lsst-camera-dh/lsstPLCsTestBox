@@ -63,7 +63,7 @@ class VaccumMonitor(Display):
 
 
     def ui_filename(self):
-        return 'vaccumMonitor.ui'
+        return 'vacuumMonitor.ui'
 
     def ui_filepath(self):
         return path.join(path.dirname(path.realpath(__file__)),"ui", self.ui_filename())

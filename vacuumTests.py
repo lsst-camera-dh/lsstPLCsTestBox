@@ -11,13 +11,13 @@ class VaccumTests(Display):
     def __init__(self, parent=None, args=None, macros=None):
         super(VaccumTests, self).__init__(parent=parent, macros=macros)
 
-        #logging.basicConfig(filename=path.join(path.dirname(path.realpath(__file__)), "logs",'vaccumTests.log'), level=logging.DEBUG)
-        logging.basicConfig(filename='C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\logs\\vaccumTests2.log',
+        #logging.basicConfig(filename=path.join(path.dirname(path.realpath(__file__)), "logs",'vacuumTests.log'), level=logging.DEBUG)
+        logging.basicConfig(filename='C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\logs\\vacuumTests2.log',
                             level=logging.DEBUG)
         logging.debug('This message should go to the log file')
         logging.info('So should this')
         logging.warning('And this, too')
-        print(path.join(path.dirname(path.realpath(__file__)), "logs",'vaccumTests.log'))
+        print(path.join(path.dirname(path.realpath(__file__)), "logs",'vacuumTests.log'))
 
         plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "vac_modbus_mapping.csv")
         testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "PLC_Certification_Chassis.xlsx")

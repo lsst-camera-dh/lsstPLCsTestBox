@@ -12,7 +12,7 @@ class CryoTests(Display):
     def __init__(self, parent=None, args=None, macros=None):
         super(CryoTests, self).__init__(parent=parent, macros=macros)
 
-        logging.basicConfig(filename='vaccumTests%s.log', level=logging.DEBUG)
+        logging.basicConfig(filename='vacuumTests%s.log', level=logging.DEBUG)
 
         plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "cryo_modbus_mapping.csv")
         testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "PLC_Certification_Chassis.xlsx")
