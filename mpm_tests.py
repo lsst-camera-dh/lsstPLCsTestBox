@@ -1,11 +1,13 @@
 from tester import Test
 import random
+import traceback
+import time
 
 
-clpLowLimit = 228  # k
+clpLowLimit = 221 # k
 clpHighLimit = 318  # k
 
-cryLowLimit = 138  # k
+cryLowLimit = 128  # k
 cryHighLimit = 318  # k
 
 mA4 = 110
@@ -93,6 +95,7 @@ class TestChannelsBootDefault(Test):
 
         try:
             if self.checkChannels(chs):
+                time.sleep(1)
                 self.step("Boot IOs values Ok.")
                 return True
         except:
@@ -428,6 +431,7 @@ class TestTemperatureSetpoints(Test):
             return True
 
         except Exception as e:
+            print (traceback.format_exc())
             self.step("TestTemperatureLimits logic failed! Failed at %s. Error: %s " % (self.step_m, str(e)))
             return False
 
