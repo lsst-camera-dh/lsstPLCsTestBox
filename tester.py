@@ -392,7 +392,9 @@ class Test:
             for ch in self.tester.testBox.plc.channels:
                 if str(ch.default_value) != "":
                     try:
+                        print("############ {}: {}".format(ch.ch, ch.default_value ))
                         ch.write(float(ch.default_value))
+                        time.sleep(0.5)
                     except ValueError:
                         self.log("Can't write to testBox.plc " + ch.ch,True)
                         raise ValueError("Can't write to " + ch.ch)
@@ -402,13 +404,14 @@ class Test:
                     if str(ch.default_value) != "" and str(ch.default_value) != "P" and ch.ch.find("_w") >= 0:
                         try:
                             ch.write(int(ch.default_value))
+                            time.sleep(0.5)
                         except ValueError:
                             self.log("Can't write to plutoGateway " + ch.ch,True)
                             raise ValueError("Can't write to " + ch.ch)
                     elif str(ch.default_value) == "P":
                         press_chs.append(ch)
 
-            self.sleep(0.2)
+            self.sleep(0.3)
 
             for ch in press_chs:
                 ch.write(1)
