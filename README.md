@@ -1,2 +1,2 @@
 # lsstPLCsTestBox
-Code for LSST Protection and Vaccum PLCs TestBox
+Code for LSST Protection and Vacuum PLCs TestBox

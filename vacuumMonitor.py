@@ -3,9 +3,9 @@ from mapping_parser import *
 import json
 
 
-class VaccumMonitor(Display):
+class VacuumMonitor(Display):
     def __init__(self, parent=None, args=None, macros=None):
-        super(VaccumMonitor, self).__init__(parent=parent, macros=macros)
+        super(VacuumMonitor, self).__init__(parent=parent, macros=macros)
 
         with open(path.join(path.dirname(path.realpath(__file__)),"ip_config.json"),'r') as f:
             configs = json.loads(f.read())
@@ -20,7 +20,7 @@ class VaccumMonitor(Display):
         plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "vac_modbus_mapping.csv")
         testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "PLC_Certification_Chassis.xlsx")
 
-        self.testBox, self.plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'Vaccum cables')
+        self.testBox, self.plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'Vacuum cables')
 
         for widget in dir(self.ui):
             if "channel" in dir(getattr(self.ui,widget)):

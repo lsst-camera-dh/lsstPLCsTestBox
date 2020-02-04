@@ -7,9 +7,9 @@ import vac_tests as vac_tests
 from mapping_parser import import_mappings
 import logging
 
-class VaccumTests(Display):
+class VacuumTests(Display):
     def __init__(self, parent=None, args=None, macros=None):
-        super(VaccumTests, self).__init__(parent=parent, macros=macros)
+        super(VacuumTests, self).__init__(parent=parent, macros=macros)
 
         #logging.basicConfig(filename=path.join(path.dirname(path.realpath(__file__)), "logs",'vacuumTests.log'), level=logging.DEBUG)
         logging.basicConfig(filename='C:\\Users\\joaoprod\\Documents\\GitHub\\lsstPLCsTestBox\\logs\\vacuumTests2.log',
@@ -22,7 +22,7 @@ class VaccumTests(Display):
         plutoGateway_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "vac_modbus_mapping.csv")
         testbox_mapping_path = path.join(path.dirname(path.realpath(__file__)), "mapping", "PLC_Certification_Chassis.xlsx")
 
-        testbox , plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'Vaccum cables')
+        testbox , plutoGateway = import_mappings(plutoGateway_mapping_path,testbox_mapping_path,'Vacuum cables')
 
         self.vac_tester = tester.Tester(testbox , plutoGateway)
 
